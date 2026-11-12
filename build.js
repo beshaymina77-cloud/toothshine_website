@@ -766,6 +766,7 @@ function servicePage(l, s) {
       <section class="svc-block reveal"><h2>${icon("list")}${t(site.ui.whyTitle, l)}</h2><ul class="ticks">${s.reasons[l].map((r) => `<li>${icon("check")}<span>${esc(r)}</span></li>`).join("")}</ul></section>
       <section class="svc-block reveal"><h2>${icon("doc")}${t(site.ui.assessTitle, l)}</h2><ol class="nums">${s.assessment[l].map((r) => `<li><span>${esc(r)}</span></li>`).join("")}</ol></section>
     </div>
+    ${s.techniques ? `<section class="svc-tq reveal" id="techniques"><h2>${esc(t(s.techniques.title, l))}</h2><p class="svc-tq-lead">${esc(t(s.techniques.lead, l))}</p><div class="tq-grid">${s.techniques.items.map((x) => `<article class="tq-card"><span class="mini-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p class="tq-en" dir="ltr">${esc(x.name)}</p><p>${esc(t(x.body, l))}</p></article>`).join("")}</div></section>` : ""}
     ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#technology"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
     ${s.showImplantSystems ? implantSystemsSection(l) : ""}
     ${serviceReviews(l, s)}

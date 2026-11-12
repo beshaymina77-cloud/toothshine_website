@@ -106,6 +106,51 @@ module.exports = [
       ar: ["مراجعة التاريخ الطبي والأدوية", "فحص الفم واللثة والأسنان المجاورة", "أشعة مناسبة، وقد يُطلب تصوير مقطعي (CBCT) لتقييم العظم", "مناقشة البدائل: زرعة، جسر، أو طقم، ومميزات وقيود كل اختيار", "خطة علاج مكتوبة بالخطوات والتكلفة بعد التقييم"],
       en: ["Reviewing your medical history and medications", "Examining the mouth, gums and neighbouring teeth", "Suitable X-rays; a CBCT scan may be requested to assess the bone", "Discussing alternatives (implant, bridge or denture) and the pros and limits of each", "A written treatment plan with steps and cost after the assessment"],
     },
+    techniques: {
+      title: { ar: "تقنيات الزراعة في العيادة", en: "Implant techniques we offer" },
+      lead: {
+        ar: "مش كل تقنية تنفع لكل حالة. الطبيب بيختار المناسب لك بعد الفحص، وبيشرحلك السبب.",
+        en: "Not every technique suits every case. The dentist chooses what fits yours after the examination and explains why.",
+      },
+      items: [
+        {
+          icon: "scanner",
+          name: "Guided Implant Surgery",
+          title: { ar: "الزراعة بالدليل الجراحي", en: "Guided implant surgery" },
+          body: {
+            ar: "مكان الزرعة وزاويتها وعمقها بيتخططوا على الكمبيوتر قبل الجراحة، وبعدين دليل جراحي مصمم لحالتك بينقل الخطة دي للفم بدقة.",
+            en: "The implant position, angle and depth are planned on the computer before surgery, then a custom surgical guide transfers that plan to the mouth accurately.",
+          },
+        },
+        {
+          icon: "sparkle",
+          name: "Flapless Surgery",
+          title: { ar: "الزراعة بدون فتح لثة", en: "Flapless implant placement" },
+          body: {
+            ar: "الزرعة بتتحط من فتحة صغيرة في اللثة من غير شق ورفع لثة، وده ممكن يقلل التورم والألم بعدها. بتنفع لما يكون العظم واللثة مناسبين.",
+            en: "The implant is placed through a small opening in the gum without cutting and lifting a flap, which can mean less swelling afterwards. Suitable when bone and gum allow.",
+          },
+        },
+        {
+          icon: "implant",
+          name: "Immediate Implant",
+          title: { ar: "الزراعة الفورية بعد الخلع", en: "Immediate implant placement" },
+          body: {
+            ar: "الزرعة بتتحط في نفس جلسة خلع السنة بدل ما نستنى شهور، بشرط إن المكان يكون خالي من التهاب نشط وفيه عظم كفاية لثبات الزرعة.",
+            en: "The implant is placed in the same visit as the extraction instead of waiting months, provided the site has no active infection and enough bone to hold the implant firmly.",
+          },
+        },
+        {
+          icon: "clock",
+          name: "Immediate Loading",
+          title: { ar: "التحميل الفوري (سنة مؤقتة سريعة)", en: "Immediate loading" },
+          body: {
+            ar: "تركيب سنة مؤقتة على الزرعة خلال وقت قصير من الجراحة لما يكون ثبات الزرعة كافي. السنة النهائية بتتركب بعد التحام الزرعة بالعظم.",
+            en: "A temporary tooth is fitted on the implant soon after surgery when the implant is stable enough. The final tooth is fitted after the implant has integrated with the bone.",
+          },
+        },
+      ],
+    },
     tech: ["xray", "scanner", "anesthesia"],
     faqs: [
       {
