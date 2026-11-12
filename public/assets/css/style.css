@@ -893,3 +893,4 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .book-privacy .ic { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--blue); }
 @media (max-width: 640px) { .book-sec { margin-top: -28px; } .book-inputs { grid-template-columns: 1fr; } .book-submit { justify-self: stretch; } .chips-pick span { padding: 0 14px; font-size: 14.5px; } }
 .book-in, .book-in input { min-width: 0; width: 100%; box-sizing: border-box; }
+.figs > .fig:only-child { max-width: 760px; }
