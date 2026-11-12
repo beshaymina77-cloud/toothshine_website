@@ -173,3 +173,30 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
   q.addEventListener('click', function () { q.classList.add('is-open'); b.remove(); });
   q.after(b);
 });
+
+/* ---------- booking form -> WhatsApp ---------- */
+(function () {
+  var f = document.querySelector("[data-book]");
+  if (!f) return;
+  var tpl = "";
+  try { tpl = JSON.parse(f.querySelector("[data-book-msg]").textContent); } catch (e) {}
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = f.name.value.trim();
+    var phone = f.phone.value.trim();
+    var digits = phone.replace(/[^\d٠-٩]/g, "");
+    var okName = name.length >= 2, okPhone = digits.length >= 8;
+    f.name.closest(".book-in").classList.toggle("is-bad", !okName);
+    f.phone.closest(".book-in").classList.toggle("is-bad", !okPhone);
+    if (!okName) { f.name.focus(); return; }
+    if (!okPhone) { f.phone.focus(); return; }
+    var svc = f.querySelector("input[name=service]:checked");
+    var br = f.querySelector("input[name=branch]:checked");
+    if (!br) return;
+    var text = tpl.replace("{name}", name).replace("{phone}", phone)
+      .replace("{service}", svc ? svc.value : "").replace("{branch}", br.getAttribute("data-name"));
+    if (window.dataLayer) window.dataLayer.push({ event: "booking_whatsapp", service: svc && svc.value, branch: br.getAttribute("data-name") });
+    if (typeof window.fbq === "function") window.fbq("track", "Lead");
+    window.location.href = "https://wa.me/" + br.value + "?text=" + encodeURIComponent(text);
+  });
+})();

@@ -544,7 +544,7 @@ function homePage(l) {
       <p class="hero-lead reveal" style="--d:100ms">${esc(t(H.lead, l))}</p>
       <a class="hero-founder reveal" style="--d:140ms" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a>
       <div class="hero-actions reveal" style="--d:200ms">
-        ${btnSheet(l, t(H.diagnosisCta, l), null, "btn-light btn-lg")}
+        <a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(H.book.title, l))}</span></a>
         <a class="btn btn-outline-light btn-lg" href="${P.services(l)}">${t(site.ui.exploreServices, l)}${icon("arrow", "flip")}</a>
       </div>
     </div>
@@ -562,6 +562,21 @@ function homePage(l) {
     <ul class="trust trust--dark reveal" style="--d:260ms">${H.trustStrip.map((x) => `<li>${icon(x.icon)}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
   </div>
 </section>
+
+<section class="book-sec" id="book"><div class="wrap">
+  <form class="book-card reveal" data-book novalidate>
+    <div class="book-head"><p class="kicker">${esc(t(H.book.kicker, l))}</p><h2>${esc(t(H.book.title, l))}</h2><p>${esc(t(H.book.lead, l))}</p></div>
+    <fieldset class="book-field"><legend>${esc(t(H.book.service, l))}</legend><div class="chips-pick">${H.book.options.map((o, i) => `<label><input type="radio" name="service" value="${esc(t(o, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(o, l))}</span></label>`).join("")}</div></fieldset>
+    <fieldset class="book-field"><legend>${esc(t(H.book.branch, l))}</legend><div class="chips-pick">${biz.branches.filter((x) => x.whatsapp).map((x, i) => `<label><input type="radio" name="branch" value="${esc(x.whatsapp)}" data-name="${esc(t(x.name, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(x.name, l))}</span></label>`).join("")}</div></fieldset>
+    <div class="book-inputs">
+      <label class="book-in"><span>${esc(t(H.book.name, l))}</span><input type="text" name="name" autocomplete="name" required maxlength="60"><em class="book-err">${esc(t(H.book.errName, l))}</em></label>
+      <label class="book-in"><span>${esc(t(H.book.phone, l))}</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="01x xxxx xxxx" required maxlength="20"><em class="book-err">${esc(t(H.book.errPhone, l))}</em></label>
+    </div>
+    <button class="btn btn-primary btn-lg book-submit" type="submit">${icon("whatsapp")}<span>${esc(t(H.book.submit, l))}</span></button>
+    <p class="book-privacy">${icon("shield")}<span>${esc(t(H.book.privacy, l))}</span></p>
+    <script type="application/json" data-book-msg>${JSON.stringify(t(H.book.msg, l)).replace(/</g, "\\u003c")}</script>
+  </form>
+</div></section>
 
 <section class="section services-sec" id="services">
   <div class="wrap">

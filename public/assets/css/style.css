@@ -865,3 +865,31 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
   .hero--dr .hero-visual--dr { order: 2; max-width: 300px; margin: 8px auto 0; }
   .hero-founder { border-radius: 18px; }
 }
+
+/* Booking card (home) */
+.book-sec { position: relative; z-index: 2; margin-top: -48px; padding-bottom: 20px; }
+.book-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-xl, 0 24px 60px rgba(11, 31, 87, .16)); border: 1px solid rgba(1, 84, 186, .12); padding: clamp(22px, 3vw, 36px); display: grid; gap: 18px; }
+.book-head h2 { font-size: clamp(24px, 2.6vw, 32px); margin: 2px 0 6px; color: var(--navy); }
+.book-head p:last-child { color: var(--muted); margin: 0; }
+.book-field { border: 0; padding: 0; margin: 0; }
+.book-field legend { font: 700 15px/1.3 var(--font-head); color: var(--navy); margin-bottom: 10px; }
+.chips-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips-pick label { position: relative; cursor: pointer; }
+.chips-pick input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.chips-pick span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid rgba(1, 84, 186, .22); background: #f4f8fe; color: var(--navy); font: 600 15px/1 var(--font-head); transition: all .15s; }
+.chips-pick input:checked + span { background: var(--navy); border-color: var(--navy); color: #fff; }
+.chips-pick input:focus-visible + span { outline: 3px solid var(--baby); outline-offset: 2px; }
+.book-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.book-in { display: grid; gap: 6px; }
+.book-in > span { font: 700 15px/1.3 var(--font-head); color: var(--navy); }
+.book-in input { min-height: 50px; border-radius: 14px; border: 1.5px solid rgba(1, 84, 186, .22); padding: 0 16px; font: inherit; font-size: 16px; background: #fff; color: var(--ink, #0b1f57); }
+.book-in input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(1, 84, 186, .15); }
+[dir="rtl"] .book-in input[dir="ltr"] { text-align: right; }
+.book-err { display: none; font-style: normal; font-size: 13px; color: #c0392b; }
+.book-in.is-bad input { border-color: #c0392b; }
+.book-in.is-bad .book-err { display: block; }
+.book-submit { justify-self: start; }
+.book-privacy { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--muted); margin: 0; }
+.book-privacy .ic { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--blue); }
+@media (max-width: 640px) { .book-sec { margin-top: -28px; } .book-inputs { grid-template-columns: 1fr; } .book-submit { justify-self: stretch; } .chips-pick span { padding: 0 14px; font-size: 14.5px; } }
+.book-in, .book-in input { min-width: 0; width: 100%; box-sizing: border-box; }
