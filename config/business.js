@@ -54,6 +54,7 @@ module.exports = {
       },
       hours: { ar: "يوميًا من 2 ظهرًا حتى 10 مساءً", en: "Daily, 2:00 PM – 10:00 PM" },
       bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
+      open: { opens: "14:00", closes: "22:00" }, // for Google structured data (daily)
       phone: "2035918187",                  // landline 03 5918187
       phoneDisplay: "03 5918187",
       whatsapp: "201033572443",             // 010 3357 2443
@@ -76,6 +77,7 @@ module.exports = {
       },
       hours: { ar: "يوميًا من 12 ظهرًا حتى 11 مساءً", en: "Daily, 12:00 PM – 11:00 PM" },
       bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
+      open: { opens: "12:00", closes: "23:00" }, // for Google structured data (daily)
       phone: "201286641616",                // 012 8664 1616
       phoneDisplay: "012 8664 1616",
       whatsapp: "201013594549",             // 010 1359 4549

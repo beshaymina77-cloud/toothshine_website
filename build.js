@@ -345,6 +345,7 @@ function orgLD(l) {
     };
     if (b.phone) o.telephone = "+" + b.phone;
     if (b.mapsUrl) o.hasMap = b.mapsUrl;
+    if (b.open && b.open.opens) o.openingHoursSpecification = [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: b.open.opens, closes: b.open.closes }];
     if (b.geo && b.geo.lat) o.geo = { "@type": "GeoCoordinates", latitude: b.geo.lat, longitude: b.geo.lng };
     return o;
   });

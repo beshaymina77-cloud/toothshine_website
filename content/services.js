@@ -83,8 +83,8 @@ module.exports = [
       en: "Replacing missing teeth with implants placed in the jawbone, after assessing the bone and general health and agreeing a clear plan.",
     },
     meta: {
-      ar: "زراعة الأسنان في الإسكندرية – سبورتينج والعجمي. استشارة زراعة وتخطيط للعلاج مع د. بشاي مينا، عضو ITI وESOI.",
-      en: "Dental implants in Alexandria – Sporting and Agami. Implant consultation and treatment planning with Dr. Beshay Mina, ITI and ESOI member.",
+      ar: "زراعة الأسنان في الإسكندرية – سبورتينج والعجمي مع د. بشاي مينا، عضو ITI وESOI: زراعة بالدليل الجراحي، بدون فتح لثة، زراعة فورية وتحميل فوري في الحالات المناسبة.",
+      en: "Dental implants in Alexandria – Sporting and Agami with Dr. Beshay Mina, ITI and ESOI member: guided, flapless and immediate implants, and immediate loading in suitable cases.",
     },
     intro: {
       ar: [
