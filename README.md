@@ -56,7 +56,7 @@ node build.js
 **أول مرة:**
 1. اعمل حساب مجاني على https://dash.cloudflare.com/sign-up
 2. من القائمة: **Workers & Pages** ← **Create application** ← اختار **Pages** ← **Upload assets** (Drag and drop).
-3. اسم المشروع: `toothshine` (اللينك هيبقى `https://toothshine.pages.dev`). لو الاسم مش متاح اختار اسم تاني وقولّي عليه عشان أحدّث `siteUrl`.
+3. اسم المشروع: `toothshine` (اللينك هيبقى `https://still-poetry-21a6.beshaymina77.workers.dev`). لو الاسم مش متاح اختار اسم تاني وقولّي عليه عشان أحدّث `siteUrl`.
 4. اسحب ملف `tooth-shine-site-dist.zip` (أو فولدر `dist`) ← **Deploy site**.
 
 **تحديث بعد كده:** افتح المشروع ← **Create a new deployment** ← Production ← ارفع الـ zip الجديد.
@@ -71,12 +71,12 @@ node build.js
 1. افتح https://business.google.com واختار الفرع.
 2. **Edit profile** ← **Contact** ← **Website**.
 3. حط لينك صفحة الفروع للفرع ده:
-   - سبورتينج: `https://toothshine.pages.dev/branches/#sporting`
-   - العجمي: `https://toothshine.pages.dev/branches/#agami`
-   (أو الصفحة الرئيسية `https://toothshine.pages.dev/` لو تفضّل.)
+   - سبورتينج: `https://still-poetry-21a6.beshaymina77.workers.dev/branches/#sporting`
+   - العجمي: `https://still-poetry-21a6.beshaymina77.workers.dev/branches/#agami`
+   (أو الصفحة الرئيسية `https://still-poetry-21a6.beshaymina77.workers.dev/` لو تفضّل.)
 4. Save. التعديل ممكن ياخد وقت عشان يظهر بعد مراجعة Google.
 
-وبعدها: أضف الموقع في Google Search Console وابعت `https://toothshine.pages.dev/sitemap.xml`.
+وبعدها: أضف الموقع في Google Search Console وابعت `https://still-poetry-21a6.beshaymina77.workers.dev/sitemap.xml`.
 
 ## Structure
 

@@ -22,7 +22,7 @@
 module.exports = {
   /* Final public address of the site, no trailing slash.
      Change it after the Cloudflare Pages project is created. */
-  siteUrl: "https://toothshine.pages.dev",
+  siteUrl: "https://still-poetry-21a6.beshaymina77.workers.dev",
 
   brand: {
     name: { ar: "مركز أسنان شاين", en: "Tooth Shine Dental Center" },
