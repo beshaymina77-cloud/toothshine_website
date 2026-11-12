@@ -53,7 +53,7 @@ module.exports = {
         en: "75 El Geish Road (sea front), Sporting, Alexandria",
       },
       hours: { ar: "يوميًا من 2 ظهرًا حتى 10 مساءً", en: "Daily, 2:00 PM – 10:00 PM" },
-      bookingNote: { ar: "الكشف بالحجز المسبق", en: "Visits by prior appointment" },
+      bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
       phone: "2035918187",                  // landline 03 5918187
       phoneDisplay: "03 5918187",
       whatsapp: "201033572443",             // 010 3357 2443
@@ -74,8 +74,8 @@ module.exports = {
         ar: "الكيلو 21، أعلى فرع فودافون، بجوار مدخل شارع التأمين",
         en: "Km 21, above the Vodafone store, next to El Taameen Street entrance, Agami",
       },
-      hours: { ar: "بالحجز المسبق", en: "By prior appointment" },
-      bookingNote: { ar: "حدد موعدك بالتليفون أو الواتساب", en: "Book by phone or WhatsApp" },
+      hours: { ar: "يوميًا من 12 ظهرًا حتى 11 مساءً", en: "Daily, 12:00 PM – 11:00 PM" },
+      bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
       phone: "201286641616",                // 012 8664 1616
       phoneDisplay: "012 8664 1616",
       whatsapp: "201013594549",             // 010 1359 4549
