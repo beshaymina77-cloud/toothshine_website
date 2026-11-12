@@ -845,3 +845,23 @@ html[lang="en"] .wm-sub { font-size: 8.5px; letter-spacing: .16em; }
 .fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: #f4f8fe; }
 .fig figcaption { padding: 12px 16px; font-size: 14.5px; display: flex; flex-direction: column; gap: 4px; }
 .fig-tag { font-size: 12px; color: var(--muted); }
+
+/* v7: clinic-led hero, founder as trust badge */
+.hero--dr h1.hero-title { font-size: clamp(38px, 5.2vw, 66px); line-height: 1.18; margin: 0 0 16px; color: #fff; letter-spacing: -.01em; }
+html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.025em; }
+.hero-founder { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 12px 18px; margin-bottom: 28px; border-radius: 999px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(207, 228, 251, .25); color: #fff; text-decoration: none; transition: background .2s; }
+.hero-founder:hover { background: rgba(255, 255, 255, .14); }
+.hf-label { font-size: 13.5px; color: var(--baby); }
+.hero-founder strong { font: 700 16px/1.2 var(--font-head); }
+.hf-members { font: 700 12.5px/1 var(--font-head); color: #0b1f57; background: var(--baby); padding: 5px 9px; border-radius: 999px; letter-spacing: .04em; }
+.doc-vision { margin: 18px 0 20px; padding: 18px 22px; border-inline-start: 3px solid var(--blue); background: #f4f8fe; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+[dir="rtl"] .doc-vision { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.doc-vision .hd-kicker { color: var(--blue); }
+.doc-vision p { margin: 0; }
+.doc-vision .hd-sign { color: var(--navy); font-size: 30px; }
+@media (max-width: 860px) {
+  .hero--dr .hero-grid { display: flex; flex-direction: column; }
+  .hero--dr .hero-copy { order: 1; }
+  .hero--dr .hero-visual--dr { order: 2; max-width: 300px; margin: 8px auto 0; }
+  .hero-founder { border-radius: 18px; }
+}

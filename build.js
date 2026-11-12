@@ -539,16 +539,10 @@ function homePage(l) {
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="eyebrow reveal">${icon("pin")}<span>${esc(t(H.eyebrow, l))}</span></p>
-      <p class="hero-pre reveal" style="--d:40ms">${esc(t(H.heroPre, l))}</p>
-      <h1 class="hero-name reveal" style="--d:60ms">${esc(t(doc.name, l))}</h1>
-      <p class="hero-focus reveal" style="--d:100ms">${doc.interests[l].map((x) => `<span>${esc(x)}</span>`).join("")}</p>
-      <p class="hero-brand reveal" style="--d:120ms"><span class="h1-accent">${esc(t(H.heroBrand, l))}</span></p>
-      <div class="hero-dr reveal" style="--d:160ms">
-        <p class="hd-kicker">${esc(t(H.visionLabel, l))}</p>
-        <p class="hd-text">${esc(t(H.drVision, l))}</p>
-        <ul class="hd-members">${doc.memberships.map((m) => `<li><span class="hd-abbr" dir="ltr">${esc(m.abbr)}</span><strong>${esc(t(m, l))}</strong></li>`).join("")}</ul>
-        <p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p>
-      </div>
+      <p class="hero-pre reveal" style="--d:40ms">${esc(t(biz.brand.name, l))}</p>
+      <h1 class="hero-title reveal" style="--d:60ms">${esc(t(H.h1, l)).replace(/\n/g, "<br>")}</h1>
+      <p class="hero-lead reveal" style="--d:100ms">${esc(t(H.lead, l))}</p>
+      <a class="hero-founder reveal" style="--d:140ms" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a>
       <div class="hero-actions reveal" style="--d:200ms">
         ${btnSheet(l, t(H.diagnosisCta, l), null, "btn-light btn-lg")}
         <a class="btn btn-outline-light btn-lg" href="${P.services(l)}">${t(site.ui.exploreServices, l)}${icon("arrow", "flip")}</a>
@@ -610,6 +604,33 @@ function homePage(l) {
   </div>
 </section>
 
+<section class="section doctor" id="doctor">
+  <div class="wrap doctor-grid">
+    <div class="doc-portrait reveal">
+      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
+    </div>
+    <div class="doc-copy reveal" style="--d:80ms">
+      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
+      <h2>${esc(t(doc.name, l))}</h2>
+      <p class="doc-role">${esc(t(doc.role, l))}</p>
+      <blockquote class="doc-vision"><p class="hd-kicker">${esc(t(H.visionLabel, l))}</p><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
+      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
+      <p class="mini-label">${t(H.interestsLabel, l)}</p>
+      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
+      <ul class="members">${doc.memberships
+        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
+        .join("")}</ul>
+    </div>
+  </div>
+  ${biz.team.length > 1
+    ? `<div class="wrap team-grid">${biz.team
+        .slice(1)
+        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
+        .join("")}</div>`
+    : ""}
+</section>
+
 <section class="section journey" id="diagnosis">
   <div class="wrap">
     <div class="dx-grid">
@@ -635,32 +656,6 @@ ${cases}
 ${testimonials}
 ${midCta}
 
-<section class="section doctor" id="doctor">
-  <div class="wrap doctor-grid">
-    <div class="doc-portrait reveal">
-      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
-    </div>
-    <div class="doc-copy reveal" style="--d:80ms">
-      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
-      <h2>${esc(t(doc.name, l))}</h2>
-      <p class="doc-role">${esc(t(doc.role, l))}</p>
-      <p>${esc(t(H.doctorBio, l))}</p>
-      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
-      <p class="mini-label">${t(H.interestsLabel, l)}</p>
-      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
-      <ul class="members">${doc.memberships
-        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
-        .join("")}</ul>
-    </div>
-  </div>
-  ${biz.team.length > 1
-    ? `<div class="wrap team-grid">${biz.team
-        .slice(1)
-        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
-        .join("")}</div>`
-    : ""}
-</section>
 
 <section class="section tech" id="technology">
   <div class="wrap">
