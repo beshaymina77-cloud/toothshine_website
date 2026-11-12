@@ -53,17 +53,13 @@ node build.js
 
 ## 4) النشر على Cloudflare Pages (مجاني) | Deploy
 
-**أول مرة:**
-1. اعمل حساب مجاني على https://dash.cloudflare.com/sign-up
-2. من القائمة: **Workers & Pages** ← **Create application** ← اختار **Pages** ← **Upload assets** (Drag and drop).
-3. اسم المشروع: `toothshine` (اللينك هيبقى `https://still-poetry-21a6.beshaymina77.workers.dev`). لو الاسم مش متاح اختار اسم تاني وقولّي عليه عشان أحدّث `siteUrl`.
-4. اسحب ملف `tooth-shine-site-dist.zip` (أو فولدر `dist`) ← **Deploy site**.
+الموقع مربوط بـ GitHub (`beshaymina77-cloud/toothshine_website`، فرع `main`) ومنشور على Cloudflare:
+**https://still-poetry-21a6.beshaymina77.workers.dev**
 
-**تحديث بعد كده:** افتح المشروع ← **Create a new deployment** ← Production ← ارفع الـ zip الجديد.
-
-ملاحظة: مشروع الرفع اليدوي (Direct Upload) مينفعش يتحوّل لربط GitHub بعدين. لو حبيت تحديث تلقائي من GitHub مستقبلًا، بنعمل مشروع جديد مربوط بـ GitHub (Build command: `node build.js` — Output: `dist`).
-
-بعد ما تعرف اللينك النهائي: عدّل `siteUrl` في `config/business.js` واعمل build ورفع تاني، عشان الـ sitemap والـ canonical يبقوا صح.
+- أي تعديل يترفع على `main` بيتبني وينزل على الموقع لوحده خلال دقيقة أو اتنين.
+- إعدادات البناء على Cloudflare: Build command `node build.js` — Output `dist`.
+- مش محتاج ترفع zip تاني.
+- لو غيّرت اللينك أو ضفت دومين خاص: عدّل `siteUrl` في `config/business.js` عشان الـ sitemap والـ canonical يبقوا صح.
 
 ## 5) ربط الموقع بـ Google Business Profile
 
