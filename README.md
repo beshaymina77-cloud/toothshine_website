@@ -54,7 +54,7 @@ node build.js
 ## 4) النشر على Cloudflare Pages (مجاني) | Deploy
 
 الموقع مربوط بـ GitHub (`beshaymina77-cloud/toothshine_website`، فرع `main`) ومنشور على Cloudflare:
-**https://still-poetry-21a6.beshaymina77.workers.dev**
+**https://toothshine-dental.beshaymina77.workers.dev**
 
 - أي تعديل يترفع على `main` بيتبني وينزل على الموقع لوحده خلال دقيقة أو اتنين.
 - إعدادات البناء على Cloudflare: Build command `node build.js` — Output `dist`.
@@ -67,12 +67,12 @@ node build.js
 1. افتح https://business.google.com واختار الفرع.
 2. **Edit profile** ← **Contact** ← **Website**.
 3. حط لينك صفحة الفروع للفرع ده:
-   - سبورتينج: `https://still-poetry-21a6.beshaymina77.workers.dev/branches/#sporting`
-   - العجمي: `https://still-poetry-21a6.beshaymina77.workers.dev/branches/#agami`
-   (أو الصفحة الرئيسية `https://still-poetry-21a6.beshaymina77.workers.dev/` لو تفضّل.)
+   - سبورتينج: `https://toothshine-dental.beshaymina77.workers.dev/branches/#sporting`
+   - العجمي: `https://toothshine-dental.beshaymina77.workers.dev/branches/#agami`
+   (أو الصفحة الرئيسية `https://toothshine-dental.beshaymina77.workers.dev/` لو تفضّل.)
 4. Save. التعديل ممكن ياخد وقت عشان يظهر بعد مراجعة Google.
 
-وبعدها: أضف الموقع في Google Search Console وابعت `https://still-poetry-21a6.beshaymina77.workers.dev/sitemap.xml`.
+وبعدها: أضف الموقع في Google Search Console وابعت `https://toothshine-dental.beshaymina77.workers.dev/sitemap.xml`.
 
 ## Structure
 
