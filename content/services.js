@@ -267,6 +267,62 @@ module.exports = [
       ar: ["فحص الأسنان واللثة والإطباق", "أشعة للتأكد من سلامة الجذور والعظم", "صور وتسجيل رقمي للأسنان بالماسح الضوئي", "مناقشة الشكل واللون المطلوبين والخامة المناسبة", "خطة واضحة بعدد الجلسات والتكلفة"],
       en: ["Examining the teeth, gums and bite", "X-rays to check the roots and bone", "Photos and a digital scan of the teeth", "Discussing the desired shape, shade and suitable material", "A clear plan with number of visits and cost"],
     },
+    techniques: {
+      title: { ar: "الزيركون والإي ماكس: إمتى نستخدم كل واحد؟", en: "Zirconia and E.max: when we use each" },
+      lead: {
+        ar: "الاتنين سيراميك من غير معدن. الاختيار بيعتمد على مكان السنة، والإطباق، ولون السنة اللي تحت، وشكل الابتسامة المطلوب.",
+        en: "Both are metal-free ceramics. The choice depends on the tooth's position, the bite, the colour of the underlying tooth and the smile you want.",
+      },
+      items: [
+        {
+          icon: "crown",
+          name: "Zirconia",
+          title: { ar: "الزيركون", en: "Zirconia" },
+          body: {
+            ar: "خامة قوية جدًا ومقاومة للكسر. مناسبة غالبًا للأسنان الخلفية، والجسور، والتركيبات على الزرعات، والمرضى اللي عندهم ضغط قوي على الأسنان. الأنواع الحديثة بقت أفتح وأقرب للون الطبيعي.",
+            en: "Very strong and fracture-resistant. Often suited to back teeth, bridges, implant crowns and patients with a heavy bite. Newer types are more translucent and closer to natural colour.",
+          },
+        },
+        {
+          icon: "veneer",
+          name: "E.max (Lithium Disilicate)",
+          title: { ar: "الإي ماكس", en: "E.max" },
+          body: {
+            ar: "سيراميك زجاجي شفافيته قريبة جدًا من السنة الطبيعية، وبيتلصق على السنة بمادة لاصقة، وده بيسمح أحيانًا بتحضير أقل. مناسب غالبًا للأسنان الأمامية والقشور والتيجان المفردة.",
+            en: "A glass-ceramic whose translucency closely resembles natural enamel. It is bonded to the tooth, which sometimes allows more conservative preparation. Often suited to front teeth, veneers and single crowns.",
+          },
+        },
+        {
+          icon: "sparkle",
+          name: "Shade matching",
+          title: { ar: "اختيار اللون", en: "Shade matching" },
+          body: {
+            ar: "اللون بيتحدد بدليل ألوان وصور للأسنان في إضاءة مناسبة، وبيتنقل للمعمل بالتفاصيل عشان التركيبة تبان طبيعية جنب أسنانك.",
+            en: "The shade is chosen with a shade guide and photos in suitable lighting, and passed to the lab in detail so the restoration blends with your natural teeth.",
+          },
+        },
+        {
+          icon: "doc",
+          name: "Workflow",
+          title: { ar: "خطوات التركيبة", en: "How it is made" },
+          body: {
+            ar: "فحص وأشعة ← تحضير السنة ← طبعة أو تسجيل رقمي ← تركيبة مؤقتة ← تجربة التركيبة النهائية ولصقها ← متابعة الإطباق.",
+            en: "Examination and X-rays → tooth preparation → impression or digital record → temporary → try-in and cementation of the final restoration → bite check.",
+          },
+        },
+      ],
+    },
+    compare: {
+      title: { ar: "مقارنة سريعة", en: "Quick comparison" },
+      cols: [{ ar: "", en: "" }, { ar: "الزيركون", en: "Zirconia" }, { ar: "الإي ماكس", en: "E.max" }],
+      rows: [
+        [{ ar: "القوة", en: "Strength" }, { ar: "أعلى", en: "Higher" }, { ar: "عالية", en: "High" }],
+        [{ ar: "الشفافية والشكل الطبيعي", en: "Translucency & natural look" }, { ar: "جيدة (أفضل في الأنواع الحديثة)", en: "Good (better in newer types)" }, { ar: "ممتازة", en: "Excellent" }],
+        [{ ar: "الاستخدام الأشهر", en: "Typical use" }, { ar: "أسنان خلفية، جسور، تركيبات على زرعات", en: "Back teeth, bridges, implant crowns" }, { ar: "أسنان أمامية، قشور، تيجان مفردة", en: "Front teeth, veneers, single crowns" }],
+        [{ ar: "طريقة التثبيت", en: "Fixing method" }, { ar: "تثبيت بأسمنت، أو لصق في بعض الحالات", en: "Cemented, or bonded in some cases" }, { ar: "لصق على السنة", en: "Bonded to the tooth" }],
+      ],
+      note: { ar: "دي قاعدة عامة. الطبيب ممكن يختار غيرها حسب حالتك.", en: "This is a general guide; your dentist may choose differently for your case." },
+    },
     tech: ["scanner", "xray", "anesthesia"],
     faqs: [
       {
