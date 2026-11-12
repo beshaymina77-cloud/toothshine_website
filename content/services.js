@@ -434,6 +434,7 @@ module.exports = [
       en: ["Asking about the nature and duration of the pain", "Examining the tooth and gum", "Digital X-ray to assess the roots", "Explaining whether the tooth can be saved and the alternatives"],
     },
     tech: ["xray", "anesthesia"],
+    techniques: {"title": {"ar": "خطوات علاج العصب", "en": "Root canal treatment step by step"}, "steps": true, "items": [{"icon": "xray", "name": "Diagnosis", "title": {"ar": "التشخيص", "en": "Diagnosis"}, "body": {"ar": "فحص السنة وأشعة رقمية لتحديد سبب الألم، وهل السنة ممكن تتعالج.", "en": "Examining the tooth and taking a digital X-ray to find the cause and confirm the tooth can be saved."}}, {"icon": "root", "name": "Cleaning", "title": {"ar": "التخدير وتنضيف القنوات", "en": "Anaesthesia and cleaning"}, "body": {"ar": "بعد التخدير الموضعي بيتشال العصب الملتهب وبتتنضف القنوات وتتطهّر من جوه.", "en": "Under local anaesthesia the inflamed pulp is removed and the canals are cleaned and disinfected."}}, {"icon": "filling", "name": "Sealing", "title": {"ar": "حشو القنوات وقفلها", "en": "Filling and sealing"}, "body": {"ar": "القنوات بتتملي بمادة خاصة وبتتقفل كويس عشان نمنع رجوع البكتيريا.", "en": "The canals are filled with a dedicated material and sealed to keep bacteria out."}}, {"icon": "crown", "name": "Protection", "title": {"ar": "حماية السنة", "en": "Protecting the tooth"}, "body": {"ar": "حشو نهائي، وفي حالات كتير تاج لأن السنة بعد علاج العصب بتبقى أضعف.", "en": "A final filling and, in many cases, a crown, because a root-treated tooth is weaker."}}]},
     faqs: [
       {
         q: { ar: "هل علاج العصب مؤلم؟", en: "Is root canal treatment painful?" },
@@ -449,6 +450,8 @@ module.exports = [
           en: "One or more visits, depending on the tooth, whether infection is present and the number of canals.",
         },
       },
+      { q: {"ar": "ليه السنة بتحتاج تاج بعد علاج العصب؟", "en": "Why might a tooth need a crown after root canal treatment?"}, a: {"ar": "لأن السنة غالبًا بتكون فقدت جزء كبير بسبب التسوس أو الكسر، فبتبقى أكثر عرضة للكسر. الطبيب بيقرر حسب كمية السنة الباقية ومكانها.", "en": "Because the tooth has often lost a lot of structure to decay or fracture and is more likely to break. The dentist decides based on how much tooth remains and where it is."} },
+      { q: {"ar": "إيه اللي ممكن أحس بيه بعد العلاج؟", "en": "What can I expect after treatment?"}, a: {"ar": "إحساس بسيط أو ألم خفيف عند الضغط لأيام قليلة شيء وارد. لو في ألم شديد أو تورم بيزيد، كلّم العيادة.", "en": "Mild tenderness when biting for a few days is common. If pain is severe or swelling increases, contact the clinic."} },
     ],
   },
 
@@ -484,6 +487,7 @@ module.exports = [
       en: ["Getting the child familiar with the chair and tools", "Examining teeth and gums", "X-rays only when needed", "Advice for parents on brushing and diet"],
     },
     tech: ["anesthesia", "xray"],
+    techniques: {"title": {"ar": "زيارة الطفل خطوة بخطوة", "en": "Your child's visit step by step"}, "steps": true, "items": [{"icon": "child", "name": "Getting to know", "title": {"ar": "التعارف", "en": "Getting acquainted"}, "body": {"ar": "بنتعرف على الطفل ونشرحله الأدوات بكلام بسيط عشان يطمن.", "en": "We get to know the child and explain the instruments in simple words so they feel at ease."}}, {"icon": "exam", "name": "Examination", "title": {"ar": "الفحص", "en": "Examination"}, "body": {"ar": "فحص الأسنان واللثة ومتابعة نمو الأسنان والفكين، وأشعة لو محتاج.", "en": "Checking teeth and gums and monitoring tooth and jaw development, with X-rays if needed."}}, {"icon": "doc", "name": "Plan", "title": {"ar": "الخطة مع الأهل", "en": "Plan with parents"}, "body": {"ar": "شرح الحالة والعلاج المناسب للأهل، وترتيب الأولويات حسب احتياج الطفل.", "en": "Explaining findings and suitable treatment to parents, prioritised to the child's needs."}}, {"icon": "shield", "name": "Prevention", "title": {"ar": "الوقاية والمتابعة", "en": "Prevention and follow-up"}, "body": {"ar": "نصايح التفريش والأكل، وزيارات متابعة دورية لاكتشاف أي مشكلة بدري.", "en": "Brushing and diet advice, and regular check-ups to catch problems early."}}]},
     faqs: [
       {
         q: { ar: "أول زيارة للطفل تكون إمتى؟", en: "When should a child first visit the dentist?" },
@@ -506,6 +510,7 @@ module.exports = [
           en: "Present it as a check-up visit and avoid phrases like 'it won't hurt' or using the dentist as a threat. We go step by step and explain everything first.",
         },
       },
+      { q: {"ar": "هل لازم أعالج سنة اللبن لو كده كده هتقع؟", "en": "Do baby teeth need treating if they will fall out anyway?"}, a: {"ar": "غالبًا أيوه. تسوس سنة اللبن ممكن يسبب ألم وعدوى، ويأثر على الأكل والنوم، والخلع المبكر ممكن يأثر على مكان السنة الدائمة.", "en": "Usually yes. Decay in baby teeth can cause pain and infection and affect eating and sleep, and early loss can affect space for the permanent tooth."} },
     ],
   },
 
@@ -541,6 +546,7 @@ module.exports = [
       en: ["Examining the gums and measuring pockets if needed", "Deciding whether routine cleaning or deeper gum therapy is needed", "Choosing the suitable polishing method", "Brushing and flossing advice and a follow-up date"],
     },
     tech: ["prophyjet", "xray"],
+    techniques: {"title": {"ar": "خطوات التنظيف", "en": "Cleaning step by step"}, "steps": true, "items": [{"icon": "exam", "name": "Gum check", "title": {"ar": "فحص اللثة", "en": "Gum check"}, "body": {"ar": "فحص اللثة وأماكن تراكم الجير، وأشعة لو محتاج.", "en": "Checking the gums and where tartar has built up, with X-rays if needed."}}, {"icon": "jet", "name": "Scaling", "title": {"ar": "إزالة الجير", "en": "Scaling"}, "body": {"ar": "إزالة الجير من فوق وتحت خط اللثة بأجهزة مخصصة.", "en": "Removing tartar above and below the gum line with dedicated instruments."}}, {"icon": "sparkle", "name": "Polishing", "title": {"ar": "التلميع وإزالة التصبغات", "en": "Polishing and stain removal"}, "body": {"ar": "تلميع الأسطح، وفي الحالات المناسبة Prophy Jet لإزالة التصبغات.", "en": "Polishing the surfaces and, when suitable, Prophy Jet to remove stains."}}, {"icon": "doc", "name": "Home care", "title": {"ar": "تعليمات العناية", "en": "Home-care advice"}, "body": {"ar": "طريقة تفريش وتنظيف ما بين الأسنان مناسبة لحالتك، وموعد المتابعة.", "en": "Brushing and between-teeth cleaning advice for your case, and when to come back."}}]},
     faqs: [
       {
         q: { ar: "هل التنظيف بيضعّف الأسنان؟", en: "Does scaling weaken the teeth?" },
@@ -556,6 +562,7 @@ module.exports = [
           en: "It varies from person to person depending on gum health. The dentist recommends a suitable interval.",
         },
       },
+      { q: {"ar": "هل طبيعي اللثة تنزف بعد التنظيف؟", "en": "Is it normal for gums to bleed after a cleaning?"}, a: {"ar": "نزيف بسيط في أول يوم أو اتنين وارد خصوصًا لو اللثة كانت ملتهبة، وغالبًا بيقل مع انتظام التفريش. لو استمر، راجع الطبيب.", "en": "Light bleeding for a day or two is common, especially if the gums were inflamed, and usually settles with regular brushing. If it continues, see the dentist."} },
     ],
   },
 
@@ -591,6 +598,7 @@ module.exports = [
       en: ["Checking for decay, gum problems and sensitivity", "Recording the current shade", "Cleaning before whitening when needed", "Explaining the suitable method and possible temporary sensitivity"],
     },
     tech: ["prophyjet"],
+    techniques: {"title": {"ar": "خطوات التبييض", "en": "Whitening step by step"}, "steps": true, "items": [{"icon": "exam", "name": "Assessment", "title": {"ar": "التقييم", "en": "Assessment"}, "body": {"ar": "فحص الأسنان واللثة وعلاج أي تسوس أو حساسية الأول، وتسجيل لون الأسنان قبل البدء.", "en": "Checking teeth and gums, treating any decay or sensitivity first, and recording the starting shade."}}, {"icon": "shield", "name": "Protection", "title": {"ar": "حماية اللثة", "en": "Protecting the gums"}, "body": {"ar": "عزل اللثة والأنسجة الرخوة قبل وضع مادة التبييض.", "en": "Isolating the gums and soft tissues before the whitening gel is applied."}}, {"icon": "sparkle", "name": "Whitening", "title": {"ar": "التبييض", "en": "Whitening"}, "body": {"ar": "وضع مادة التبييض تحت إشراف الطبيب حسب البروتوكول المناسب لحالتك.", "en": "Applying the whitening gel under the dentist's supervision using the protocol suited to your case."}}, {"icon": "doc", "name": "Aftercare", "title": {"ar": "التعليمات بعد التبييض", "en": "Aftercare"}, "body": {"ar": "تقليل المشروبات والأكل الملوّن والتدخين فترة بعد التبييض، والتعامل مع أي حساسية مؤقتة.", "en": "Limiting staining food, drinks and smoking for a while, and managing any temporary sensitivity."}}]},
     faqs: [
       {
         q: { ar: "هل التبييض بيضر الأسنان؟", en: "Is whitening harmful?" },
@@ -606,6 +614,8 @@ module.exports = [
           en: "It depends on habits such as smoking, coloured drinks and oral hygiene.",
         },
       },
+      { q: {"ar": "هل التبييض بيعمل حساسية؟", "en": "Does whitening cause sensitivity?"}, a: {"ar": "ممكن يحصل حساسية مؤقتة عند بعض الناس، وغالبًا بتروح خلال أيام. الطبيب بيقيّم الحساسية قبل البدء وممكن ينصح بمعجون مخصص.", "en": "Some people get temporary sensitivity, which usually settles within days. The dentist assesses sensitivity beforehand and may recommend a desensitising toothpaste."} },
+      { q: {"ar": "هل التبييض مناسب لكل الناس؟", "en": "Is whitening suitable for everyone?"}, a: {"ar": "لا. مثلًا الحامل والمرضع، أو اللي عنده تسوس أو التهاب لثة غير معالج، أو بعض أنواع التصبغات اللي مش بتستجيب للتبييض. ده بيتحدد في الفحص.", "en": "No. For example during pregnancy or breastfeeding, with untreated decay or gum inflammation, or with some types of staining that do not respond. This is decided at the examination."} },
     ],
   },
 
@@ -783,6 +793,7 @@ module.exports = [
       en: ["Reviewing medical history and medications, especially blood thinners", "X-rays to assess roots and nearby structures", "Explaining the procedure and aftercare", "Discussing replacement: implant, bridge or other options"],
     },
     tech: ["xray", "anesthesia"],
+    techniques: {"title": {"ar": "خطوات الخلع", "en": "Extraction step by step"}, "steps": true, "items": [{"icon": "xray", "name": "Assessment", "title": {"ar": "التقييم", "en": "Assessment"}, "body": {"ar": "مراجعة التاريخ الطبي والأدوية، وأشعة لتقييم الجذور والعظم.", "en": "Reviewing medical history and medications, with X-rays to assess the roots and bone."}}, {"icon": "ear", "name": "Anaesthesia", "title": {"ar": "التخدير", "en": "Anaesthesia"}, "body": {"ar": "تخدير موضعي، والتأكد إن المكان مخدّر كويس قبل البدء.", "en": "Local anaesthesia, making sure the area is fully numb before starting."}}, {"icon": "extraction", "name": "Extraction", "title": {"ar": "الخلع", "en": "Extraction"}, "body": {"ar": "خلع السنة بأقل ضرر ممكن للعظم والأنسجة حواليها.", "en": "Removing the tooth with as little trauma as possible to the surrounding bone and tissue."}}, {"icon": "doc", "name": "Aftercare", "title": {"ar": "التعليمات بعد الخلع", "en": "Aftercare"}, "body": {"ar": "تعليمات مكتوبة: الشاش، الأكل، النظافة، والأدوية، ومتى تتواصل مع العيادة.", "en": "Written instructions on gauze, eating, cleaning and medication, and when to contact the clinic."}}]},
     faqs: [
       {
         q: { ar: "هل لازم أعوّض السنة بعد الخلع؟", en: "Do I need to replace the tooth afterwards?" },
@@ -798,6 +809,8 @@ module.exports = [
           en: "Tell the dentist before any extraction and never stop a medication on your own. Any change is coordinated with your physician when needed.",
         },
       },
+      { q: {"ar": "أعمل إيه بعد الخلع؟", "en": "What should I do after an extraction?"}, a: {"ar": "اضغط على الشاش المدة اللي الطبيب قالها، وتجنب المضمضة الجامدة والشفاط والتدخين أول يوم، وكُل أكل طري. لو النزيف مستمر أو الألم بيزيد بعد كام يوم، كلّم العيادة.", "en": "Bite on the gauze for the time advised, avoid vigorous rinsing, straws and smoking for the first day, and eat soft food. If bleeding continues or pain gets worse after a few days, contact the clinic."} },
+      { q: {"ar": "ينفع أعمل زراعة فورية بعد الخلع؟", "en": "Can an implant be placed right after extraction?"}, a: {"ar": "في حالات مختارة أيوه، لو المكان خالي من التهاب نشط وفيه عظم كفاية. ده بيتحدد بالفحص والأشعة قبل الخلع.", "en": "In selected cases yes, if the site has no active infection and enough bone. This is decided with examination and X-rays before the extraction."} },
     ],
   },
 

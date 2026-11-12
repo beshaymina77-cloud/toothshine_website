@@ -834,3 +834,6 @@ html[lang="en"] .wm-sub { font-size: 8.5px; letter-spacing: .16em; }
 .cmp tr:last-child th, .cmp tr:last-child td { border-bottom: 0; }
 .cmp-note { font-size: 13.5px; color: var(--muted); margin-top: 8px; }
 @media (max-width: 640px) { .cmp { font-size: 14px; } .cmp th, .cmp td { padding: 11px 12px; } }
+.tq-card { position: relative; }
+.tq-num { position: absolute; top: 18px; inset-inline-end: 18px; width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; font: 700 15px/30px var(--font-head); text-align: center; }
+.tq-card h3 + p:not(.tq-en) { margin-top: 6px; }
