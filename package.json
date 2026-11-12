@@ -1,0 +1,6 @@
+{
+  "name": "tooth-shine-site",
+  "private": true,
+  "scripts": { "build": "node build.js" },
+  "engines": { "node": ">=18" }
+}
