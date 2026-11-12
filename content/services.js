@@ -683,6 +683,62 @@ module.exports = [
       ar: ["فحص الأسنان واللثة والإطباق", "مناقشة الشكل المطلوب وحدوده", "مقارنة الكومبوزيت بالسيراميك لحالتك"],
       en: ["Examining teeth, gums and bite", "Discussing the desired look and its limits", "Comparing composite with ceramic options for your case"],
     },
+    techniques: {
+      title: { ar: "القشور بتتعمل إزاي؟", en: "How composite veneers are done" },
+      lead: {
+        ar: "الهدف إننا نحافظ على أكبر قدر من السنة الطبيعية. في حالات كتير مفيش برد أو برد بسيط جدًا، لكن مش كل الحالات كده، والطبيب بيوضح لك قبل البداية.",
+        en: "The aim is to preserve as much natural tooth as possible. Many cases need no or very minimal preparation, but not all, and the dentist explains this before starting.",
+      },
+      items: [
+        {
+          icon: "exam",
+          name: "Smile assessment",
+          title: { ar: "تقييم وتصميم الابتسامة", en: "Smile assessment and design" },
+          body: {
+            ar: "فحص الأسنان واللثة والإطباق، وصور للابتسامة، ومناقشة الشكل واللون اللي يناسب وشّك، وإيه اللي ممكن وإيه حدوده.",
+            en: "Examining teeth, gums and bite, photographing the smile, and agreeing a shape and shade that suit your face, including what is and isn't achievable.",
+          },
+        },
+        {
+          icon: "veneer",
+          name: "Bonding",
+          title: { ar: "اللصق (Bonding)", en: "Bonding" },
+          body: {
+            ar: "سطح السنة بيتجهز بمادة خاصة عشان الكومبوزيت يلتصق بيها كويس، وده اللي بيسمح إننا منبردش السنة أو نبرد أقل.",
+            en: "The tooth surface is conditioned so the composite bonds firmly to it, which is what allows little or no preparation.",
+          },
+        },
+        {
+          icon: "pen",
+          name: "Layering & sculpting",
+          title: { ar: "بناء الطبقات والتشكيل", en: "Layering and sculpting" },
+          body: {
+            ar: "الكومبوزيت بيتبني طبقة طبقة بألوان مختلفة عشان يدّي عمق وشفافية قريبة من السنة الطبيعية، وبيتشكّل في نفس الجلسة.",
+            en: "Composite is built up in layers of different shades to give depth and translucency close to a natural tooth, and shaped in the same visit.",
+          },
+        },
+        {
+          icon: "sparkle",
+          name: "Polish & maintenance",
+          title: { ar: "التلميع والمتابعة", en: "Polishing and maintenance" },
+          body: {
+            ar: "تلميع نهائي، ثم متابعة دورية. الكومبوزيت ممكن يحتاج تلميع أو تصليح بسيط مع الوقت، وده من مميزاته إنه سهل يتصلّح.",
+            en: "A final polish, then regular reviews. Composite may need re-polishing or small repairs over time, and being easy to repair is one of its advantages.",
+          },
+        },
+      ],
+    },
+    compare: {
+      title: { ar: "كومبوزيت ولا سيراميك (إي ماكس)؟", en: "Composite or ceramic (E.max)?" },
+      cols: [{ ar: "", en: "" }, { ar: "قشور الكومبوزيت", en: "Composite veneers" }, { ar: "قشور السيراميك (إي ماكس)", en: "Ceramic veneers (E.max)" }],
+      rows: [
+        [{ ar: "عدد الجلسات", en: "Visits" }, { ar: "غالبًا جلسة واحدة", en: "Often a single visit" }, { ar: "أكتر من جلسة (بتتعمل في المعمل)", en: "Several visits (made in the lab)" }],
+        [{ ar: "تحضير السنة", en: "Tooth preparation" }, { ar: "غالبًا مفيش أو بسيط جدًا", en: "Often none or very minimal" }, { ar: "بسيط غالبًا، وأحيانًا مفيش حسب الحالة", en: "Usually minimal; sometimes none, depending on the case" }],
+        [{ ar: "ثبات اللون", en: "Colour stability" }, { ar: "ممكن يتغيّر مع الوقت", en: "Can stain over time" }, { ar: "ثابت جدًا", en: "Very stable" }],
+        [{ ar: "الصيانة", en: "Maintenance" }, { ar: "تلميع وتصليح سهل", en: "Easy to polish and repair" }, { ar: "صيانة أقل، والتصليح أصعب", en: "Less maintenance; harder to repair" }],
+      ],
+      note: { ar: "الاختيار بيتحدد بعد الفحص حسب حالة أسنانك وتوقعاتك.", en: "The choice is made after examination, based on your teeth and expectations." },
+    },
     tech: [],
     faqs: [
       {
