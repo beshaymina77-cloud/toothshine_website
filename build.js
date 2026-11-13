@@ -565,6 +565,7 @@ ${cases}
 <section class="section digital" id="digital">
   <div class="wrap">
     ${sectionHead(t(J.digitalKicker, l), t(J.digitalTitle, l), t(J.digitalLead, l))}
+    <ol class="dg-steps">${J.digitalSteps.map((x, i) => `<li class="reveal" style="--d:${i * 70}ms"><span class="dg-n">${i + 1}</span>${icon(x.icon)}<strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></li>`).join("")}</ol>
     <ul class="dg-grid">${J.digitalCards.map((c) => `<li class="reveal"><a class="dg-card" href="${P.service(l, c.link)}${c.anchor}">${c.diagram ? `<span class="dg-media dg-media--svg">${diagrams[c.diagram](l)}</span>` : `<span class="dg-media"><img src="/${c.img}-600.webp" alt="${esc(t(c.title, l))}" width="600" height="450" loading="lazy" decoding="async"></span>`}<span class="dg-t"><strong>${esc(t(c.title, l))}</strong><span>${esc(t(c.body, l))}</span><em>${l === "ar" ? "صورة توضيحية" : "Illustration"}</em></span></a></li>`).join("")}</ul>
     <div class="tech-grid tech-grid--sm">${tech.map((x, i) => techCard(l, x, i)).join("")}</div>
   </div>

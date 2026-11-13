@@ -105,12 +105,18 @@ module.exports = {
   ],
   casesKicker: { ar: "حالات حقيقية", en: "Real cases" },
   casesAllFilter: { ar: "الكل", en: "All" },
-  digitalKicker: { ar: "التوضيح والتخطيط", en: "Explained visually" },
-  digitalTitle: { ar: "شوف العلاج قبل ما تبدأه", en: "See the treatment before it starts" },
+  digitalKicker: { ar: "التخطيط الرقمي", en: "Digital planning" },
+  digitalTitle: { ar: "بنخطط علاجك رقميًا قبل ما يبدأ", en: "Your treatment is planned digitally before it starts" },
   digitalLead: {
-    ar: "رسومات توضيحية بتشرح أجزاء الزرعة، والفرق بين الاختيارات، وإزاي بنخطط الزراعة على الكمبيوتر قبل الجراحة.",
-    en: "Illustrations that explain implant parts, the difference between options, and how implants are planned on the computer before surgery.",
+    ar: "مسح رقمي للأسنان بالماسح الضوئي داخل الفم، وأشعة CBCT ثلاثية الأبعاد من مركز أشعة متخصص، وتخطيط على الكمبيوتر قبل أي خطوة. ده أساس شغلنا في الزراعة والتجميل.",
+    en: "A digital scan with our intraoral scanner, a 3D CBCT scan from a specialist radiology centre, and computer planning before any step. This is the basis of our implant and cosmetic work.",
   },
+  digitalSteps: [
+    { icon: "scanner", title: { ar: "مسح رقمي للأسنان", en: "Digital scan" }, body: { ar: "بالماسح الضوئي داخل الفم، من غير معجون المقاس في أغلب الحالات.", en: "With the intraoral scanner, usually without impression paste." } },
+    { icon: "xray", title: { ar: "أشعة CBCT ثلاثية الأبعاد", en: "3D CBCT scan" }, body: { ar: "من مركز أشعة متخصص، عشان نشوف العظم والأعصاب بدقة.", en: "From a specialist radiology centre, to see bone and nerves precisely." } },
+    { icon: "doc", title: { ar: "تخطيط على الكمبيوتر", en: "Computer planning" }, body: { ar: "بندمج الاتنين ونخطط الزرعة أو شكل الابتسامة قبل التنفيذ.", en: "Both are merged to plan the implant or smile before treatment." } },
+    { icon: "implant", title: { ar: "تنفيذ بدقة", en: "Precise treatment" }, body: { ar: "بالدليل الجراحي في الحالات المناسبة، وتركيبات مصممة رقميًا.", en: "With a surgical guide where suitable, and digitally designed restorations." } },
+  ],
   digitalCards: [
     { img: "assets/img/illustrations/implant-parts", title: { ar: "أجزاء الزرعة", en: "Implant parts" }, body: { ar: "الزرعة جوه العظم، والدعامة، والتاج.", en: "The implant in the bone, the abutment and the crown." }, link: "dental-implants", anchor: "#single-implant" },
     { diagram: "implantVsBridge", title: { ar: "الزرعة ولا الكوبري؟", en: "Implant or bridge?" }, body: { ar: "نفس الفراغ بطريقتين، والفرق في الأسنان اللي جنبه.", en: "The same gap two ways; the difference is the neighbouring teeth." }, link: "dental-implants", anchor: "#implant-vs-bridge" },
