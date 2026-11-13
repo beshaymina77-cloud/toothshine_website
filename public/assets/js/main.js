@@ -272,3 +272,189 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
   }, true);
   document.querySelectorAll("input[name=branch]").forEach(function (r) { r.addEventListener("change", function () { dl({ event: "branch_select", branch: r.getAttribute("data-name") }); }); });
 })();
+
+/* =====================================================================
+   v15 — measurement (consent-gated, no health data) + 3D experiences
+   ===================================================================== */
+(function () {
+  "use strict";
+  var TS = window.TS || {};
+  var CFG = TS.tracking || {};
+  var AR = TS.lang === "ar";
+  var pageType = document.body.getAttribute("data-page-type") || (document.body.className.match(/page-(\w+)/) || [])[1] || "page";
+  var lp = document.body.getAttribute("data-lp") || "";
+  function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (e) { return null; } }
+  function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  /* UTM / click-id attribution: first touch of the session, kept in sessionStorage */
+  var q = new URLSearchParams(location.search), utm = {};
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) { if (q.get(k)) utm[k] = q.get(k).slice(0, 80); });
+  if (q.get("gclid")) utm.click_id = "gclid"; else if (q.get("fbclid")) utm.click_id = "fbclid";
+  if (Object.keys(utm).length && !ss("ts-utm")) ss("ts-utm", JSON.stringify(utm));
+  try { utm = JSON.parse(ss("ts-utm") || "{}"); } catch (e) { utm = {}; }
+
+  /* track(): always to dataLayer; to gtag if loaded. Only page/branch/method/campaign. */
+  function track(name, params) {
+    var p = { page_type: pageType, landing_page: lp || undefined };
+    for (var k in params) p[k] = params[k];
+    for (var u in utm) p[u] = utm[u];
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({ event: name }, p));
+    if (typeof window.gtag === "function") window.gtag("event", name, p);
+  }
+  window.tsTrack = track;
+  var hasAny = !!(CFG.ga4 || CFG.ads || CFG.meta);
+  var consent = ls("ts-consent");
+  function loadMeta() {
+    if (!CFG.meta || window.fbq) return;
+    /* standard Meta base code */
+    !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", CFG.meta); window.fbq("track", "PageView");
+  }
+  if (hasAny && consent === "yes") loadMeta();
+  if (hasAny && !consent) {
+    var bar = document.createElement("div");
+    bar.className = "consent";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", AR ? "ملفات تعريف الارتباط" : "Cookies");
+    bar.innerHTML = '<p>' + (AR ? "بنستخدم ملفات تعريف ارتباط لقياس الإعلانات وتحسين الموقع. مش بنجمع أي بيانات طبية." : "We use cookies to measure ads and improve the site. We never collect medical details.") + '</p><div><button type="button" class="btn btn-primary btn-sm" data-consent="yes">' + (AR ? "موافق" : "Accept") + '</button><button type="button" class="btn btn-line btn-sm" data-consent="no">' + (AR ? "لا شكرًا" : "No thanks") + "</button></div>";
+    document.body.appendChild(bar);
+    bar.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-consent]"); if (!b) return;
+      var yes = b.getAttribute("data-consent") === "yes";
+      ls("ts-consent", yes ? "yes" : "no");
+      if (yes && typeof window.gtag === "function") window.gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted", analytics_storage: "granted" });
+      if (yes) loadMeta();
+      bar.remove();
+    });
+  }
+  if (lp) track("lp_view", {});
+
+  /* booking clicks = the conversion */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-act], [data-lp-book], [data-sheet]") : null;
+    if (!el) return;
+    var act = el.getAttribute("data-act");
+    var place = el.closest("[data-mbar]") ? "sticky_bar" : el.closest(".lp-hero, .hero") ? "hero" : el.closest("#contact-sheet") ? "branch_sheet" : el.closest(".lp-book, #book, .branches-sec") ? "booking_section" : "inline";
+    if (act === "wa" || act === "call") {
+      var br = el.getAttribute("data-branch") || "";
+      track("booking_click", { method: act === "wa" ? "whatsapp" : "phone", branch: br, placement: place });
+      track("branch_select", { branch: br });
+      if (ls("ts-consent") === "yes") {
+        if (CFG.ads && CFG.adsLead && typeof window.gtag === "function") window.gtag("event", "conversion", { send_to: CFG.adsLead });
+        if (window.fbq) window.fbq("track", "Contact");
+      }
+    } else if (act === "map") track("directions_click", { branch: el.getAttribute("data-branch") || "", placement: place });
+    else if (el.hasAttribute("data-lp-book")) track("cta_click", { placement: place });
+    else if (el.hasAttribute("data-sheet")) track("cta_click", { placement: place, opens: "branch_sheet" });
+  }, true);
+  /* case engagement: a case card seen for 1s+ */
+  if ("IntersectionObserver" in window) {
+    var seen = {};
+    var cio = new IntersectionObserver(function (en) {
+      en.forEach(function (x) {
+        var id = x.target.getAttribute("data-case-view") || x.target.getAttribute("data-case") || "case";
+        if (x.isIntersecting && !seen[id]) { x.target._t = setTimeout(function () { seen[id] = 1; track("case_view", { case_id: id }); }, 1000); }
+        else clearTimeout(x.target._t);
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll(".case-card").forEach(function (c) { cio.observe(c); });
+    document.addEventListener("toggle", function (e) { if (e.target.classList && e.target.classList.contains("case-story") && e.target.open) track("case_story_open", {}); }, true);
+  }
+
+  /* ---------- 3D experiences: lazy, one live scene at a time ---------- */
+  var V = (document.querySelector('script[src*="main.js"]') || {}).src || "";
+  var ver = (V.split("?v=")[1] || "1");
+  var live = null; // { root, ctl }
+  var lib = null;
+  function getLib() { return lib || (lib = import("/assets/js/ts3d.js?v=" + ver)); }
+  function setPoster(root, key) { var img = root.querySelector("[data-x3d-poster]"); if (img && key) img.src = "/assets/img/3d/" + key + ".webp"; }
+  function stopLive() {
+    if (!live) return;
+    try { live.ctl.dispose(); } catch (e) {}
+    live.root.classList.remove("is-live");
+    var t = live.root.querySelector("[data-x3d-tools]"); if (t) t.hidden = true;
+    var h = live.root.querySelector("[data-x3d-hint]"); if (h) h.hidden = true;
+    live = null;
+  }
+  function applyState(root, ctl) {
+    // replay the currently selected options on a fresh scene
+    root.querySelectorAll('[data-x3d-panel="' + root.getAttribute("data-scene") + '"] [aria-pressed="true"][data-x3d-set]').forEach(function (b) {
+      var kv = b.getAttribute("data-x3d-set").split(":");
+      if (kv[0] !== "assemble") ctl.set(kv[0], kv[1]);
+    });
+  }
+  function start(root, then) {
+    if (live && live.root === root && live.scene === root.getAttribute("data-scene")) { if (then) then(live.ctl); return; }
+    stopLive();
+    root.classList.add("is-loading");
+    getLib().then(function (m) {
+      root.classList.remove("is-loading");
+      if (!m.supported()) { var n = root.querySelector("[data-x3d-nogl]"); if (n) n.hidden = false; return; }
+      var scene = root.getAttribute("data-scene");
+      var ctl = m.mount(root.querySelector("[data-x3d-canvas]"), { scene: scene, onEvent: function (a) { if (a === "rotate" && !root._rot) { root._rot = 1; track("x3d_interact", { scene: scene, action: "rotate" }); } } });
+      live = { root: root, ctl: ctl, scene: scene };
+      root.classList.add("is-live");
+      var t = root.querySelector("[data-x3d-tools]"); if (t) t.hidden = false;
+      var h = root.querySelector("[data-x3d-hint]"); if (h) h.hidden = false;
+      if (scene !== "implant") applyState(root, ctl);
+      track("x3d_start", { scene: scene });
+      if (then) then(ctl);
+    }).catch(function () { root.classList.remove("is-loading"); var n = root.querySelector("[data-x3d-nogl]"); if (n) n.hidden = false; });
+  }
+  function showInfo(panel, key) {
+    if (!panel || !key) return;
+    panel.querySelectorAll("[data-x3d-info]").forEach(function (x) { x.hidden = x.getAttribute("data-x3d-info") !== key; });
+  }
+  document.querySelectorAll("[data-x3d]").forEach(function (root) {
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b || !root.contains(b)) return;
+      var scene = root.getAttribute("data-scene");
+      var panel = root.querySelector('[data-x3d-panel="' + scene + '"]');
+      if (b.hasAttribute("data-x3d-start")) { start(root); return; }
+      if (b.hasAttribute("data-x3d-tab")) {
+        var s = b.getAttribute("data-x3d-tab");
+        if (s === scene) return;
+        root.querySelectorAll("[data-x3d-tab]").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
+        root.querySelectorAll('[role="tabpanel"]').forEach(function (p) { p.hidden = p.id !== "x3p-" + s; });
+        var wasLive = live && live.root === root;
+        stopLive();
+        root.setAttribute("data-scene", s);
+        var on = root.querySelector('[data-x3d-panel="' + s + '"] [aria-pressed="true"][data-poster]');
+        setPoster(root, on ? on.getAttribute("data-poster") : null);
+        track("x3d_tab", { scene: s });
+        if (wasLive) start(root);
+        return;
+      }
+      if (b.hasAttribute("data-x3d-rot")) { if (live && live.root === root) live.ctl.rotateBy(parseFloat(b.getAttribute("data-x3d-rot"))); return; }
+      if (b.hasAttribute("data-gs")) {
+        var cur = panel.querySelector('[data-x3d-group="stage"][aria-pressed="true"]');
+        var all = Array.prototype.slice.call(panel.querySelectorAll('[data-x3d-group="stage"]'));
+        var i = Math.max(0, Math.min(all.length - 1, all.indexOf(cur) + parseInt(b.getAttribute("data-gs"), 10)));
+        all[i].click(); return;
+      }
+      if (!b.hasAttribute("data-x3d-set")) return;
+      var set = b.getAttribute("data-x3d-set");
+      var group = b.getAttribute("data-x3d-group");
+      if (group) panel.querySelectorAll('[data-x3d-group="' + group + '"]').forEach(function (x) { var on = x === b; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", String(on)); });
+      var tog = b.getAttribute("data-x3d-toggle");
+      if (tog) {
+        var pressed = b.getAttribute("aria-pressed") === "true";
+        b.setAttribute("aria-pressed", String(!pressed));
+        if (pressed) set = tog;
+      }
+      showInfo(panel, b.getAttribute("data-x3d-show"));
+      if (set.indexOf("reset") !== 0) setPoster(root, b.getAttribute("data-poster"));
+      var kv = set.split(":");
+      track("x3d_interact", { scene: scene, action: kv[0] + "_" + kv[1] });
+      if (live && live.root === root) live.ctl.set(kv[0], kv[1]);
+    });
+  });
+  /* concern journeys can open a matching 3D scene */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest("[data-open-x3d]") : null; if (!a) return;
+    var root = document.querySelector("#experience [data-x3d]"); if (!root) return;
+    var tab = root.querySelector('[data-x3d-tab="' + a.getAttribute("data-open-x3d") + '"]');
+    if (tab) tab.click();
+  });
+})();

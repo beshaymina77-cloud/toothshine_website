@@ -97,6 +97,16 @@ function wordmark(l, light = false) {
   return `<span class="wm ${light ? "wm--light" : ""}" aria-hidden="true"><span class="wm-mark">${biz.brand.logoMark ? `<img src="/${biz.brand.logoMark}" alt="" width="40" height="41">` : icon("sparkle")}</span><span class="wm-text"><span class="wm-sub">${sub}</span><span class="wm-main">${main}</span></span></span><span class="sr">${esc(t(biz.brand.name, l))}</span>`;
 }
 
+/* ---------- tracking (consent-gated; nothing loads while IDs are empty) ---------- */
+function trackCfg() { const T = biz.tracking || {}; return { ga4: T.ga4 || "", ads: T.googleAds || "", adsLead: T.googleAdsLead || "", meta: T.metaPixel || "" }; }
+function trackingHead() {
+  const T = trackCfg();
+  if (!T.ga4 && !T.ads && !T.meta) return "";
+  const gid = T.ga4 || T.ads;
+  return `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});try{if(localStorage.getItem('ts-consent')==='yes')gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'})}catch(e){}gtag('js',new Date());${T.ga4 ? `gtag('config','${T.ga4}');` : ""}${T.ads ? `gtag('config','${T.ads}');` : ""}</script>
+${gid ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${gid}"></script>` : ""}`;
+}
+
 /* ---------- head ---------- */
 function head(l, { title, desc, pathAr, pathEn, jsonld = [] }) {
   const canonical = abs(l === "ar" ? pathAr : pathEn);
@@ -130,6 +140,7 @@ function head(l, { title, desc, pathAr, pathEn, jsonld = [] }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Great+Vibes&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css?v=${VERSION}">
+${trackingHead()}
 ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n")}
 <script>document.documentElement.classList.add('js')</script>
 </head>`;
@@ -146,7 +157,7 @@ function header(l, current, altHref) {
   const n = site.ui.nav;
   const items = [
     ["services", P.services(l)],
-    ["technology", P.home(l) + "#technology"],
+    ["technology", P.home(l) + "#experience"],
     ["doctor", P.home(l) + "#doctor"],
     ["articles", P.articles(l)],
     ["branches", P.branches(l)],
@@ -246,7 +257,7 @@ function mobileBar(l, s) {
 <a class="fab-book" href="${P.home(l)}#book" data-fab>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>`;
 }
 
-function clientData(l) {
+function clientData(l, extraSvc) {
   const data = {
     lang: l,
     template: t(site.whatsappTemplate, l),
@@ -256,7 +267,8 @@ function clientData(l) {
     sheetSub: t(site.ui.sheetSub, l),
     sheetSubWa: t(site.ui.sheetSubWa, l),
     sheetSubCall: t(site.ui.sheetSubCall, l),
-    services: Object.fromEntries(services.map((s) => [s.slug, svcName(l, s)])),
+    services: Object.assign(Object.fromEntries(services.map((s) => [s.slug, svcName(l, s)])), extraSvc || {}),
+    tracking: trackCfg(),
     branches: Object.fromEntries(biz.branches.map((b) => [b.id, { name: t(b.name, l), wa: b.whatsapp }])),
   };
   return `<script>window.TS=${JSON.stringify(data)}</script>`;
@@ -433,6 +445,260 @@ function implantSystemsSection(l) {
 }
 
 /* =====================================================================
+   3D EXPERIENCES + LANDING PAGES (v15)
+   ===================================================================== */
+const X = require("./content/experiences.js");
+const LP = require("./content/landing.js");
+const POSTER = (k) => `/assets/img/3d/${k}.webp`;
+function x3dPanel(l, scene) {
+  const U = X.ui;
+  if (scene === "implant") {
+    const E = X.implant;
+    const infos = Object.entries(E.info).map(([k, v], i) => `<div class="x3d-info" data-x3d-info="${k}"${k === "implant" ? "" : " hidden"}><h3>${esc(t(v.title, l))}</h3><p>${esc(t(v.body, l))}</p></div>`).join("");
+    return `<div class="x3d-panel" data-x3d-panel="implant">
+      <div class="seg" role="group" aria-label="${esc(t(E.tab, l))}">${E.modes.map((m, i) => `<button type="button" class="seg-b${i ? "" : " is-on"}" aria-pressed="${i === 0}" data-x3d-set="${m.set}" data-x3d-group="mode" data-x3d-show="${m.info}" data-poster="${i ? "implant-bridge" : "implant"}">${esc(t(m.label, l))}</button>`).join("")}</div>
+      <div class="x3d-ctrls">${E.controls.map((c) => `<button type="button" class="x3d-c" data-x3d-set="${c.set}"${c.toggle ? ` data-x3d-toggle="${c.toggle}" aria-pressed="false"` : ""} data-x3d-show="${c.info}"${c.info === "parts" ? ' data-poster="implant-parts"' : c.info === "assemble" ? ' data-poster="implant"' : ' data-poster="implant-tissue"'}>${icon(c.info === "assemble" ? "play" : c.info === "parts" ? "cube" : "xray")}<span>${esc(t(c.label, l))}</span></button>`).join("")}</div>
+      ${infos}
+    </div>`;
+  }
+  if (scene === "guided") {
+    const G = X.guided;
+    return `<div class="x3d-panel" data-x3d-panel="guided">
+      <ol class="gs-steps">${G.stages.map((s, i) => `<li><button type="button" class="gs-b${i ? "" : " is-on"}" aria-pressed="${i === 0}" data-x3d-set="stage:${i}" data-x3d-group="stage" data-x3d-show="g${i}" data-poster="guided-${i}"><span class="gs-n">${i + 1}</span><span>${esc(t(s.short, l))}</span></button></li>`).join("")}</ol>
+      ${G.stages.map((s, i) => `<div class="x3d-info" data-x3d-info="g${i}"${i ? " hidden" : ""}><p class="x3d-step">${esc(t(G.stepLabel, l))} ${i + 1} / ${G.stages.length}</p><h3>${esc(t(s.title, l))}</h3><p>${esc(t(s.body, l))}</p></div>`).join("")}
+      <div class="gs-nav"><button type="button" class="btn btn-line btn-sm" data-gs="-1">${icon("arrow", l === "ar" ? "" : "flip")}<span>${esc(t(G.prev, l))}</span></button><button type="button" class="btn btn-primary btn-sm" data-gs="1"><span>${esc(t(G.next, l))}</span>${icon("arrow", l === "ar" ? "flip" : "")}</button></div>
+      <p class="x3d-warn">${icon("shield")}<span>${esc(t(G.note, l))}</span></p>
+    </div>`;
+  }
+  const V = X.veneer;
+  return `<div class="x3d-panel" data-x3d-panel="veneer">
+    <div class="seg seg--4" role="group" aria-label="${esc(t(V.tab, l))}">${V.layers.map((m, i) => `<button type="button" class="seg-b${i === 2 ? " is-on" : ""}" aria-pressed="${i === 2}" data-x3d-set="${m.set}" data-x3d-group="layer" data-x3d-show="v${i}" data-poster="veneer-${m.set.split(":")[1]}">${esc(t(m.label, l))}</button>`).join("")}</div>
+    ${V.layers.map((m, i) => `<div class="x3d-info" data-x3d-info="v${i}"${i === 2 ? "" : " hidden"}><h3>${esc(t(m.title, l))}</h3><p>${esc(t(m.body, l))}</p>${i ? `<p class="x3d-prep"><strong>${esc(t(V.prepLabel, l))}:</strong> ${esc(t(m.prep, l))}</p>` : ""}</div>`).join("")}
+    <p class="x3d-warn">${icon("shield")}<span>${esc(t(V.note, l))}</span></p>
+  </div>`;
+}
+const FIRST_POSTER = { implant: "implant", guided: "guided-0", veneer: "veneer-ceramic" };
+function x3dBlock(l, scenes, opts = {}) {
+  const U = X.ui;
+  const first = scenes[0];
+  const tabs = scenes.length > 1
+    ? `<div class="x3d-tabs" role="tablist" aria-label="${esc(t(U.tabsLabel, l))}">${scenes.map((s, i) => `<button type="button" role="tab" class="x3d-tab" id="x3t-${s}" aria-selected="${i === 0}" aria-controls="x3p-${s}" data-x3d-tab="${s}">${icon(s === "veneer" ? "veneer" : s === "guided" ? "xray" : "implant")}<span>${esc(t(X[s].tab, l))}</span></button>`).join("")}</div>`
+    : "";
+  return `<div class="x3d" data-x3d data-scene="${first}" data-track-area="${opts.area || "x3d"}">
+    ${tabs}
+    <div class="x3d-layout">
+      <div class="x3d-stage">
+        <img class="x3d-poster" data-x3d-poster src="${POSTER(FIRST_POSTER[first])}" alt="${esc(t(X[first].title, l))}" width="1200" height="800" ${opts.eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+        <div class="x3d-canvas" data-x3d-canvas></div>
+        <button type="button" class="x3d-start" data-x3d-start><span class="x3d-play">${icon("play")}</span><span>${esc(t(U.start, l))}</span><small>${esc(t(U.loading, l))}</small></button>
+        <div class="x3d-tools" data-x3d-tools hidden><button type="button" class="icon-btn" data-x3d-rot="-0.6" aria-label="${esc(t(U.rotL, l))}">${icon("rotate", "flip")}</button><button type="button" class="icon-btn" data-x3d-rot="0.6" aria-label="${esc(t(U.rotR, l))}">${icon("rotate")}</button><button type="button" class="icon-btn" data-x3d-set="reset:1" aria-label="${esc(t(U.reset, l))}">${icon("center")}</button></div>
+        <p class="x3d-hint" data-x3d-hint hidden>${esc(t(U.hint, l))}</p>
+        <span class="x3d-tag">${esc(t(U.posterTag, l))}</span>
+      </div>
+      <div class="x3d-side">${scenes.map((s, i) => `<div id="x3p-${s}" role="${scenes.length > 1 ? "tabpanel" : "group"}"${scenes.length > 1 ? ` aria-labelledby="x3t-${s}"` : ""}${i ? " hidden" : ""}>${opts.headInside ? `<p class="kicker">${esc(t(X[s].kicker, l))}</p><h3 class="x3d-h">${esc(t(X[s].title, l))}</h3><p class="x3d-lead">${esc(t(X[s].lead, l))}</p>` : ""}${x3dPanel(l, s)}</div>`).join("")}</div>
+    </div>
+    <p class="x3d-note" data-x3d-nogl hidden>${esc(t(U.noGL, l))}</p>
+    <p class="x3d-note">${esc(t(U.disclaimer, l))}</p>
+  </div>`;
+}
+function termsBlock(l) {
+  const T = X.guided.terms;
+  return `<div class="terms"><h3 class="sub-title">${esc(t(T.title, l))}</h3><p class="terms-lead">${esc(t(T.lead, l))}</p><ul class="terms-grid">${T.items.map((x) => `<li class="term reveal"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3>${l === "ar" ? `<p class="tq-en" dir="ltr">${esc(x.name)}</p>` : ""}<p>${esc(t(x.body, l))}</p><p class="term-when">${icon("check")}<span>${esc(t(x.when, l))}</span></p></li>`).join("")}</ul></div>`;
+}
+/* Computer-controlled anaesthesia: two-lane flow animation (SVG + CSS, reduced-motion aware) */
+function ccladAnim(l) {
+  const C = X.cclad;
+  const rtl = l === "ar";
+  const lane = (y, cls, label, sub, path) => `<g class="cc-lane ${cls}" transform="translate(0 ${y})">
+      <rect x="0" y="0" width="640" height="118" rx="18" class="cc-bg"/>
+      <path d="${path}" class="cc-line"/>
+      <path d="${path}" class="cc-flow"/>
+      ${[0, 1, 2, 3, 4, 5].map((i) => `<circle r="5" class="cc-drop" style="--i:${i}" cx="0" cy="0"/>`).join("")}
+    </g>`;
+  const hand = "M24 86 C70 84 86 30 120 40 S170 96 210 70 S270 18 300 52 S360 92 400 46 S470 30 500 74 S580 60 616 40";
+  const dev = "M24 86 C90 86 110 60 160 56 L616 56";
+  return `<figure class="cc-fig">
+    <div class="cc-legend"><p><strong>${esc(t(C.laneHand, l))}</strong><span>${esc(t(C.laneHandSub, l))}</span></p><p><strong>${esc(t(C.laneDevice, l))}</strong><span>${esc(t(C.laneDeviceSub, l))}</span></p></div>
+    <svg class="cc-svg" viewBox="0 0 640 260" role="img" aria-label="${esc(t(C.title, l))}"${rtl ? ' style="transform:scaleX(-1)"' : ""}>
+      <defs><linearGradient id="ccg" x1="0" x2="1"><stop offset="0" stop-color="#cfe4fb"/><stop offset="1" stop-color="#0154ba"/></linearGradient></defs>
+      ${lane(0, "cc-hand", "", "", hand)}
+      ${lane(136, "cc-dev", "", "", dev)}
+    </svg>
+    <ol class="cc-steps">${C.steps.map((s, i) => `<li><span class="gs-n">${i + 1}</span><span>${esc(t(s, l))}</span></li>`).join("")}</ol>
+    <figcaption>${icon("shield")}<span>${esc(t(C.note, l))}</span></figcaption>
+  </figure>`;
+}
+function deviceVisual(l) {
+  const dev = (biz.photos.equipment || {}).anesthesia;
+  if (dev) return `<figure class="photo cs-photo"><img src="/${dev}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>`;
+  return `<figure class="dev-ill"><svg viewBox="0 0 320 220" aria-hidden="true"><defs><linearGradient id="dvb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe8f8"/></linearGradient></defs>
+    <rect x="54" y="92" width="200" height="36" rx="18" fill="url(#dvb)" stroke="#0b1f57" stroke-width="2.5"/>
+    <rect x="96" y="100" width="58" height="20" rx="6" fill="#0b1f57"/><text x="125" y="115" text-anchor="middle" font-size="11" fill="#cfe4fb" font-family="system-ui">0.005 ml/s</text>
+    <circle cx="186" cy="110" r="7" fill="#0154ba"/><circle cx="210" cy="110" r="7" fill="#cfe4fb" stroke="#0154ba"/>
+    <path d="M254 104h26l14 6-14 6h-26z" fill="#e2e8f1" stroke="#0b1f57" stroke-width="2"/><path d="M294 110h18" stroke="#56627b" stroke-width="2"/>
+    <path d="M54 110H20" stroke="#0b1f57" stroke-width="3" stroke-linecap="round"/>
+    <g class="dev-waves" fill="none" stroke="#0154ba" stroke-width="2"><path d="M306 92a24 24 0 0 1 0 36"/><path d="M296 84a36 36 0 0 1 0 52"/></g></svg>
+    <figcaption>${esc(t(X.cclad.devicePending, l))}</figcaption></figure>`;
+}
+
+/* ---------- landing pages ---------- */
+const PLP = (l, slug) => `${prefix(l)}/lp/${slug}/`;
+const lpKey = (pg) => `lp:${pg.slug}`;
+function lpWa(l, b, pg, cls = "", label) {
+  if (!b.whatsapp) return "";
+  const svc = t(pg.waService, l) + " " + t(LP.common.from, l).replace("{page}", t(pg.ref, l));
+  const href = `https://wa.me/${b.whatsapp}?text=${encodeURIComponent(waText(l, svc, b))}`;
+  return `<a class="btn btn-wa ${cls}" href="${href}" target="_blank" rel="noopener" data-act="wa" data-wa data-branch="${b.id}" data-service="${lpKey(pg)}" data-place="lp">${icon("whatsapp")}<span>${esc(label || t(LP.common.waBranch, l).replace("{branch}", t(b.name, l)))}</span></a>`;
+}
+function lpCall(l, b, cls = "") {
+  return b.phone ? `<a class="btn btn-line ${cls}" data-act="call" data-branch="${b.id}" href="tel:+${b.phone}">${icon("phone")}<span>${esc(t(LP.common.callBranch, l).replace("{branch}", t(b.name, l)))}</span></a>` : "";
+}
+function lpBook(l, pg, id = "book") {
+  const C = LP.common;
+  return `<section class="lp-book" id="${id}"><div class="wrap">
+    <div class="s-head"><h2>${esc(t(C.bookTitle, l))}</h2><p class="lead">${esc(t(C.bookLead, l))}</p></div>
+    <div class="lp-branches">${biz.branches.map((b) => `<article class="lp-br${b.priority ? " is-main" : ""}"><div class="lp-br-top"><h3>${esc(t(b.name, l))}</h3>${b.priority ? `<span class="badge">${t(site.ui.mainBranch, l)}</span>` : ""}</div>
+      <p class="lp-br-meta">${icon("pin")}<span>${esc(t(b.address, l) || t(b.area, l))}</span></p>
+      ${t(b.hours, l) ? `<p class="lp-br-meta">${icon("clock")}<span>${esc(t(b.hours, l))}</span></p>` : ""}
+      <div class="lp-br-act">${lpWa(l, b, pg, "btn-lg")}${lpCall(l, b)}${b.mapsUrl ? `<a class="btn btn-ghost" data-act="map" data-branch="${b.id}" href="${b.mapsUrl}" target="_blank" rel="noopener">${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>` : ""}</div></article>`).join("")}</div>
+    <p class="book-privacy">${icon("shield")}<span>${esc(t(C.privacy, l))}</span></p>
+  </div></section>`;
+}
+function lpCta(l, pg, label) {
+  return `<div class="lp-cta"><a class="btn btn-primary btn-lg" href="#book" data-lp-book>${icon("whatsapp")}<span>${esc(label || t(pg.cta, l))}</span></a></div>`;
+}
+function lpReviews(l, pg) {
+  const GR = biz.googleReviews || { items: [] };
+  const C = LP.common;
+  let own = [], general = [];
+  if (pg.reviewNames) own = pg.reviewNames.map((n) => GR.items.find((r) => r.name === n)).filter(Boolean);
+  else {
+    const svcs = pg.caseServices || [pg.service];
+    own = GR.items.filter((r) => (r.services || []).some((x) => svcs.includes(x)));
+    general = GR.items.filter((r) => ["Engy H.", "Ahmed K.", "Tasnim M.", "Hassan A."].includes(r.name)).slice(0, Math.max(0, 4 - own.length));
+  }
+  const bs = GR.branchSummary || {};
+  return `<section class="section lp-rv" id="reviews"><div class="wrap">
+    <div class="s-head"><h2>${icon("star")}${esc(t(C.reviewsTitle, l))}</h2></div>
+    <div class="svc-rv-sum">${biz.branches.filter((b) => bs[b.id]).map((b) => `<a href="${GR.profiles[b.id]}" target="_blank" rel="noopener"><strong>${esc(bs[b.id].rating)}</strong><span class="stars">★★★★★</span><small>${esc(t(b.name, l))} · ${esc(t(site.home.reviewsBased, l).replace("{count}", bs[b.id].count))}</small></a>`).join("")}</div>
+    ${own.length ? `<div class="svc-rv-grid">${own.map((r) => reviewCard(l, r)).join("")}</div>` : ""}
+    ${general.length ? `<h3 class="svc-rv-general">${esc(t(C.reviewsGeneral, l))}</h3><div class="svc-rv-grid">${general.map((r) => reviewCard(l, r)).join("")}</div>` : ""}
+  </div></section>`;
+}
+function lpCases(l, pg) {
+  const svcs = pg.caseServices || [pg.service];
+  let list = biz.cases.filter((c) => svcs.includes(c.service));
+  if (pg.slug === "veneers") {
+    const order = ["smile-1", "composite-veneer", "zirconia-front", "rehab-1", "rehab-2", "porcelain-full", "zirconia-full", "whitening-1"];
+    const key = (c) => String((c.images || [])[0].src).split("/").pop().replace(/-(before|1)\.webp$/, "");
+    list = order.map((k) => list.find((c) => key(c) === k)).filter(Boolean);
+  }
+  if (!list.length) return "";
+  const C = LP.common;
+  return `<section class="section lp-cases" id="cases"><div class="wrap">
+    <div class="s-head"><p class="kicker">${esc(t(J.casesKicker, l))}</p><h2>${esc(t(C.casesTitle, l))}</h2><p class="lead">${esc(t(C.casesNote, l))}</p></div>
+    <div class="cases-grid cases-grid--lp">${list.map((c) => caseCard(l, c, false).replace('<figure class="case-card"', `<figure class="case-card" data-case-view="${esc(String((c.images || [])[0].src).split("/").pop())}"`)).join("")}</div>
+    ${lpCta(l, pg)}
+  </div></section>`;
+}
+function cmpTable(l, T) {
+  return `<div class="cmp-wrap"><table class="cmp"><thead><tr>${T.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${T.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+function lpSection(l, pg, key) {
+  const s = services.find((x) => x.slug === pg.service);
+  const H = (k, ti, le) => `<div class="s-head">${k ? `<p class="kicker">${esc(k)}</p>` : ""}<h2>${esc(ti)}</h2>${le ? `<p class="lead">${esc(le)}</p>` : ""}</div>`;
+  switch (key) {
+    case "explorer":
+      return `<section class="section lp-x3d" id="explorer"><div class="wrap">${H(t(X.implant.kicker, l), t(X.implant.title, l), t(X.implant.lead, l))}${x3dBlock(l, ["implant"], { area: "lp-implant" })}</div></section>`;
+    case "compare":
+      return `<section class="section lp-cmp" id="compare"><div class="wrap narrow">${H("", t(pg.compare.title, l), t(pg.compare.lead, l))}${cmpTable(l, pg.compare)}${lpCta(l, pg)}</div></section>`;
+    case "why":
+      return `<section class="section why-impl lp-why"><div class="wrap">${H(t(J.whyKicker, l), t(J.whyTitle, l), "")}<ol class="wi-grid">${J.whyItems.map((x, i) => `<li class="wi-card reveal" style="--d:${(i % 3) * 70}ms"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ol>
+        ${(biz.implantSystems || []).length ? `<div class="wi-sys wi-sys--row"><p class="jr-label">${esc(t(J.whySystemsLabel, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}</div></section>`;
+    case "guided":
+      return `<section class="section lp-x3d lp-guided" id="guided"><div class="wrap">${H(t(X.guided.kicker, l), t(X.guided.title, l), t(X.guided.lead, l))}${x3dBlock(l, ["guided"], { area: "lp-guided" })}</div></section>`;
+    case "terms":
+      return `<section class="section lp-terms"><div class="wrap">${termsBlock(l)}${lpCta(l, pg)}</div></section>`;
+    case "cases":
+      return lpCases(l, pg);
+    case "reviews":
+      return lpReviews(l, pg);
+    case "faq":
+      return `<section class="section faq-sec lp-faq" id="faq"><div class="wrap faq-grid">${sectionHead("", t(LP.common.faqTitle, l), "")}<div>${faqList(l, pg.faqs)}${pg.guideLink ? `<p class="lp-guide">${esc(t(LP.common.fullGuide, l))} <a href="${P.service(l, pg.guideLink)}">${esc(t(services.find((x) => x.slug === pg.guideLink).title, l))}${icon("arrow", "flip")}</a></p>` : ""}</div></div></section>`;
+    case "book":
+      return lpBook(l, pg);
+    case "veneer3d":
+      return `<section class="section lp-x3d" id="explorer"><div class="wrap">${H(t(X.veneer.kicker, l), t(X.veneer.title, l), t(X.veneer.lead, l))}${x3dBlock(l, ["veneer"], { area: "lp-veneer" })}</div></section>`;
+    case "options":
+      return `<section class="section lp-cmp"><div class="wrap narrow">${H("", t(pg.options.title, l), "")}${cmpTable(l, pg.options)}<p class="cmp-note">${esc(t(X.veneer.note, l))}</p>${lpCta(l, pg)}</div></section>`;
+    case "materials":
+      return `<section class="section lp-cmp lp-mat"><div class="wrap narrow">${H("", t(X.veneer.materials.title, l), "")}${cmpTable(l, X.veneer.materials)}<p class="cmp-note">${esc(t(X.veneer.materials.note, l))}</p></div></section>`;
+    case "process":
+      return `<section class="section lp-process"><div class="wrap narrow">${H("", t(pg.process.title, l), "")}<ol class="steps steps--lp">${pg.process.steps.map((x, i) => `<li class="step reveal" style="--d:${i * 60}ms"><span class="step-n">${i + 1}</span><p>${esc(t(x, l))}</p></li>`).join("")}</ol></div></section>`;
+    case "cclad":
+      return `<section class="section lp-cclad" id="device"><div class="wrap">${H(t(X.cclad.kicker, l), t(X.cclad.title, l), t(X.cclad.lead, l))}${pg.heroDevice ? ccladAnim(l) : `<div class="cc-grid"><div class="cc-dev">${deviceVisual(l)}</div>${ccladAnim(l)}</div>`}</div></section>`;
+    case "firstVisit":
+      return `<section class="section lp-process"><div class="wrap narrow">${H("", t(pg.firstVisit.title, l), "")}<ol class="steps steps--lp">${pg.firstVisit.steps.map((x, i) => `<li class="step reveal" style="--d:${i * 60}ms"><span class="step-n">${i + 1}</span><p>${esc(t(x, l))}</p></li>`).join("")}</ol>
+        <aside class="signal reveal"><span class="signal-ic" aria-hidden="true">✋</span><div><h3>${esc(t(pg.signal.title, l))}</h3><p>${esc(t(pg.signal.body, l))}</p></div></aside>${lpCta(l, pg)}</div></section>`;
+    case "approaches":
+      return `<section class="section lp-terms"><div class="wrap">${H("", t(pg.approaches.title, l), "")}<ul class="terms-grid">${pg.approaches.items.map((x) => `<li class="term reveal"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ul></div></section>`;
+  }
+  return "";
+}
+function lpHero(l, pg) {
+  const GR = biz.googleReviews || {};
+  const bs = GR.branchSummary || {};
+  const rating = biz.branches.filter((b) => bs[b.id]).map((b) => `${bs[b.id].rating}★ ${t(b.name, l)}`).join(" · ");
+  const chips = pg.chips.map((c) => `<li>${icon(c.icon)}<span>${esc(t(c, l).replace("{rating}", (l === "ar" ? "تقييمات Google: " : "Google: ") + rating))}</span></li>`).join("");
+  let visual = "";
+  if (pg.heroPoster) visual = `<figure class="lp-hero-media"><img src="${POSTER("implant")}" alt="${esc(t(X.implant.title, l))}" width="1200" height="800" fetchpriority="high" decoding="async"><figcaption>${esc(t(X.ui.posterTag, l))} · <a href="#explorer">${esc(t(X.ui.start, l))}</a></figcaption></figure>`;
+  if (pg.heroCase) {
+    const c = biz.cases.find((k) => (k.images || [])[0].src.includes(pg.heroCase));
+    if (c) visual = `<figure class="lp-hero-media lp-hero-case"><div class="case-set case-set--2">${c.images.map((m, i) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" width="600" height="600" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${esc(t(c.title, l))} · ${esc(t(LP.common.casesNote, l))}</figcaption></figure>`;
+  }
+  if (pg.heroDevice) visual = `<div class="lp-hero-media lp-hero-dev">${deviceVisual(l)}</div>`;
+  return `<section class="lp-hero"><div class="wrap lp-hero-in">
+    <div class="lp-hero-copy">
+      <p class="eyebrow">${icon("pin")}<span>${esc(t(J.brandLine, l))}</span></p>
+      <h1>${esc(t(pg.h1, l))}<span>${esc(t(pg.h1sub, l))}</span></h1>
+      <p class="lp-lead">${esc(t(pg.lead, l))}</p>
+      <ul class="lp-chips">${chips}</ul>
+      <div class="lp-hero-cta"><a class="btn btn-primary btn-lg" href="#book" data-lp-book>${icon("whatsapp")}<span>${esc(t(pg.cta, l))}</span></a>${biz.branches.filter((b) => b.phone).slice(0, 1).map((b) => `<a class="btn btn-light btn-lg" data-act="call" data-branch="${b.id}" href="tel:+${b.phone}">${icon("phone")}<span>${esc(t(LP.common.call, l))}</span></a>`).join("")}</div>
+    </div>
+    ${visual}
+  </div></section>`;
+}
+function lpPage(l, pg) {
+  const C = LP.common;
+  const body = `${lpHero(l, pg)}
+${pg.sections.map((k) => lpSection(l, pg, k)).join("\n")}
+<p class="wrap disclaimer lp-disc">${esc(t(C.disclaimer, l))}</p>`;
+  const pathAr = PLP("ar", pg.slug), pathEn = PLP("en", pg.slug);
+  const alt = l === "ar" ? pathEn : pathAr;
+  const html = `${head(l, { title: t(pg.title, l), desc: t(pg.meta, l), pathAr, pathEn, jsonld: [faqLD(l, pg.faqs)] })}
+<body class="page-lp lp-${pg.slug}" data-page-type="landing" data-lp="${pg.slug}">
+${sprite()}
+<header class="site-header lp-header" data-header><div class="wrap header-in">
+  <a class="brand" href="${P.home(l)}">${wordmark(l)}</a>
+  <div class="header-actions"><a class="lang" href="${alt}" hreflang="${l === "ar" ? "en" : "ar"}" lang="${l === "ar" ? "en" : "ar"}" data-lang-switch="${l === "ar" ? "en" : "ar"}" aria-label="${t(site.ui.langLabel, l)}">${icon("globe")}<span>${t(site.ui.langName, l)}</span></a><a class="btn btn-primary btn-sm" href="#book" data-lp-book>${esc(t(site.ui.book, l))}</a></div>
+</div></header>
+<main id="main">
+${body}
+</main>
+<footer class="lp-foot"><div class="wrap"><p>© ${new Date().getFullYear()} ${esc(t(biz.brand.name, l))} · <a href="${P.home(l)}">${esc(t(site.ui.nav.home, l))}</a> · <a href="${P.branches(l)}">${esc(t(site.ui.nav.branches, l))}</a></p></div></footer>
+<div class="mbar mbar--lp" data-mbar>
+  <a class="mbar-btn mbar-wa" href="#book" data-lp-book>${icon("whatsapp")}<span>${esc(t(C.stickyWa, l))}</span></a>
+  <a class="mbar-btn" href="${P.branches(l)}" data-sheet data-mode="call" data-service="${lpKey(pg)}">${icon("phone")}<span>${esc(t(C.call, l))}</span></a>
+</div>
+${sheet(l)}
+${clientData(l, { [lpKey(pg)]: t(pg.waService, l) + " " + t(C.from, l).replace("{page}", t(pg.ref, l)) })}
+<script src="/assets/js/main.js?v=${VERSION}" defer></script>
+</body>
+</html>`;
+  return html.replace("<head>", '<head>\n<meta name="robots" content="noindex, follow">');
+}
+
+/* =====================================================================
    PAGES
    ===================================================================== */
 const reviewTotal = () => { const bs = (biz.googleReviews || {}).branchSummary || {}; return String(Object.values(bs).reduce((n, x) => n + (+x.count || 0), 0) || ""); };
@@ -545,7 +811,7 @@ function homePage(l) {
     <div class="wi-layout">
       <ol class="wi-grid">${J.whyItems.map((x, i) => `<li class="wi-card reveal" style="--d:${(i % 3) * 70}ms"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ol>
       <aside class="wi-side reveal">
-        <figure class="fig wi-fig"><img src="/assets/img/illustrations/guided-implant-planning-600.webp" alt="${esc(l === "ar" ? "تخطيط مكان الزرعة على الكمبيوتر مع دليل جراحي" : "Computer planning of the implant position with a surgical guide")}" width="600" height="450" loading="lazy" decoding="async"><figcaption>${esc(l === "ar" ? "التخطيط الرقمي ومكان الزرعة قبل الجراحة." : "Digital planning of the implant position before surgery.")}<span class="fig-tag">${ILL(l)}</span></figcaption></figure>
+        <figure class="fig wi-fig"><img src="/assets/img/3d/guided-2.webp" alt="${esc(l === "ar" ? "تخطيط مكان الزرعة تحت التاج النهائي على نموذج ثلاثي الأبعاد" : "Planning the implant under the final crown on a 3D model")}" width="1200" height="800" loading="lazy" decoding="async"><figcaption>${esc(l === "ar" ? "التخطيط بيبدأ من شكل السنة النهائية، وبعدين مكان الزرعة." : "Planning starts from the final tooth, then the implant position.")}<span class="fig-tag">${esc(t(X.ui.posterTag, l))}</span></figcaption></figure>
         ${(biz.implantSystems || []).length ? `<div class="wi-sys"><p class="jr-label">${esc(t(J.whySystemsLabel, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}
         <div class="wi-cta">${btnSheet(l, t(J.whyCta, l), implSvc, "btn-primary btn-lg", "wa")}<a class="btn btn-line" href="${P.service(l, "dental-implants")}">${esc(t(J.whyMore, l))}${icon("arrow", "flip")}</a></div>
       </aside>
@@ -576,7 +842,7 @@ function homePage(l) {
       <p class="lead">${esc(t(J.comfortLead, l))}</p>
       <ul class="cs-points">${J.comfortPoints.map((x) => `<li><span class="cs-ic">${icon(x.icon)}</span><div><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></div></li>`).join("")}</ul>
       <p class="cs-note">${icon("shield")}<span>${esc(t(J.comfortNote, l))}</span></p>
-      <div class="cs-cta"><p>${esc(t(J.comfortCtaTitle, l))}</p>${btnSheet(l, t(J.comfortCta, l), svcOf("dental-examination"), "btn-primary btn-lg", "wa")}</div>
+      <div class="cs-cta"><p>${esc(t(J.comfortCtaTitle, l))}</p>${btnSheet(l, t(J.comfortCta, l), svcOf("dental-examination"), "btn-primary btn-lg", "wa")}<a class="btn btn-outline-light" href="${PLP(l, "dental-anxiety")}">${esc(t(J.lpLink, l))}${icon("arrow", "flip")}</a></div>
     </div>
   </div></section>`;
 
@@ -588,7 +854,7 @@ function homePage(l) {
     <h1 class="hero-title hero-title--ask">${esc(t(J.title, l))}</h1>
     <p class="hero-lead">${esc(t(J.sub, l))}</p>
     <p class="ask-pick">${esc(t(J.pick, l))}</p>
-    <ul class="ask-grid">${J.items.map((x) => `<li><a class="ask-card" href="#j-${x.id}" data-journey="${x.id}">${x.img ? `<img src="/${x.img}" alt="" width="600" height="450" ${x.id === "missing" ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">` : `<span class="ask-ic">${icon(x.icon)}</span>`}<span class="ask-t"><strong>${esc(t(x.label, l))}</strong><small>${esc(t(x.hint, l))}</small></span>${icon("arrow", "flip ask-arrow")}</a></li>`).join("")}</ul>
+    <ul class="ask-grid">${J.items.map((x) => `<li><a class="ask-card" href="#j-${x.id}" data-journey="${x.id}">${x.img ? `<span class="ask-media"><img src="/${x.img}" alt="" width="600" height="450" ${x.id === "missing" ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${x.imgTag ? `<em class="ask-tag">${x.imgTag === "case" ? (l === "ar" ? "حالة حقيقية" : "Real case") : "3D"}</em>` : ""}</span>` : `<span class="ask-ic">${icon(x.icon)}</span>`}<span class="ask-t"><strong>${esc(t(x.label, l))}</strong><small>${esc(t(x.hint, l))}</small></span>${icon("arrow", "flip ask-arrow")}</a></li>`).join("")}</ul>
     <div class="ask-direct"><a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(J.direct, l))}</span></a><a class="hero-founder" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a></div>
   </div>
 </section>
@@ -611,17 +877,13 @@ ${whyImplant}
   <div class="wrap">
     ${sectionHead(t(J.digitalKicker, l), t(J.digitalTitle, l), t(J.digitalLead, l))}
     <ol class="dg-steps">${J.digitalSteps.map((x, i) => `<li class="reveal" style="--d:${i * 70}ms"><span class="dg-n">${i + 1}</span>${icon(x.icon)}<strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></li>`).join("")}</ol>
-    <ul class="dg-grid">${J.digitalCards.map((c) => `<li class="reveal"><a class="dg-card" href="${P.service(l, c.link)}${c.anchor}">${c.diagram ? `<span class="dg-media dg-media--svg">${diagrams[c.diagram](l)}</span>` : `<span class="dg-media"><img src="/${c.img}-600.webp" alt="${esc(t(c.title, l))}" width="600" height="450" loading="lazy" decoding="async"></span>`}<span class="dg-t"><strong>${esc(t(c.title, l))}</strong><span>${esc(t(c.body, l))}</span><em>${l === "ar" ? "صورة توضيحية" : "Illustration"}</em></span></a></li>`).join("")}</ul>
-    <div class="tech-grid tech-grid--sm">${tech.map((x, i) => techCard(l, x, i)).join("")}</div>
+    <div class="x3d-home reveal" id="experience">${x3dBlock(l, ["implant", "guided", "veneer"], { area: "home", headInside: true })}</div>
   </div>
 </section>
 
 ${comfort}
 
-${ortho}
 
-${reviews}
-${testimonials}
 
 <section class="section doctor" id="doctor">
   <div class="wrap doctor-grid">
@@ -633,7 +895,7 @@ ${testimonials}
       <h2>${esc(t(doc.name, l))}</h2>
       <p class="doc-role">${esc(t(doc.role, l))}</p>
       <p>${esc(t(H.doctorShort, l))}</p>
-      <a class="doc-more" href="#diagnosis">${esc(t(H.visionLink, l))}${icon("arrow", "flip")}</a>
+      <blockquote class="doc-vision doc-vision--sm"><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
       ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
       <p class="mini-label">${t(H.interestsLabel, l)}</p>
       <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
@@ -651,26 +913,8 @@ ${testimonials}
     : ""}
 </section>
 
-<section class="section journey" id="diagnosis">
-  <div class="wrap">
-    <div class="dx-grid">
-      <div class="dx-copy reveal">
-        <p class="kicker">${esc(t(H.journeyKicker, l))}</p>
-        <h2>${esc(t(H.journeyTitle, l))}</h2>
-        <blockquote class="doc-vision"><p class="hd-kicker">${esc(t(H.visionLabel, l))}</p><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
-        <p class="lead">${esc(t(H.journeyLead, l))}</p>
-        <div class="dx-cta">${btnSheet(l, t(H.diagnosisCta, l), svcOf("dental-examination"), "btn-primary btn-lg")}<p>${icon("shield")}<span>${esc(t(H.diagnosisNote, l))}</span></p></div>
-      </div>
-      <ul class="dx-why">${H.whyDiagnosis
-        .map((w, i) => `<li class="reveal" style="--d:${i * 70}ms"><span class="dx-ic">${icon(["exam", "list", "ear", "doc"][i])}</span><div><h3>${esc(t(w.t, l))}</h3><p>${esc(t(w.d, l))}</p></div></li>`)
-        .join("")}</ul>
-    </div>
-    <h3 class="sub-title">${esc(t(H.stepsTitle, l))}</h3>
-    <ol class="steps">${H.journey
-      .map((j, i) => `<li class="step reveal" style="--d:${i * 80}ms"><span class="step-n">${i + 1}</span><h3>${esc(t(j.t, l))}</h3><p>${esc(t(j.d, l))}</p></li>`)
-      .join("")}</ol>
-  </div>
-</section>
+${reviews}
+${testimonials}
 
 <section class="section services-sec" id="services">
   <div class="wrap">
@@ -716,6 +960,8 @@ ${testimonials}
 
 
 
+${ortho}
+
 ${offers}
 
 <section class="book-sec" id="book"><div class="wrap">
@@ -741,12 +987,6 @@ ${offers}
   </div>
 </section>
 
-${articles.length ? `<section class="section articles-sec" id="articles">
-  <div class="wrap">
-    <div class="s-head s-head--row">${sectionHead(t(site.ui.articlesKicker, l), t(site.ui.articlesTitle, l), t(site.ui.articlesLead, l))}<a class="btn btn-line" href="${P.articles(l)}">${t(site.ui.allArticles, l)}${icon("arrow", "flip")}</a></div>
-    <div class="art-grid">${articles.slice(0, 3).map((a, i) => articleCard(l, a, i)).join("")}</div>
-  </div>
-</section>` : ""}
 
 <section class="section faq-sec" id="faq">
   <div class="wrap faq-grid">
@@ -755,7 +995,7 @@ ${articles.length ? `<section class="section articles-sec" id="articles">
   </div>
 </section>
 
-${ctaBand(l, null)}`;
+`;
 
   return layout(
     l,
@@ -804,7 +1044,8 @@ ${ctaBand(l, null)}`;
 function journeyPanel(l, x) {
   const sv = services.find((y) => y.slug === x.service);
   const c = x.caseIndex !== undefined ? biz.cases[x.caseIndex] : x.caseService ? biz.cases.find((k) => k.service === x.caseService) : null;
-  const media = x.diagram ? `<figure class="fig g-dg">${diagrams[x.diagram](l)}<figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${l === "ar" ? "رسم توضيحي" : "Diagram"}</span></figcaption></figure>`
+  const media = x.x3d ? `<figure class="fig jr-x3d"><a href="#experience" data-open-x3d="${x.x3d}"><img src="/assets/img/3d/${x.x3dPoster}.webp" alt="${esc(t(x.caption, l))}" width="1200" height="800" loading="lazy" decoding="async"><span class="jr-x3d-btn">${icon("cube")}${esc(t(J.open3d, l))}</span></a><figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${esc(t(X.ui.posterTag, l))}</span></figcaption></figure>`
+    : x.diagram ? `<figure class="fig g-dg">${diagrams[x.diagram](l)}<figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${l === "ar" ? "رسم توضيحي" : "Diagram"}</span></figcaption></figure>`
     : x.fig ? `<figure class="fig"><img src="/${esc(x.fig.src.replace(".webp", "-600.webp"))}" alt="${esc(t(x.fig.alt, l))}" width="600" height="450" loading="lazy" decoding="async"><figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>` : "";
   return `<div class="jr-panel" role="tabpanel" id="j-${x.id}" aria-labelledby="jt-${x.id}" tabindex="0">
     <div class="jr-main">
@@ -812,7 +1053,7 @@ function journeyPanel(l, x) {
       <p>${esc(t(x.explain, l))}</p>
       <p class="jr-label">${esc(t(J.optionsLabel, l))}</p>
       <ul class="jr-opts">${x.options.map((o) => `<li>${icon("check")}<span>${o.link ? `<a href="${P.service(l, o.link)}">${esc(t(o, l))}</a>` : esc(t(o, l))}</span></li>`).join("")}</ul>
-      ${x.comfortLink ? `<a class="jr-comfort" href="#comfort">${icon("pen")}<span>${esc(t(x.comfortLink, l))}</span>${icon("arrow", "flip")}</a>` : ""}
+      ${x.comfortLink ? `<a class="jr-comfort" href="#comfort">${icon("pen")}<span>${esc(t(x.comfortLink, l))}</span>${icon("arrow", "flip")}</a><a class="jr-comfort" href="${PLP(l, "dental-anxiety")}">${icon("ear")}<span>${esc(t(J.lpLink, l))}</span>${icon("arrow", "flip")}</a>` : ""}
       <div class="jr-cta">${btnSheet(l, esc(t(x.cta, l)), sv, "btn-primary btn-lg", "wa")}${sv ? `<a class="btn btn-line" href="${P.service(l, sv.slug)}">${esc(t(J.readMore, l))}${icon("arrow", "flip")}</a>` : ""}</div>
       <p class="jr-note">${icon("shield")}<span>${esc(t(J.journeyNote, l))}</span></p>
     </div>
@@ -889,7 +1130,7 @@ function servicePage(l, s) {
     ${serviceCases(l, s)}
     ${s.compare ? `<section class="svc-cmp reveal"><h2>${esc(t(s.compare.title, l))}</h2><div class="cmp-wrap"><table class="cmp"><thead><tr>${s.compare.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${s.compare.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>${s.compare.note ? `<p class="cmp-note">${esc(t(s.compare.note, l))}</p>` : ""}</section>` : ""}
     ${(s.seeAlso || []).length ? `<nav class="see-also reveal" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
-    ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#technology"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
+    ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#experience"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
     ${s.showImplantSystems ? implantSystemsSection(l) : ""}
     ${serviceReviews(l, s)}
     <section class="svc-faq" id="faq"><h2>${t(site.ui.faqTitle, l)}</h2>${faqList(l, s.faqs)}</section>
@@ -1044,6 +1285,7 @@ for (const l of LANGS) {
   write(P.articles(l), articlesPage(l));
   for (const a of articles) write(P.article(l, a.slug), articlePage(l, a));
   for (const s of services) write(P.service(l, s.slug), servicePage(l, s));
+  for (const pg of LP.pages) write(PLP(l, pg.slug), lpPage(l, pg));
 }
 write("404.html", notFound());
 
@@ -1063,6 +1305,6 @@ write("sitemap.xml", sitemap);
 write("robots.txt", STAGING ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\n\nSitemap: ${abs("/sitemap.xml")}\n`);
 if (STAGING) fs.appendFileSync(path.join(OUT, "_headers"), "\n/*\n  X-Robots-Tag: noindex, nofollow\n");
 
-const count = LANGS.length * (4 + services.length + articles.length) + 1;
+const count = LANGS.length * (4 + services.length + articles.length + LP.pages.length) + 1;
 console.log(`Built ${count} pages into dist/  (site URL: ${biz.siteUrl})${STAGING ? "  [STAGING: noindex]" : ""}`);
 if (anyPending) console.log("Note: some branch contact details are still empty — preview notice is shown.");

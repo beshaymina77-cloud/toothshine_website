@@ -239,6 +239,13 @@ module.exports = {
        service: "dental-implants",               // links the card + booking button
        title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
        story: { ar: "وصف مختصر وواقعي للحالة والعلاج", en: "..." } }   // optional */
+  /* ---------------- TRACKING (ads + analytics) ----------------
+     Leave empty until the clinic gives its own account IDs. Nothing loads while empty.
+     ga4: "G-XXXXXXX" · googleAds: "AW-XXXXXXX" · googleAdsLead: "AW-XXXXXXX/abcDEF" (conversion label)
+     metaPixel: "1234567890". Ads/Meta load only after the visitor accepts the cookie notice.
+     No medical details are ever sent: only page type, branch, booking method and campaign (UTM). */
+  tracking: { ga4: "", googleAds: "", googleAdsLead: "", metaPixel: "" },
+
   cases: [
     // Real clinic cases, cropped from the clinic's own posts (Nov 2026). Published with the patients' consent as confirmed by Dr. Beshay.
     { service: "dental-implants", title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
