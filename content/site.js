@@ -114,11 +114,11 @@ module.exports = {
   home: {
     title: {
       ar: "مركز أسنان شاين | زراعة وتقويم وتجميل الأسنان في الإسكندرية – د. بشاي مينا",
-      en: "Tooth Shine Dental Center | Implants, Orthodontics & Cosmetic Dentistry in Alexandria – Dr. Beshay Mina",
+      en: "Tooth Shine Dental Center Alexandria | Implants & Aligners – Dr. Beshay Mina",
     },
     meta: {
       ar: "د. بشاي مينا، مؤسس مركز أسنان شاين في الإسكندرية: كل تخصصات الأسنان في مكان واحد. زراعة، تقويم، تركيبات زيركون وإي ماكس، وطب أسنان رقمي في فرعي سبورتينج والعجمي.",
-      en: "Dr. Beshay Mina, founder of Tooth Shine Dental Center in Alexandria: every dental specialty under one roof. Implants, orthodontics, Zirconia and E.max restorations and digital dentistry in Sporting and Agami.",
+      en: "Tooth Shine Dental Center by Dr. Beshay Mina in Sporting and Agami, Alexandria: digitally planned implants, clear aligners, veneers and family dentistry.",
     },
     eyebrow: { ar: "مركز أسنان في الإسكندرية · سبورتينج والعجمي", en: "Dental center in Alexandria · Sporting & Agami" },
     h1: { ar: "كل تخصصات الأسنان\nفي مكان واحد", en: "Every dental specialty,\nunder one roof" },
