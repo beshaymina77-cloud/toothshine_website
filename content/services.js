@@ -40,8 +40,8 @@ module.exports = [
       en: ["Crowded or overlapping teeth", "Gaps between teeth", "Protruding or retruded front teeth", "A bite that does not meet comfortably", "Wishing to align teeth before cosmetic restorations"],
     },
     assessment: {
-      ar: ["كشف على الأسنان واللثة والفكين", "أشعة مناسبة للحالة", "مقاس للأسنان", "شرح الخيارات المتاحة ومدة العلاج المتوقعة وطريقة المتابعة"],
-      en: ["Examination of the teeth, gums and jaws", "X-rays suited to the case", "An impression of the teeth", "Explaining the available options, expected duration and follow-up"],
+      ar: ["كشف على الأسنان واللثة والفكين", "أشعة مناسبة للحالة", "تسجيل الأسنان بالماسح الرقمي أو بالطبعة", "شرح الخيارات المتاحة ومدة العلاج المتوقعة وطريقة المتابعة"],
+      en: ["Examination of the teeth, gums and jaws", "X-rays suited to the case", "Recording the teeth with the intraoral scanner or an impression", "Explaining the available options, expected duration and follow-up"],
     },
     tech: ["scanner", "xray"],
     techniques: {"title": {"ar": "أنواع التقويم وخطوات العلاج", "en": "Types of treatment and how it works"}, "lead": {"ar": "الاختيار بين التقويم الثابت والشفاف بيتحدد بعد الكشف، حسب نوع الحالة ودرجتها وقدرتك على الالتزام.", "en": "Choosing between fixed braces and clear aligners is decided after examination, based on the type and complexity of the case and your ability to commit."}, "items": [{"icon": "aligner", "name": "Fixed braces", "title": {"ar": "التقويم الثابت", "en": "Fixed braces"}, "body": {"ar": "براكتس صغيرة بتتلصق على الأسنان وسلك بيحرّكها تدريجيًا. مناسب لمعظم الحالات، ومنها الحالات المعقدة، ومش محتاج المريض يشيله ويركّبه.", "en": "Small brackets bonded to the teeth with a wire that moves them gradually. Suits most cases, including complex ones, and does not rely on the patient removing it."}}, {"icon": "sparkle", "name": "Clear aligners", "title": {"ar": "التقويم الشفاف", "en": "Clear aligners"}, "body": {"ar": "مجموعة قوالب شفافة بتتغيّر كل فترة، وكل قالب بيحرّك الأسنان خطوة صغيرة. شكله شبه مش باين وبيتشال وقت الأكل والتنظيف.", "en": "A series of clear trays changed at intervals, each moving the teeth a small step. Nearly invisible and removed for eating and cleaning."}}, {"icon": "pen", "name": "Digital planning", "title": {"ar": "التخطيط الرقمي", "en": "Digital planning"}, "body": {"ar": "في التقويم الشفاف حركة الأسنان بتتخطط على الكمبيوتر قبل البداية، وبتشوف شكل تقريبي للنتيجة المتوقعة، وده توقع مش ضمان.", "en": "With clear aligners, tooth movement is planned on the computer before starting, showing an approximate expected result. This is a projection, not a guarantee."}}, {"icon": "shield", "name": "Retention", "title": {"ar": "التثبيت بعد التقويم", "en": "Retention"}, "body": {"ar": "بعد ما التقويم يخلص لازم مثبّت (ثابت أو متحرك) عشان الأسنان متحاولش ترجع مكانها، والالتزام بيه مهم جدًا.", "en": "After treatment a retainer (fixed or removable) is needed so the teeth do not drift back, and wearing it as advised is essential."}}]},
@@ -109,8 +109,8 @@ module.exports = [
       en: ["One or more missing teeth", "Discomfort with a removable denture", "Wanting a fixed option that does not rely on preparing neighbouring teeth", "A tooth that cannot be saved and needs replacing"],
     },
     assessment: {
-      ar: ["مراجعة التاريخ الطبي والأدوية", "فحص الفم واللثة والأسنان المجاورة", "الأشعة اللازمة لتقييم العظم", "مناقشة البدائل: زرعة، جسر، أو طقم، ومميزات وقيود كل اختيار", "خطة علاج مكتوبة بالخطوات والتكلفة بعد التقييم"],
-      en: ["Reviewing your medical history and medications", "Examining the mouth, gums and neighbouring teeth", "The X-rays needed to assess the bone", "Discussing alternatives (implant, bridge or denture) and the pros and limits of each", "A written treatment plan with steps and cost after the assessment"],
+      ar: ["مراجعة التاريخ الطبي والأدوية", "فحص الفم واللثة والأسنان المجاورة", "أشعة CBCT ثلاثية الأبعاد لتقييم العظم (بنطلبها من مركز أشعة متخصص)", "مناقشة البدائل: زرعة، جسر، أو طقم، ومميزات وقيود كل اختيار", "خطة علاج مكتوبة بالخطوات والتكلفة بعد التقييم"],
+      en: ["Reviewing your medical history and medications", "Examining the mouth, gums and neighbouring teeth", "A 3D CBCT scan to assess the bone (taken at a specialist radiology centre)", "Discussing alternatives (implant, bridge or denture) and the pros and limits of each", "A written treatment plan with steps and cost after the assessment"],
     },
     guide: require("./implant-guide.js"),   // six explained sections + contents list (approved 2026-11-13)
     tech: ["xray", "scanner", "anesthesia"],
@@ -160,8 +160,8 @@ module.exports = [
       {
         q: { ar: "لو العظم ضعيف أو قليل، أقدر أعمل زراعة؟", en: "What if I don't have enough bone?" },
         a: {
-          ar: "الأشعة اللازمة بتوضح كمية العظم. لو العظم مش كفاية، الخطة ممكن تحتاج مرحلة إضافية أو اختيار زرعة بمقاس مناسب، وده بيتحدد بعد الأشعة. الطبيب بيشرح لك الاختيار الأنسب وخطواته ومدته.",
-          en: "The X-rays needed show the available bone. If bone is limited, the plan may need an extra stage or a suitably sized implant, decided after the X-rays. Your dentist explains the best option, its steps and timeline.",
+          ar: "أشعة CBCT ثلاثية الأبعاد بتوضح كمية العظم. لو العظم مش كفاية، الخطة ممكن تحتاج مرحلة إضافية أو اختيار زرعة بمقاس مناسب، وده بيتحدد بعد الأشعة. الطبيب بيشرح لك الاختيار الأنسب وخطواته ومدته.",
+          en: "A 3D CBCT scan shows the available bone. If bone is limited, the plan may need an extra stage or a suitably sized implant, decided after the X-rays. Your dentist explains the best option, its steps and timeline.",
         },
       },
       {
@@ -226,8 +226,8 @@ module.exports = [
       en: ["A broken tooth or one with a large filling", "A root-treated tooth that needs protection", "Discolouration that does not respond to whitening", "Uneven shape or size of front teeth", "Replacing a missing tooth with a fixed bridge"],
     },
     assessment: {
-      ar: ["فحص الأسنان واللثة والإطباق", "أشعة للتأكد من سلامة الجذور والعظم", "صور ومقاس دقيق للأسنان", "مناقشة الشكل واللون المطلوبين والخامة المناسبة", "خطة واضحة بعدد الجلسات والتكلفة"],
-      en: ["Examining the teeth, gums and bite", "X-rays to check the roots and bone", "Photos and an accurate impression of the teeth", "Discussing the desired shape, shade and suitable material", "A clear plan with number of visits and cost"],
+      ar: ["فحص الأسنان واللثة والإطباق", "أشعة للتأكد من سلامة الجذور والعظم", "صور وتسجيل رقمي للأسنان بالماسح الضوئي", "مناقشة الشكل واللون المطلوبين والخامة المناسبة", "خطة واضحة بعدد الجلسات والتكلفة"],
+      en: ["Examining the teeth, gums and bite", "X-rays to check the roots and bone", "Photos and a digital scan of the teeth", "Discussing the desired shape, shade and suitable material", "A clear plan with number of visits and cost"],
     },
     techniques: {
       title: { ar: "الزيركون والإي ماكس: إمتى نستخدم كل واحد؟", en: "Zirconia and E.max: when we use each" },

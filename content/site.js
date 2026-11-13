@@ -163,8 +163,8 @@ module.exports = {
     visionLabel: { ar: "الرؤية", en: "Vision" },
     drKicker: { ar: "مؤسس المركز", en: "Founder" },
     drVision: {
-      ar: "رؤية د. بشاي مينا إن علاج الأسنان يبدأ بفهم المريض قبل أي إجراء: تشخيص دقيق، وشرح واضح لكل الخيارات، وخطة علاج يختار منها المريض وهو مطمّن. ومن هنا جه هدف مركز أسنان شاين: إن كل تخصصات الأسنان تبقى في مكان واحد، بفريق متكامل وتقنيات حديثة زي الأشعة الرقمية، علشان كل مريض ياخد علاج مدروس يدوم معاه، من غير ما يلف على أكتر من مكان.",
-      en: "Dr. Beshay Mina believes dental treatment starts with understanding the patient before any procedure: an accurate diagnosis, a clear explanation of every option, and a treatment plan the patient can choose with confidence. That is the goal of Tooth Shine: every dental specialty in one place, with an integrated team and modern tools such as digital X-ray, so each patient receives well-planned treatment built to last, without moving between clinics.",
+      ar: "رؤية د. بشاي مينا إن علاج الأسنان يبدأ بفهم المريض قبل أي إجراء: تشخيص دقيق، وشرح واضح لكل الخيارات، وخطة علاج يختار منها المريض وهو مطمّن. ومن هنا جه هدف مركز أسنان شاين: إن كل تخصصات الأسنان تبقى في مكان واحد، بفريق متكامل وتقنيات رقمية زي الماسح الضوئي والأشعة الرقمية والتخطيط الرقمي للعلاج، علشان كل مريض ياخد علاج مدروس يدوم معاه، من غير ما يلف على أكتر من مكان.",
+      en: "Dr. Beshay Mina believes dental treatment starts with understanding the patient before any procedure: an accurate diagnosis, a clear explanation of every option, and a treatment plan the patient can choose with confidence. That is the goal of Tooth Shine: every dental specialty in one place, with an integrated team and digital tools such as intraoral scanning, digital X-ray and digital treatment planning, so each patient receives well-planned treatment built to last, without moving between clinics.",
     },
     drMore: { ar: "اتعرّف على د. بشاي", en: "Meet Dr. Beshay" },
     heroCard: {
@@ -173,7 +173,7 @@ module.exports = {
     trustStrip: [
       { icon: "shield", ar: "عضو ITI و ESOI", en: "ITI & ESOI member" },
       { icon: "pin", ar: "فرعين: سبورتينج والعجمي", en: "2 branches: Sporting & Agami" },
-      { icon: "xray", ar: "أشعة رقمية", en: "Digital X-ray" },
+      { icon: "scanner", ar: "ماسح ضوئي وتخطيط رقمي", en: "Intraoral scanner & digital planning" },
       { icon: "doc", ar: "تقسيط من خلال valU", en: "Instalments via valU" },
     ],
     pillars: [
