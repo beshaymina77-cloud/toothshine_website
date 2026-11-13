@@ -1,0 +1,11 @@
+{
+  // STAGING Worker: preview of the `staging` branch. No custom domains here,
+  // so it can never take over toothshinecenter.com. Pages are noindex.
+  "name": "toothshine-staging",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true
+}
