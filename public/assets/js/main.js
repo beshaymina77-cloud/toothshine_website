@@ -74,9 +74,11 @@
   function openSheet(serviceSlug, trigger) {
     if (!sheet || typeof sheet.showModal !== "function") return false;
     lastTrigger = trigger;
+    var mode = (trigger && trigger.getAttribute("data-mode")) || "";
+    if (mode) sheet.setAttribute("data-mode", mode); else sheet.removeAttribute("data-mode");
     $$("[data-wa]", sheet).forEach(function (a) { a.setAttribute("data-service", serviceSlug || ""); });
     var sub = $("[data-sheet-sub]", sheet);
-    if (sub) sub.textContent = TS.sheetSub;
+    if (sub) sub.textContent = mode === "wa" ? TS.sheetSubWa : mode === "call" ? TS.sheetSubCall : TS.sheetSub;
     sheet.showModal();
     return true;
   }

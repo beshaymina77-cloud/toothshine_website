@@ -43,6 +43,9 @@ module.exports = {
     },
     sheetTitle: { ar: "اختار الفرع", en: "Choose a branch" },
     sheetSub: { ar: "هنفتح لك المحادثة مع الفرع اللي تختاره.", en: "We'll connect you with the branch you choose." },
+    seeAlso: { ar: "قارن كمان مع:", en: "Also compare:" },
+    sheetSubWa: { ar: "اختار الفرع، وهنفتح لك واتساب الفرع برسالة جاهزة.", en: "Choose a branch and we'll open its WhatsApp with a ready message." },
+    sheetSubCall: { ar: "اختار الفرع اللي عايز تتصل بيه.", en: "Choose the branch you'd like to call." },
     contactVia: { ar: "احجز أو استفسر", en: "Book or ask" },
     breadcrumbHome: { ar: "الرئيسية", en: "Home" },
     whyTitle: { ar: "ليه المرضى بيطلبوا الخدمة دي؟", en: "Why patients seek this treatment" },
@@ -120,13 +123,14 @@ module.exports = {
     eyebrow: { ar: "مركز أسنان في الإسكندرية · سبورتينج والعجمي", en: "Dental center in Alexandria · Sporting & Agami" },
     h1: { ar: "كل تخصصات الأسنان\nفي مكان واحد", en: "Every dental specialty,\nunder one roof" },
     lead: {
-      ar: "في مركز أسنان شاين بنجمع الزراعة والتقويم والتركيبات والتجميل وطب الأسنان الرقمي تحت سقف واحد، بفريق بيسمعك ويشرح لك كل خطوة قبل ما تبدأ.",
-      en: "At Tooth Shine we bring implants, orthodontics, restorations, cosmetic and digital dentistry together, with a team that listens and explains every step before you begin.",
+      ar: "زراعة، تقويم، تركيبات وتجميل، وطب أسنان رقمي تحت سقف واحد، في فرعين بالإسكندرية: سبورتنج والعجمي. فريق بيسمعك ويشرح لك كل خطوة قبل ما تبدأ.",
+      en: "Implants, orthodontics, restorations, cosmetic and digital dentistry under one roof, in two Alexandria branches: Sporting and Agami. A team that listens and explains every step before you begin.",
     },
     heroPre: { ar: "مؤسس مركز أسنان شاين", en: "Founder of Tooth Shine Dental Center" },
     book: {
       kicker: { ar: "احجز في دقيقة", en: "Book in a minute" },
       title: { ar: "احجز موعدك", en: "Book your appointment" },
+      short: { ar: "احجز", en: "Book" },
       lead: { ar: "اختار الخدمة والفرع واكتب اسمك ورقمك، والطلب هيتبعت على واتساب الفرع على طول.", en: "Choose a service and branch, add your name and number, and your request goes straight to the branch on WhatsApp." },
       service: { ar: "الخدمة", en: "Service" },
       branch: { ar: "الفرع", en: "Branch" },
@@ -151,6 +155,9 @@ module.exports = {
     },
     heroImgAlt: { ar: "رسم ثلاثي الأبعاد لزرعة أسنان ودعامة وتاج", en: "3D illustration of a dental implant, abutment and crown" },
     heroBranches: { ar: "سبورتنج · العجمي، الإسكندرية", en: "Sporting · Agami, Alexandria" },
+    bookCta: { ar: "اختار فرعك واحجز كشف", en: "Choose your branch & book" },
+    doctorShort: { ar: "د. بشاي مينا هو مؤسس مركز أسنان شاين في الإسكندرية، وبيركّز في عمله على زراعة الأسنان والتركيبات الثابتة وتجميل الأسنان.", en: "Dr. Beshay Mina is the founder of Tooth Shine Dental Center in Alexandria, focusing on implant dentistry, fixed prosthodontics and cosmetic dentistry." },
+    visionLink: { ar: "رؤيته في التشخيص وشرح الخيارات", en: "His approach to diagnosis and options" },
     heroFounder: { ar: "بإشراف المؤسس", en: "Led by founder" },
     heroBrand: { ar: "كل تخصصات الأسنان في مكان واحد", en: "Every dental specialty, under one roof" },
     visionLabel: { ar: "الرؤية", en: "Vision" },
@@ -182,7 +189,7 @@ module.exports = {
     },
     moreServicesTitle: { ar: "وكمان في المركز", en: "Also at the center" },
 
-    journeyKicker: { ar: "زيارة التشخيص", en: "The diagnostic visit" },
+    journeyKicker: { ar: "رؤية د. بشاي: التشخيص الأول", en: "Dr. Beshay's approach: diagnosis first" },
     journeyTitle: { ar: "ليه زيارة التشخيص هي أهم خطوة في علاجك؟", en: "Why the diagnostic visit is the most important step" },
     journeyLead: {
       ar: "قبل أي علاج، لازم نعرف الصورة كاملة. زيارة التشخيص بتخلّيك تفهم حالتك بالظبط، وتعرف الخيارات المناسبة ليك وتكلفتها، قبل ما تاخد أي قرار.",
@@ -288,6 +295,7 @@ module.exports = {
     next: { ar: "التالي", en: "Next" },
     reviewsKicker: { ar: "آراء مرضانا على Google", en: "Our patients on Google" },
     reviewsTitle: { ar: "{total} تقييم حقيقي على Google", en: "{total} real reviews on Google" },
+    generalReviews: { ar: "آراء عامة عن المركز (مش خاصة بالخدمة دي)", en: "General reviews of the center (not specific to this service)" },
     svcReviewsTitle: { ar: "مرضى جرّبوا الخدمة دي قالوا إيه على Google", en: "What patients say on Google" },
     svcReviewsMore: { ar: "تقييمات تانية من مرضانا", en: "More from our patients" },
     reviewsNote: {

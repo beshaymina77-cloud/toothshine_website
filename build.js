@@ -58,15 +58,15 @@ function waHref(l, branch, s) {
 function btnWA(l, b, s, cls = "") {
   const href = waHref(l, b, s);
   const pend = href ? "" : ` data-pending aria-disabled="true"`;
-  return `<a class="btn btn-wa ${cls}" href="${href || "#"}" target="_blank" rel="noopener" data-wa data-branch="${b.id}" data-service="${s ? s.slug : ""}"${pend}>${icon("whatsapp")}<span>${t(site.ui.whatsapp, l)}</span></a>`;
+  return `<a class="btn btn-wa ${cls}" href="${href || "#"}" target="_blank" rel="noopener" data-act="wa" data-wa data-branch="${b.id}" data-service="${s ? s.slug : ""}"${pend}>${icon("whatsapp")}<span>${t(site.ui.whatsapp, l)}</span></a>`;
 }
 function btnCall(l, b, cls = "") {
   const pend = b.phone ? "" : ` data-pending aria-disabled="true"`;
-  return `<a class="btn btn-line ${cls}" href="${b.phone ? "tel:+" + b.phone : "#"}"${pend}>${icon("phone")}<span>${t(site.ui.call, l)}</span></a>`;
+  return `<a class="btn btn-line ${cls}" data-act="call" href="${b.phone ? "tel:+" + b.phone : "#"}"${pend}>${icon("phone")}<span>${t(site.ui.call, l)}</span></a>`;
 }
 function btnMap(l, b, cls = "") {
   const pend = b.mapsUrl ? "" : ` data-pending aria-disabled="true"`;
-  return `<a class="btn btn-ghost ${cls}" href="${b.mapsUrl || "#"}" target="_blank" rel="noopener"${pend}>${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>`;
+  return `<a class="btn btn-ghost ${cls}" data-act="map" href="${b.mapsUrl || "#"}" target="_blank" rel="noopener"${pend}>${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>`;
 }
 function btnSheet(l, label, s, cls = "btn-primary") {
   return `<a class="btn ${cls}" href="${P.branches(l)}" data-sheet data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${label}</span></a>`;
@@ -232,9 +232,9 @@ function sheet(l) {
 
 function mobileBar(l, s) {
   return `<div class="mbar" data-mbar>
-  <a class="mbar-btn mbar-wa" href="${P.home(l)}#book" data-book-link>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>
-  <a class="mbar-btn" href="${P.branches(l)}" data-sheet data-service="${s ? s.slug : ""}">${icon("phone")}<span>${t(site.ui.call, l)}</span></a>
-  <a class="mbar-btn" href="${P.branches(l)}">${icon("pin")}<span>${t(site.ui.branches, l)}</span></a>
+  <a class="mbar-btn mbar-wa" href="${P.branches(l)}" data-sheet data-mode="wa" data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${t(site.ui.whatsapp, l)}</span></a>
+  <a class="mbar-btn" href="${P.branches(l)}" data-sheet data-mode="call" data-service="${s ? s.slug : ""}">${icon("phone")}<span>${t(site.ui.call, l)}</span></a>
+  <a class="mbar-btn mbar-book" href="${P.home(l)}#book">${icon("doc")}<span>${esc(t(site.home.book.short, l))}</span></a>
 </div>
 <a class="fab-book" href="${P.home(l)}#book" data-fab>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>`;
 }
@@ -247,6 +247,8 @@ function clientData(l) {
     general: t(site.ui.generalInquiry, l),
     pendingToast: t(site.ui.pendingToast, l),
     sheetSub: t(site.ui.sheetSub, l),
+    sheetSubWa: t(site.ui.sheetSubWa, l),
+    sheetSubCall: t(site.ui.sheetSubCall, l),
     services: Object.fromEntries(services.map((s) => [s.slug, svcName(l, s)])),
     branches: Object.fromEntries(biz.branches.map((b) => [b.id, { name: t(b.name, l), wa: b.whatsapp }])),
   };
@@ -443,7 +445,8 @@ function serviceReviews(l, s) {
   const H = site.home;
   return `<section class="svc-reviews reveal" id="reviews"><h2>${icon("star")}${esc(t(own.length ? H.svcReviewsTitle : H.reviewsKicker, l))}</h2>
     <div class="svc-rv-sum">${biz.branches.filter((b) => bs[b.id]).map((b) => `<a href="${GR.profiles[b.id]}" target="_blank" rel="noopener"><strong>${esc(bs[b.id].rating)}</strong><span class="stars">★★★★★</span><small>${esc(t(b.name, l))} · ${esc(t(H.reviewsBased, l).replace("{count}", bs[b.id].count))}</small></a>`).join("")}</div>
-    <div class="svc-rv-grid">${own.concat(fill).map((r) => reviewCard(l, r)).join("")}</div>
+    ${own.length ? `<div class="svc-rv-grid">${own.map((r) => reviewCard(l, r)).join("")}</div>` : ""}
+    ${fill.length ? `<h3 class="svc-rv-general">${esc(t(H.generalReviews, l))}</h3><div class="svc-rv-grid">${fill.map((r) => reviewCard(l, r)).join("")}</div>` : ""}
   </section>`;
 }
 function homePage(l) {
@@ -540,18 +543,18 @@ function homePage(l) {
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow reveal">${icon("pin")}<span>${esc(t(H.eyebrow, l))}</span></p>
-      <p class="hero-pre reveal" style="--d:40ms">${esc(t(biz.brand.name, l))}</p>
-      <h1 class="hero-title reveal" style="--d:60ms">${esc(t(H.h1, l)).replace(/\n/g, "<br>")}</h1>
-      <p class="hero-lead reveal" style="--d:100ms">${esc(t(H.lead, l))}</p>
-      <a class="hero-founder reveal" style="--d:140ms" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a>
-      <div class="hero-actions reveal" style="--d:200ms">
-        <a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(H.book.title, l))}</span></a>
+      <p class="eyebrow">${icon("pin")}<span>${esc(t(H.eyebrow, l))}</span></p>
+      <h1 class="hero-title">${esc(t(biz.brand.name, l))}</h1>
+      <p class="hero-sub">${esc(t(H.h1, l)).replace(/\n/g, " ")}</p>
+      <p class="hero-lead">${esc(t(H.lead, l))}</p>
+      <div class="hero-actions">
+        <a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(H.bookCta, l))}</span></a>
         <a class="btn btn-outline-light btn-lg" href="${P.services(l)}">${t(site.ui.exploreServices, l)}${icon("arrow", "flip")}</a>
       </div>
+      <a class="hero-founder" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a>
     </div>
-    <div class="hero-visual hero-visual--clinic reveal" style="--d:120ms">
-      <figure class="hero-clinic"><img src="/assets/img/illustrations/implant-parts.webp" alt="${esc(t(H.heroImgAlt, l))}" width="1200" height="900" fetchpriority="high"></figure>
+    <div class="hero-visual hero-visual--clinic">
+      <figure class="hero-clinic"><img src="/assets/img/illustrations/implant-parts.webp" srcset="/assets/img/illustrations/implant-parts-600.webp 600w, /assets/img/illustrations/implant-parts.webp 1200w" sizes="(max-width: 860px) 92vw, 500px" alt="${esc(t(H.heroImgAlt, l))}" width="1200" height="900" fetchpriority="high"></figure>
       <div class="hero-plate hero-plate--clinic">
         <p class="hp-name">${esc(t(biz.brand.name, l))}</p>
         <p class="hp-role">${icon("pin")}<span>${esc(t(H.heroBranches, l))}</span></p>
@@ -579,6 +582,55 @@ function homePage(l) {
     <script type="application/json" data-book-msg>${JSON.stringify(t(H.book.msg, l)).replace(/</g, "\\u003c")}</script>
   </form>
 </div></section>
+
+<section class="section doctor" id="doctor">
+  <div class="wrap doctor-grid">
+    <div class="doc-portrait reveal">
+      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
+    </div>
+    <div class="doc-copy reveal" style="--d:80ms">
+      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
+      <h2>${esc(t(doc.name, l))}</h2>
+      <p class="doc-role">${esc(t(doc.role, l))}</p>
+      <p>${esc(t(H.doctorShort, l))}</p>
+      <a class="doc-more" href="#diagnosis">${esc(t(H.visionLink, l))}${icon("arrow", "flip")}</a>
+      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
+      <p class="mini-label">${t(H.interestsLabel, l)}</p>
+      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
+      <ul class="members">${doc.memberships
+        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
+        .join("")}</ul>
+    </div>
+  </div>
+  ${biz.team.length > 1
+    ? `<div class="wrap team-grid">${biz.team
+        .slice(1)
+        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
+        .join("")}</div>`
+    : ""}
+</section>
+
+<section class="section journey" id="diagnosis">
+  <div class="wrap">
+    <div class="dx-grid">
+      <div class="dx-copy reveal">
+        <p class="kicker">${esc(t(H.journeyKicker, l))}</p>
+        <h2>${esc(t(H.journeyTitle, l))}</h2>
+        <blockquote class="doc-vision"><p class="hd-kicker">${esc(t(H.visionLabel, l))}</p><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
+        <p class="lead">${esc(t(H.journeyLead, l))}</p>
+        <div class="dx-cta">${btnSheet(l, t(H.diagnosisCta, l), svcOf("dental-examination"), "btn-primary btn-lg")}<p>${icon("shield")}<span>${esc(t(H.diagnosisNote, l))}</span></p></div>
+      </div>
+      <ul class="dx-why">${H.whyDiagnosis
+        .map((w, i) => `<li class="reveal" style="--d:${i * 70}ms"><span class="dx-ic">${icon(["exam", "list", "ear", "doc"][i])}</span><div><h3>${esc(t(w.t, l))}</h3><p>${esc(t(w.d, l))}</p></div></li>`)
+        .join("")}</ul>
+    </div>
+    <h3 class="sub-title">${esc(t(H.stepsTitle, l))}</h3>
+    <ol class="steps">${H.journey
+      .map((j, i) => `<li class="step reveal" style="--d:${i * 80}ms"><span class="step-n">${i + 1}</span><h3>${esc(t(j.t, l))}</h3><p>${esc(t(j.d, l))}</p></li>`)
+      .join("")}</ol>
+  </div>
+</section>
 
 <section class="section services-sec" id="services">
   <div class="wrap">
@@ -621,52 +673,6 @@ function homePage(l) {
   </div>
 </section>
 
-<section class="section doctor" id="doctor">
-  <div class="wrap doctor-grid">
-    <div class="doc-portrait reveal">
-      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
-    </div>
-    <div class="doc-copy reveal" style="--d:80ms">
-      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
-      <h2>${esc(t(doc.name, l))}</h2>
-      <p class="doc-role">${esc(t(doc.role, l))}</p>
-      <blockquote class="doc-vision"><p class="hd-kicker">${esc(t(H.visionLabel, l))}</p><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
-      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
-      <p class="mini-label">${t(H.interestsLabel, l)}</p>
-      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
-      <ul class="members">${doc.memberships
-        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
-        .join("")}</ul>
-    </div>
-  </div>
-  ${biz.team.length > 1
-    ? `<div class="wrap team-grid">${biz.team
-        .slice(1)
-        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
-        .join("")}</div>`
-    : ""}
-</section>
-
-<section class="section journey" id="diagnosis">
-  <div class="wrap">
-    <div class="dx-grid">
-      <div class="dx-copy reveal">
-        <p class="kicker">${esc(t(H.journeyKicker, l))}</p>
-        <h2>${esc(t(H.journeyTitle, l))}</h2>
-        <p class="lead">${esc(t(H.journeyLead, l))}</p>
-        <div class="dx-cta">${btnSheet(l, t(H.diagnosisCta, l), svcOf("dental-examination"), "btn-primary btn-lg")}<p>${icon("shield")}<span>${esc(t(H.diagnosisNote, l))}</span></p></div>
-      </div>
-      <ul class="dx-why">${H.whyDiagnosis
-        .map((w, i) => `<li class="reveal" style="--d:${i * 70}ms"><span class="dx-ic">${icon(["exam", "list", "ear", "doc"][i])}</span><div><h3>${esc(t(w.t, l))}</h3><p>${esc(t(w.d, l))}</p></div></li>`)
-        .join("")}</ul>
-    </div>
-    <h3 class="sub-title">${esc(t(H.stepsTitle, l))}</h3>
-    <ol class="steps">${H.journey
-      .map((j, i) => `<li class="step reveal" style="--d:${i * 80}ms"><span class="step-n">${i + 1}</span><h3>${esc(t(j.t, l))}</h3><p>${esc(t(j.d, l))}</p></li>`)
-      .join("")}</ol>
-  </div>
-</section>
 
 ${reviews}
 ${cases}
@@ -776,13 +782,15 @@ function servicePage(l, s) {
 <section class="section svc"><div class="wrap svc-grid">
   <article class="svc-main">
     <div class="svc-intro reveal">${t(s.intro, l).map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    ${s.highlight ? `<aside class="svc-hl reveal"><p class="kicker">${esc(t(s.highlight.kicker, l))}</p><h2>${esc(t(s.highlight.title, l))}</h2><p>${esc(t(s.highlight.body, l))}</p><a class="btn btn-primary" href="#techniques">${esc(t(s.highlight.cta, l))}${icon("arrow", "flip")}</a></aside>` : ""}
     <div class="svc-two">
       <section class="svc-block reveal"><h2>${icon("list")}${t(site.ui.whyTitle, l)}</h2><ul class="ticks">${s.reasons[l].map((r) => `<li>${icon("check")}<span>${esc(r)}</span></li>`).join("")}</ul></section>
       <section class="svc-block reveal"><h2>${icon("doc")}${t(site.ui.assessTitle, l)}</h2><ol class="nums">${s.assessment[l].map((r) => `<li><span>${esc(r)}</span></li>`).join("")}</ol></section>
     </div>
     ${s.techniques ? `<section class="svc-tq reveal" id="techniques"><h2>${esc(t(s.techniques.title, l))}</h2>${s.techniques.lead ? `<p class="svc-tq-lead">${esc(t(s.techniques.lead, l))}</p>` : ""}<div class="tq-grid">${s.techniques.items.map((x, i) => `<article class="tq-card${s.techniques.steps ? " tq-step" : ""}"><span class="mini-ic">${icon(x.icon)}</span>${s.techniques.steps ? `<span class="tq-num">${i + 1}</span>` : ""}<h3>${esc(t(x.title, l))}</h3>${l === "ar" ? `<p class="tq-en" dir="ltr">${esc(x.name)}</p>` : ""}<p>${esc(t(x.body, l))}</p></article>`).join("")}</div></section>` : ""}
-    ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
+    ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 380px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
     ${s.compare ? `<section class="svc-cmp reveal"><h2>${esc(t(s.compare.title, l))}</h2><div class="cmp-wrap"><table class="cmp"><thead><tr>${s.compare.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${s.compare.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>${s.compare.note ? `<p class="cmp-note">${esc(t(s.compare.note, l))}</p>` : ""}</section>` : ""}
+    ${(s.seeAlso || []).length ? `<nav class="see-also reveal" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
     ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#technology"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
     ${s.showImplantSystems ? implantSystemsSection(l) : ""}
     ${serviceReviews(l, s)}
