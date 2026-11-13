@@ -551,6 +551,21 @@ function homePage(l) {
       </aside>
     </div>
   </div></section>`;
+  const orthoArts = articles.filter((a) => a.service === "orthodontics");
+  const ortho = `<section class="section ortho-sig" id="clear-aligners"><div class="wrap os-grid">
+    <div class="os-copy reveal">
+      <p class="kicker">${esc(t(J.orthoKicker, l))}</p>
+      <h2>${esc(t(J.orthoTitle, l))}</h2>
+      <p class="lead">${esc(t(J.orthoLead, l))}</p>
+      <ul class="os-points">${J.orthoPoints.map((x) => `<li><span class="wi-ic">${icon(x.icon)}</span><div><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></div></li>`).join("")}</ul>
+      <p class="jr-note">${icon("shield")}<span>${esc(t(J.orthoNote, l))}</span></p>
+      <div class="wi-cta">${btnSheet(l, t(J.orthoCta, l), svcOf("orthodontics"), "btn-primary btn-lg", "wa")}<a class="btn btn-line" href="${P.service(l, "orthodontics")}">${esc(t(J.orthoMore, l))}${icon("arrow", "flip")}</a></div>
+    </div>
+    <div class="os-side reveal" style="--d:80ms">
+      <figure class="fig wi-fig"><img src="/assets/img/illustrations/clear-aligner-600.webp" alt="${esc(l === "ar" ? "قالب تقويم شفاف" : "A clear aligner tray")}" width="600" height="450" loading="lazy" decoding="async"><figcaption>${esc(l === "ar" ? "قوالب شفافة بتتغير على مراحل." : "Clear trays changed in stages.")}<span class="fig-tag">${ILL(l)}</span></figcaption></figure>
+      ${orthoArts.length ? `<div class="os-reads"><p class="jr-label">${esc(t(J.orthoReads, l))}</p><ul>${orthoArts.map((a) => `<li><a href="${P.article(l, a.slug)}">${esc(t(a.title, l))}${icon("arrow", "flip")}</a></li>`).join("")}</ul></div>` : ""}
+    </div>
+  </div></section>`;
   const devPhoto = (biz.photos.equipment || {}).anesthesia;
   const comfort = `<section class="section comfort-sig" id="comfort"><div class="wrap cs-grid">
     <div class="cs-media reveal">${devPhoto ? `<figure class="photo cs-photo"><img src="/${devPhoto}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>` : `<div class="cs-art" aria-hidden="true"><span class="cs-ring"></span>${icon("pen", "cs-pen")}<span class="cs-flow"><i></i><i></i><i></i></span></div>`}</div>
@@ -602,6 +617,8 @@ ${whyImplant}
 </section>
 
 ${comfort}
+
+${ortho}
 
 ${reviews}
 ${testimonials}
@@ -995,7 +1012,14 @@ function notFound() {
 /* =====================================================================
    WRITE
    ===================================================================== */
+/* Staging: any non-main branch build (Cloudflare sets WORKERS_CI_BRANCH) or STAGING=1.
+   Staging pages are noindex and carry a visible banner; robots.txt blocks everything. */
+const STAGING = process.env.STAGING === "1" || (!!process.env.WORKERS_CI_BRANCH && process.env.WORKERS_CI_BRANCH !== "main");
 function write(p, html) {
+  if (STAGING && /\.html$|\/$/.test(p)) {
+    html = html.replace("<head>", '<head>\n<meta name="robots" content="noindex, nofollow">')
+      .replace(/<body([^>]*)>/, '<body$1><div style="position:sticky;top:0;z-index:9999;background:#b45309;color:#fff;text-align:center;font:600 13px/1.6 system-ui;padding:6px 12px">نسخة تجريبية للمراجعة، مش الموقع الرسمي · Staging preview, not the live site</div>');
+  }
   const file = path.join(OUT, p.endsWith("/") ? p + "index.html" : p);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, html);
@@ -1036,8 +1060,9 @@ ${urls
   .join("\n")}
 </urlset>`;
 write("sitemap.xml", sitemap);
-write("robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${abs("/sitemap.xml")}\n`);
+write("robots.txt", STAGING ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\n\nSitemap: ${abs("/sitemap.xml")}\n`);
+if (STAGING) fs.appendFileSync(path.join(OUT, "_headers"), "\n/*\n  X-Robots-Tag: noindex, nofollow\n");
 
 const count = LANGS.length * (4 + services.length + articles.length) + 1;
-console.log(`Built ${count} pages into dist/  (site URL: ${biz.siteUrl})`);
+console.log(`Built ${count} pages into dist/  (site URL: ${biz.siteUrl})${STAGING ? "  [STAGING: noindex]" : ""}`);
 if (anyPending) console.log("Note: some branch contact details are still empty — preview notice is shown.");

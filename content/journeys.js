@@ -173,4 +173,21 @@ module.exports = {
   comfortCtaTitle: { ar: "خايف من علاج الأسنان؟ اتعرف على طرق راحتك في مركز شاين", en: "Anxious about dental treatment? Find out how we keep you comfortable" },
   comfortCta: { ar: "احجز كشف هادي", en: "Book a calm first visit" },
   comfortDeviceAlt: { ar: "قلم البنج الإلكتروني في مركز أسنان شاين", en: "The computer-controlled anaesthesia device at Tooth Shine" },
+
+  /* ---------- v14: orthodontics / clear aligners ---------- */
+  orthoKicker: { ar: "تقويم الأسنان", en: "Orthodontics" },
+  orthoTitle: { ar: "التقويم الشفاف: من أحدث طرق تقويم الأسنان", en: "Clear aligners: one of the newest ways to straighten teeth" },
+  orthoLead: {
+    ar: "قوالب شفافة شبه مش باينة، بتتشال وقت الأكل، وحركة الأسنان بتتخطط على الكمبيوتر قبل ما نبدأ. وبنقدّم كمان التقويم الثابت للحالات اللي يناسبها أكتر.",
+    en: "Nearly invisible clear trays, removed for meals, with tooth movement planned on the computer before we start. We also offer fixed braces for cases they suit better.",
+  },
+  orthoPoints: [
+    { icon: "scanner", title: { ar: "مسح رقمي بدل المعجون", en: "Digital scan, no impression paste" }, body: { ar: "بالماسح الضوئي داخل الفم في أغلب الحالات.", en: "With the intraoral scanner in most cases." } },
+    { icon: "doc", title: { ar: "خطة على الكمبيوتر", en: "Planned on the computer" }, body: { ar: "بتشوف خطة حركة الأسنان قبل البداية.", en: "You see the planned tooth movement before starting." } },
+    { icon: "aligner", title: { ar: "شفاف وبيتشال", en: "Clear and removable" }, body: { ar: "بتشيله وقت الأكل والتنظيف، وبتلبسه باقي اليوم.", en: "Removed to eat and clean, worn the rest of the day." } },
+  ],
+  orthoNote: { ar: "التقويم الشفاف مناسب لحالات كتير لكن مش لكل الحالات. الطبيب بيحدد الأنسب ليك بعد الكشف.", en: "Clear aligners suit many cases but not all. The dentist recommends the right option after an examination." },
+  orthoCta: { ar: "احجز كشف تقويم", en: "Book an orthodontic check" },
+  orthoMore: { ar: "كل تفاصيل التقويم", en: "All about orthodontics" },
+  orthoReads: { ar: "اقرأ عن التقويم", en: "Read about orthodontics" },
 };
