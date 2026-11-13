@@ -150,7 +150,7 @@ module.exports = {
     { name: "Osstem", origin: { ar: "كوريا", en: "Korea" } },
     { name: "Hiossen", origin: { ar: "أمريكا", en: "USA" } },
     { name: "Neobiotech", origin: { ar: "كوريا", en: "Korea" } },
-    { name: "Fortis", origin: { ar: "", en: "" } },
+    { name: "Fortis", origin: { ar: "ألمانيا", en: "Germany" } },
   ],
 
   /* ---------------- GOOGLE REVIEWS ----------------
