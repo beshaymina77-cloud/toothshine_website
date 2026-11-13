@@ -105,3 +105,8 @@ WhatsApp buttons pre-fill a message with the chosen service and branch; the gree
 - `cases` (قصص نجاح): `{ image: "assets/img/case-1.jpg", service: "dental-implants", title: {ar,en}, story: {ar,en} }` — صورة مربعة 1:1 (قبل/بعد في صورة واحدة)، بموافقة كتابية.
 - `testimonials` (قصص المرضى): `{ youtubeId: "..." أو video: "assets/video/x.mp4", poster, service, title:{}, quote:{}, name, instagram: "لينك البوست" }` — فيديو طولي 4:5.
 - `trustStats` (اختياري): `{ value: "10+", label: {ar:"سنوات خبرة", en:"Years of experience"} }` — أرقام حقيقية تقدر تثبتها بس.
+
+## Staging workflow
+- New work goes to the `staging` branch. Cloudflare Worker `toothshine-staging` builds it with `STAGING=1 npm run build` and `npx wrangler deploy --config wrangler.staging.jsonc` (no custom domains, every page is noindex, robots.txt blocks all).
+- Preview: https://toothshine-staging.beshaymina77.workers.dev
+- After Dr. Beshay approves, merge `staging` into `main`. Main deploys to toothshinecenter.com via Worker `toothshine-dental`.
