@@ -121,6 +121,12 @@ module.exports = {
     },
   ],
 
+  /* ---------------- EQUIPMENT CONFIRMATION ----------------
+     false = hidden from the whole site (pages, cards, text) until confirmed. */
+  features: {
+    scanner: false,          // intraoral scanner: not confirmed (Nov 2026)
+  },
+
   /* ---------------- PHOTO SLOTS ----------------
      Empty = a designed placeholder panel is shown instead. */
   photos: {

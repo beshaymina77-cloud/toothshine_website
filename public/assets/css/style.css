@@ -952,3 +952,25 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .svc-hl h2 { color: #fff; font-size: 24px; margin: 4px 0 8px; }
 .svc-hl p { color: #dbe4f7; }
 .svc-hl .btn { background: #fff; color: var(--navy); }
+
+/* ---------- implant guide (v10) ---------- */
+.g-toc { margin: 26px 0 8px; padding: 20px 22px; background: var(--ice, #f2f7fe); border: 1px solid rgba(1, 84, 186, .14); border-radius: var(--radius-sm, 14px); }
+.g-toc .kicker { margin: 0 0 8px; }
+.g-toc ol { margin: 0 0 16px; padding-inline-start: 22px; display: grid; gap: 6px; }
+.g-toc a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.g-toc a:hover, .g-toc a:focus-visible { color: var(--blue); text-decoration: underline; }
+.g-sec { margin-top: 44px; scroll-margin-top: 96px; }
+.g-sec h2 { display: flex; align-items: center; gap: 12px; font-size: 25px; margin-bottom: 12px; }
+.g-sec h3 { font-size: 19px; margin: 22px 0 8px; color: var(--navy); }
+.g-sec > p { margin: 10px 0; }
+.g-num { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 700 16px/1 var(--font-head); }
+.g-steps { margin: 8px 0 12px; padding-inline-start: 24px; display: grid; gap: 8px; }
+.g-steps li::marker { color: var(--blue); font-weight: 700; }
+.g-sec .cmp-wrap { margin: 14px 0; }
+.g-fig { margin: 16px 0; max-width: 680px; }
+.g-dg svg { display: block; width: 100%; height: auto; background: #f7fafe; padding: 6px 4px 0; box-sizing: border-box; }
+.g-cta { margin: 20px 0 4px; }
+.g-sec .see-also { margin-top: 14px; }
+.g-reviewed { display: flex; gap: 8px; align-items: flex-start; margin-top: 22px; padding: 12px 16px; border-radius: 12px; background: var(--ice, #f2f7fe); font-size: 14px; color: var(--muted); }
+.g-reviewed .ic { flex: none; width: 18px; height: 18px; color: var(--blue); margin-top: 2px; }
+@media (max-width: 640px) { .g-sec h2 { font-size: 21px; } .g-num { width: 30px; height: 30px; font-size: 14px; } .g-toc { padding: 16px; } }

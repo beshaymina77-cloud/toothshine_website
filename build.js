@@ -10,10 +10,16 @@ const ROOT = __dirname;
 const OUT = path.join(ROOT, "dist");
 const biz = require("./config/business.js");
 const site = require("./content/site.js");
-const services = require("./content/services.js");
-const tech = require("./content/technology.js");
+// Equipment not yet confirmed by the clinic is hidden everywhere (config/business.js → features)
+const FEAT = biz.features || {};
+const hideTech = Object.keys(FEAT).filter((k) => FEAT[k] === false);
+const services = require("./content/services.js")
+  .filter((s) => !(s.requires || []).some((k) => hideTech.includes(k)))
+  .map((s) => ({ ...s, tech: (s.tech || []).filter((id) => !hideTech.includes(id)) }));
+const tech = require("./content/technology.js").filter((x) => !hideTech.includes(x.id));
 const articles = require("./content/articles.js").slice().sort((a, b) => (a.date < b.date ? 1 : -1));
 const icons = require("./src/icons.js");
+const diagrams = require("./src/diagrams.js");
 
 const LANGS = ["ar", "en"];
 const VERSION = Date.now().toString(36);
@@ -68,8 +74,8 @@ function btnMap(l, b, cls = "") {
   const pend = b.mapsUrl ? "" : ` data-pending aria-disabled="true"`;
   return `<a class="btn btn-ghost ${cls}" data-act="map" href="${b.mapsUrl || "#"}" target="_blank" rel="noopener"${pend}>${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>`;
 }
-function btnSheet(l, label, s, cls = "btn-primary") {
-  return `<a class="btn ${cls}" href="${P.branches(l)}" data-sheet data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${label}</span></a>`;
+function btnSheet(l, label, s, cls = "btn-primary", mode = "") {
+  return `<a class="btn ${cls}" href="${P.branches(l)}" data-sheet${mode ? ` data-mode="${mode}"` : ""} data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${label}</span></a>`;
 }
 
 /* ---------- photo slot ---------- */
@@ -769,6 +775,29 @@ ${ctaBand(l, null)}`;
   );
 }
 
+/* ---------- explained guide (implants) ---------- */
+const md = (x) => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+const ILL = (l) => (l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case");
+function guideToc(l, s) {
+  const G = s.guide;
+  return `<nav class="g-toc reveal" aria-label="${esc(t(G.tocTitle, l))}"><p class="kicker">${esc(t(G.tocTitle, l))}</p><ol>${G.sections.map((x) => `<li><a href="#${x.id}">${esc(t(x.title, l))}</a></li>`).join("")}<li><a href="#faq">${t(site.ui.faqTitle, l)}</a></li></ol>${btnSheet(l, esc(t(G.cta, l)), s, "btn-primary", "wa")}</nav>`;
+}
+function guideBlock(l, s, b) {
+  if (b.p) return `<p>${md(t(b.p, l))}</p>`;
+  if (b.h) return `<h3>${esc(t(b.h, l))}</h3>`;
+  if (b.ul) return `<ul class="ticks">${b.ul[l].map((x) => `<li>${icon("check")}<span>${md(x)}</span></li>`).join("")}</ul>`;
+  if (b.ol) return `<ol class="g-steps">${b.ol[l].map((x) => `<li>${md(x)}</li>`).join("")}</ol>`;
+  if (b.table) { const T = b.table[l]; return `<div class="cmp-wrap"><table class="cmp"><thead><tr>${T.cols.map((c) => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>${T.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${md(c)}</td>` : `<th scope="row">${md(c)}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`; }
+  if (b.fig) { const f = b.fig; return `<figure class="fig g-fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, 640px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${ILL(l)}</span></figcaption></figure>`; }
+  if (b.diagram) return `<figure class="fig g-fig g-dg">${diagrams[b.diagram](l)}<figcaption>${esc(t(b.caption, l))}<span class="fig-tag">${l === "ar" ? "رسم توضيحي، وليس حالة مريض" : "Diagram, not a patient case"}</span></figcaption></figure>`;
+  if (b.links) return `<nav class="see-also" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${b.links.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>`;
+  if (b.cta) return `<div class="g-cta">${btnSheet(l, esc(t(s.guide.cta, l)), s, "btn-primary", "wa")}</div>`;
+  return "";
+}
+function guideSections(l, s) {
+  return s.guide.sections.map((x, i) => `<section class="g-sec reveal" id="${x.id}"><h2><span class="g-num">${i + 1}</span>${esc(t(x.title, l))}</h2>${x.blocks.map((b) => guideBlock(l, s, b)).join("")}</section>`).join("");
+}
+
 function servicePage(l, s) {
   const crumbs = [
     [t(site.ui.breadcrumbHome, l), P.home(l)],
@@ -782,12 +811,14 @@ function servicePage(l, s) {
 <section class="section svc"><div class="wrap svc-grid">
   <article class="svc-main">
     <div class="svc-intro reveal">${t(s.intro, l).map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    ${s.guide ? guideToc(l, s) : ""}
     ${s.highlight ? `<aside class="svc-hl reveal"><p class="kicker">${esc(t(s.highlight.kicker, l))}</p><h2>${esc(t(s.highlight.title, l))}</h2><p>${esc(t(s.highlight.body, l))}</p><a class="btn btn-primary" href="#techniques">${esc(t(s.highlight.cta, l))}${icon("arrow", "flip")}</a></aside>` : ""}
     <div class="svc-two">
       <section class="svc-block reveal"><h2>${icon("list")}${t(site.ui.whyTitle, l)}</h2><ul class="ticks">${s.reasons[l].map((r) => `<li>${icon("check")}<span>${esc(r)}</span></li>`).join("")}</ul></section>
       <section class="svc-block reveal"><h2>${icon("doc")}${t(site.ui.assessTitle, l)}</h2><ol class="nums">${s.assessment[l].map((r) => `<li><span>${esc(r)}</span></li>`).join("")}</ol></section>
     </div>
     ${s.techniques ? `<section class="svc-tq reveal" id="techniques"><h2>${esc(t(s.techniques.title, l))}</h2>${s.techniques.lead ? `<p class="svc-tq-lead">${esc(t(s.techniques.lead, l))}</p>` : ""}<div class="tq-grid">${s.techniques.items.map((x, i) => `<article class="tq-card${s.techniques.steps ? " tq-step" : ""}"><span class="mini-ic">${icon(x.icon)}</span>${s.techniques.steps ? `<span class="tq-num">${i + 1}</span>` : ""}<h3>${esc(t(x.title, l))}</h3>${l === "ar" ? `<p class="tq-en" dir="ltr">${esc(x.name)}</p>` : ""}<p>${esc(t(x.body, l))}</p></article>`).join("")}</div></section>` : ""}
+    ${s.guide ? guideSections(l, s) : ""}
     ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 380px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
     ${s.compare ? `<section class="svc-cmp reveal"><h2>${esc(t(s.compare.title, l))}</h2><div class="cmp-wrap"><table class="cmp"><thead><tr>${s.compare.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${s.compare.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>${s.compare.note ? `<p class="cmp-note">${esc(t(s.compare.note, l))}</p>` : ""}</section>` : ""}
     ${(s.seeAlso || []).length ? `<nav class="see-also reveal" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
@@ -795,6 +826,7 @@ function servicePage(l, s) {
     ${s.showImplantSystems ? implantSystemsSection(l) : ""}
     ${serviceReviews(l, s)}
     <section class="svc-faq" id="faq"><h2>${t(site.ui.faqTitle, l)}</h2>${faqList(l, s.faqs)}</section>
+    ${s.guide && s.guide.reviewed ? `<p class="g-reviewed">${icon("check")}<span>${esc(t(s.guide.reviewed, l))}</span></p>` : ""}
     ${articles.filter((a) => a.service === s.slug).length ? `<section class="svc-articles"><h2>${t(site.ui.articlesKicker, l)}</h2><div class="art-grid art-grid--2">${articles.filter((a) => a.service === s.slug).slice(0, 2).map((a, i) => articleCard(l, a, i)).join("")}</div></section>` : ""}
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
