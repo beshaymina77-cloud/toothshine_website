@@ -267,6 +267,10 @@ module.exports = {
       images: [{ src: "assets/img/cases/whitening-3-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/whitening-3-during.webp", label: { ar: "أثناء الجلسة", en: "During the visit" } }] },
     { service: "tooth-extraction", title: { ar: "خلع ضرس عقل مدفون جراحيًا", en: "Surgical removal of an impacted wisdom tooth" },
       images: [{ src: "assets/img/cases/wisdom-xray.webp", label: { ar: "الأشعة قبل الخلع", en: "X-ray before" } }, { src: "assets/img/cases/wisdom-tooth.webp", label: { ar: "الضرس بعد الخلع", en: "The tooth after removal" } }] },
+    { service: "tooth-extraction", title: { ar: "خلع ضرس عقل مدفون", en: "Removing an impacted wisdom tooth" },
+      images: [{ src: "assets/img/cases/wisdom-2-before.webp", label: { ar: "الأشعة قبل الخلع", en: "X-ray before" } }, { src: "assets/img/cases/wisdom-2-after.webp", label: { ar: "الضرس بعد خلعه، موضوع على الأشعة للتوضيح", en: "The removed tooth, shown over the X-ray" } }] },
+    { service: "tooth-extraction", title: { ar: "خلع ضرس عقل مدفون", en: "Removing an impacted wisdom tooth" },
+      images: [{ src: "assets/img/cases/wisdom-3-before.webp", label: { ar: "الأشعة قبل الخلع", en: "X-ray before" } }, { src: "assets/img/cases/wisdom-3-after.webp", label: { ar: "الضرس بعد خلعه، موضوع على الأشعة للتوضيح", en: "The removed tooth, shown over the X-ray" } }] },
   ],
 
   /* ---------------- PATIENT STORIES (videos) ----------------
