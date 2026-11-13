@@ -124,7 +124,7 @@ module.exports = {
   /* ---------------- EQUIPMENT CONFIRMATION ----------------
      false = hidden from the whole site (pages, cards, text) until confirmed. */
   features: {
-    scanner: false,          // intraoral scanner: not confirmed (Nov 2026)
+    scanner: true,           // intraoral scanner: confirmed by Dr. Beshay (13 Nov 2026)
   },
 
   /* ---------------- PHOTO SLOTS ----------------

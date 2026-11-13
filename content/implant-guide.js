@@ -34,7 +34,7 @@ module.exports = {
         { ol: {
           ar: [
             "**كشف وتشخيص:** نشوف اللثة والأسنان اللي جنب المكان، ونراجع تاريخك الصحي والأدوية اللي بتاخدها.",
-            "**الأشعة اللازمة:** عشان نعرف كمية العظم ومكان الأعصاب والجيوب الأنفية.",
+            "**أشعة CBCT ثلاثية الأبعاد:** بنطلبها من مركز أشعة متخصص، عشان نعرف كمية العظم ومكان الأعصاب والجيوب الأنفية.",
             "**خطة مكتوبة:** نشرحلك الاختيارات وعدد الزيارات المتوقع، ونرد على أسئلتك قبل أي خطوة.",
             "**تثبيت الزرعة:** تحت بنج موضعي.",
             "**فترة الالتحام:** العظم بيلتحم حوالين الزرعة، ومدتها بتختلف من حالة لحالة. في حالات مناسبة ممكن نركب سنة مؤقتة بسرعة (شوف الزراعة الفورية تحت).",
@@ -43,7 +43,7 @@ module.exports = {
           ],
           en: [
             "**Examination:** we check the gum and neighbouring teeth and review your medical history and medicines.",
-            "**The X-rays needed:** to see the amount of bone and the position of nerves and sinuses.",
+            "**A 3D CBCT scan:** taken at a specialist radiology centre, to see the bone and the position of nerves and sinuses.",
             "**A written plan:** we explain the options and expected number of visits, and answer your questions before any step.",
             "**Placing the implant:** under local anaesthesia.",
             "**Healing:** the bone bonds around the implant; how long this takes varies. In suitable cases a temporary tooth can be fitted early (see immediate implants below).",
@@ -170,17 +170,17 @@ module.exports = {
         { ol: {
           ar: [
             "**الكشف:** نشوف المكان واللثة والعضة، ونحدد شكل السنة اللي هتتركب في الآخر.",
-            "**الأشعة اللازمة:** عشان نشوف العظم والأعصاب والجيوب.",
-            "**تسجيل شكل الأسنان:** مقاس للأسنان، بيتحوّل لنسخة رقمية حسب الحاجة.",
-            "**التخطيط على الكمبيوتر:** بنحط الزرعة في المكان الأنسب للعظم وللسنة النهائية مع بعض.",
+            "**أشعة CBCT ثلاثية الأبعاد:** من مركز أشعة متخصص، عشان نشوف العظم والأعصاب والجيوب.",
+            "**مسح رقمي للأسنان:** بالماسح الضوئي داخل الفم، من غير معجون المقاس في أغلب الحالات.",
+            "**التخطيط الرقمي على الكمبيوتر:** بندمج الأشعة مع المسح الرقمي، ونحط الزرعة في المكان الأنسب للعظم وللسنة النهائية مع بعض.",
             "**تصميم وطباعة الدليل:** قالب شفاف فيه فتحات معدنية بتحدد مكان وزاوية الزرعة.",
             "**يوم الزراعة:** بنثبت الدليل في بقك، ونزرع من خلاله، وفي حالات مناسبة من غير شق للثة.",
           ],
           en: [
             "**Examination:** we check the site, gum and bite, and plan the shape of the final tooth.",
-            "**The X-rays needed:** to see the bone, nerves and sinuses.",
-            "**Recording your teeth:** an impression, converted to a digital copy when needed.",
-            "**Computer planning:** the implant is placed where it suits both the bone and the final tooth.",
+            "**A 3D CBCT scan:** from a specialist radiology centre, to see the bone, nerves and sinuses.",
+            "**Digital scan of your teeth:** with the intraoral scanner, usually without impression paste.",
+            "**Digital planning:** the CBCT and the scan are merged, and the implant is placed where it suits both the bone and the final tooth.",
             "**Designing and printing the guide:** a clear template with metal sleeves that set the implant position and angle.",
             "**Surgery day:** the guide is seated in your mouth and the implant is placed through it, in suitable cases without a gum incision.",
           ],
