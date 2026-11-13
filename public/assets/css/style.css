@@ -1086,3 +1086,71 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .hero--ask .hero-founder { background: #fff; border: 1px solid rgba(1, 84, 186, .16); color: var(--navy); }
 .hero--ask .hero-founder .hf-label { color: var(--muted); }
 .hero--ask .hero-founder strong { color: var(--navy); }
+
+/* ===== v13: why Tooth Shine for implants ===== */
+.why-impl { background: linear-gradient(180deg, var(--ice), var(--white)); }
+.wi-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.wi-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; counter-reset: wi; }
+.wi-card { position: relative; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 20px 20px 18px; box-shadow: var(--shadow); counter-increment: wi; }
+.wi-card::after { content: counter(wi, decimal-leading-zero); position: absolute; inset-inline-end: 16px; top: 14px; font: 600 13px/1 var(--font-head); color: var(--baby); letter-spacing: .04em; }
+.wi-ic { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ice); color: var(--blue); margin-bottom: 10px; }
+.wi-ic .ic { width: 24px; height: 24px; }
+.wi-card h3 { font-size: 17px; margin: 0 0 6px; color: var(--navy); line-height: 1.5; }
+.wi-card p { margin: 0; font-size: 15px; line-height: 1.8; color: var(--muted); }
+.wi-side { position: sticky; top: 90px; display: grid; gap: 16px; }
+.wi-fig { margin: 0; background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.wi-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.wi-fig figcaption { padding: 10px 14px 12px; font-size: 13.5px; color: var(--muted); display: grid; gap: 4px; }
+.wi-sys { background: var(--navy); color: var(--white); border-radius: var(--radius-sm); padding: 16px 18px; }
+.wi-sys .jr-label { color: var(--baby); margin: 0 0 10px; }
+.wi-sys ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.wi-sys li { font: 600 14px/1 var(--font-head); padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(207, 228, 251, .22); }
+.wi-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 960px) {
+  .wi-layout { grid-template-columns: 1fr; }
+  .wi-side { position: static; }
+}
+@media (max-width: 620px) {
+  .wi-grid { grid-template-columns: 1fr; gap: 10px; }
+  .wi-card { padding: 16px; display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; }
+  .wi-card .wi-ic { grid-row: span 2; margin: 0; }
+  .wi-card::after { display: none; }
+  .wi-cta .btn { flex: 1 1 100%; justify-content: center; }
+}
+
+/* ===== v13: comfort / electronic anaesthesia ===== */
+.comfort-sig { background: var(--navy-deep); color: var(--white); overflow: hidden; }
+.cs-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); gap: 40px; align-items: center; }
+.comfort-sig .kicker { color: var(--baby); }
+.comfort-sig h2 { color: var(--white); font-size: clamp(26px, 3.4vw, 38px); line-height: 1.35; margin: 6px 0 12px; }
+.comfort-sig .lead { color: rgba(255, 255, 255, .82); margin: 0 0 18px; }
+.cs-art { position: relative; aspect-ratio: 1; max-width: 420px; margin-inline: auto; border-radius: 50%; background: radial-gradient(circle at 50% 45%, rgba(47, 116, 207, .55), rgba(1, 84, 186, .12) 60%, transparent 72%); display: grid; place-items: center; }
+.cs-ring { position: absolute; inset: 12%; border-radius: 50%; border: 1px dashed rgba(207, 228, 251, .35); }
+.cs-pen { width: 46%; height: 46%; color: var(--baby); }
+.cs-flow { position: absolute; bottom: 20%; display: flex; gap: 10px; }
+.cs-flow i { width: 8px; height: 8px; border-radius: 50%; background: var(--baby); opacity: .3; animation: csFlow 2.4s var(--ease) infinite; }
+.cs-flow i:nth-child(2) { animation-delay: .4s; } .cs-flow i:nth-child(3) { animation-delay: .8s; }
+@keyframes csFlow { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
+.cs-photo img { border-radius: var(--radius); width: 100%; height: auto; display: block; }
+.cs-points { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cs-points li { display: flex; gap: 12px; padding: 14px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, .06); border: 1px solid rgba(207, 228, 251, .14); }
+.cs-ic { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(207, 228, 251, .12); color: var(--baby); }
+.cs-ic .ic { width: 20px; height: 20px; }
+.cs-points strong { display: block; font-size: 15.5px; color: var(--white); margin-bottom: 2px; }
+.cs-points span { font-size: 14px; line-height: 1.7; color: rgba(255, 255, 255, .74); }
+.cs-note { display: flex; gap: 8px; font-size: 13.5px; color: rgba(255, 255, 255, .7); margin: 0 0 18px; }
+.cs-note .ic { flex: none; width: 16px; height: 16px; margin-top: 4px; }
+.cs-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-top: 16px; border-top: 1px solid rgba(207, 228, 251, .16); }
+.cs-cta p { margin: 0; flex: 1 1 260px; font: 600 17px/1.6 var(--font-head); color: var(--white); }
+.jr-comfort { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--ice); color: var(--navy); font-weight: 600; text-decoration: none; border: 1px solid var(--baby); }
+.jr-comfort .ic { width: 20px; height: 20px; color: var(--blue); flex: none; }
+.jr-comfort span { flex: 1; }
+@media (max-width: 860px) {
+  .cs-grid { grid-template-columns: 1fr; gap: 20px; }
+  .cs-art { max-width: 200px; }
+  .cs-points { grid-template-columns: 1fr; }
+  .cs-cta .btn { flex: 1 1 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .cs-flow i { animation: none; opacity: .7; } }
+.cs-en { margin: -4px 0 10px; font: 600 13px/1.4 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--baby); text-align: start; }
+[dir="rtl"] .cs-en { text-align: right; }

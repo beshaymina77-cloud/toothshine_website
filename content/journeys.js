@@ -62,7 +62,7 @@ module.exports = {
       ],
       fig: { src: "assets/img/illustrations/porcelain-veneer.webp", alt: { ar: "قشرة بورسلين رفيعة بجانب نموذج للأسنان الأمامية", en: "A thin porcelain veneer beside a model of the front teeth" } },
       caption: { ar: "قشرة رفيعة بتتلصق على وش السنة.", en: "A thin shell bonded to the front of the tooth." },
-      caseService: "cosmetic-restorative-dentistry",
+      caseService: "composite-veneers",
     },
     {
       id: "crooked",
@@ -101,6 +101,7 @@ module.exports = {
         { ar: "قلم البنج الإلكتروني في الحالات المناسبة، لحقنة أهدى", en: "Computer-controlled anaesthesia where suitable, for a gentler injection" },
         { ar: "تقسيم العلاج على جلسات أقصر لو ده أريح لك", en: "Shorter visits if that suits you better" },
       ],
+      comfortLink: { ar: "اعرف أكتر عن قلم البنج الإلكتروني", en: "More about computer-controlled anaesthesia" },
     },
   ],
   casesKicker: { ar: "حالات حقيقية", en: "Real cases" },
@@ -125,4 +126,50 @@ module.exports = {
     { img: "assets/img/illustrations/clear-aligner", title: { ar: "التقويم الشفاف", en: "Clear aligners" }, body: { ar: "قوالب شفافة بتحرك الأسنان على مراحل.", en: "Clear trays that move teeth in stages." }, link: "orthodontics", anchor: "" },
   ],
   familyKicker: { ar: "لكل العيلة", en: "For the whole family" },
+
+  /* ---------- v13: why Tooth Shine for implants ---------- */
+  whyKicker: { ar: "زراعة الأسنان في شاين", en: "Implants at Tooth Shine" },
+  whyTitle: { ar: "ليه تختار مركز أسنان شاين لزراعة الأسنان؟", en: "Why choose Tooth Shine for dental implants?" },
+  whyLead: {
+    ar: "الزرعة مش مجرد مسمار في العظم. نجاحها بيبدأ من التخطيط وبيكمل بالمتابعة. ده الأسلوب اللي بنشتغل بيه في كل حالة.",
+    en: "An implant is more than a screw in the bone. Its success starts with planning and continues with follow-up. This is how we work on every case.",
+  },
+  whyItems: [
+    { icon: "crown", title: { ar: "بنخطط للسنة النهائية الأول", en: "Prosthetically driven planning" },
+      body: { ar: "بنحدد شكل التركيبة النهائية ووظيفتها في المضغ، وبعدين نختار مكان الزرعة المناسب ليها، مش العكس.", en: "We plan the final crown and how it should function first, then choose the implant position that serves it, not the other way round." } },
+    { icon: "scanner", title: { ar: "تخطيط رقمي", en: "Digital treatment planning" },
+      body: { ar: "مسح رقمي بالماسح الضوئي داخل الفم، وأشعة CBCT ثلاثية الأبعاد لما تكون مطلوبة، من مركز أشعة متخصص.", en: "A digital scan with our intraoral scanner, and a 3D CBCT scan when indicated, taken at a specialist radiology centre." } },
+    { icon: "implant", title: { ar: "الزراعة بالدليل الجراحي", en: "Guided implant surgery" },
+      body: { ar: "في الحالات المناسبة، بنخطط مكان الزرعة على الكمبيوتر وبنعمل دليل جراحي ينقل التخطيط للفم بدقة. مش كل حالة محتاجاه، والقرار بعد الكشف.", en: "In suitable cases the implant position is planned on the computer and a surgical guide transfers it precisely. Not every case needs one; this is decided after the examination." } },
+    { icon: "list", title: { ar: "اختيار الزرعة حسب حالتك", en: "Individual implant selection" },
+      body: { ar: "بنشتغل بأكتر من نظام زراعة. الاختيار بيتم حسب العظم والحالة وتوفر القطع والميزانية، وبنشرح لك الفرق بوضوح.", en: "We work with more than one implant system. The choice depends on the bone, the case, component availability and your budget, and we explain the difference clearly." } },
+    { icon: "sparkle", title: { ar: "تركيبة شكلها طبيعي", en: "Natural-looking restorations" },
+      body: { ar: "شكل السنة، ودرجة اللون، والعضة، ودقة تركيب التاج على الزرعة. كل تفصيلة بتفرق في الشكل والراحة وعمر الزرعة.", en: "Crown shape, shade, bite and an accurate fit on the implant all affect how it looks, how it feels and how long it lasts." } },
+    { icon: "shield", title: { ar: "متابعة على المدى الطويل", en: "Long-term maintenance" },
+      body: { ar: "بنعلمك تنضف حوالين الزرعة إزاي، وبنحدد مواعيد متابعة وتنظيف دورية، لأن العناية المستمرة جزء أساسي من نجاح الزرعة.", en: "We show you how to clean around the implant and schedule regular check-ups and cleaning, because ongoing care is a key part of implant success." } },
+  ],
+  whySystemsLabel: { ar: "أنظمة الزراعة المتوفرة", en: "Implant systems we use" },
+  whyCta: { ar: "احجز تقييم زراعة", en: "Book an implant assessment" },
+  whyMore: { ar: "دليل الزراعة خطوة بخطوة", en: "The implant guide, step by step" },
+
+  /* ---------- v13: comfort / electronic anaesthesia ---------- */
+  comfortKicker: { ar: "راحتك أولًا", en: "Your comfort first" },
+  comfortTitle: { ar: "خايف من حقنة البنج؟ اكتشف قلم البنج الإلكتروني في Tooth Shine", en: "Nervous about injections? Meet computer-controlled anaesthesia at Tooth Shine" },
+  comfortLead: {
+    ar: "قلم البنج الإلكتروني جهاز بيتحكم في دخول البنج بدل ما يعتمد على ضغط إيد الدكتور بس.",
+    en: "Computer-controlled local anaesthesia uses a device to regulate how the anaesthetic is delivered, instead of relying on hand pressure alone.",
+  },
+  comfortPoints: [
+    { icon: "pen", title: { ar: "دخول البنج بتحكم", en: "Controlled delivery" }, body: { ar: "الجهاز بيظبط كمية البنج وضغطه أثناء الحقن.", en: "The device regulates the amount and pressure of anaesthetic during the injection." } },
+    { icon: "clock", title: { ar: "سرعة بطيئة وثابتة", en: "Slow, steady flow" }, body: { ar: "البنج بيدخل ببطء وبمعدل ثابت، وده ممكن يقلل الإحساس بالحقنة.", en: "Anaesthetic flows slowly at a steady rate, which may reduce how the injection feels." } },
+    { icon: "ear", title: { ar: "جزء من خطة راحة كاملة", en: "Part of a wider comfort plan" }, body: { ar: "معاه بنشرح كل خطوة، ونتفق على إشارة توقفنا، ونقسم العلاج لو محتاج.", en: "Alongside it we explain every step, agree a stop signal and split treatment if needed." } },
+    { icon: "exam", title: { ar: "حسب الحالة", en: "Used where suitable" }, body: { ar: "استخدامه بيتحدد حسب نوع العلاج وتقييم الدكتور.", en: "Whether it is used depends on the procedure and the dentist's assessment." } },
+  ],
+  comfortNote: {
+    ar: "الهدف حقنة أهدى وتجربة أريح. كل مريض إحساسه مختلف، ومش بنوعد بعلاج من غير أي إحساس خالص.",
+    en: "The aim is a gentler injection and a calmer visit. Everyone feels things differently, and we do not promise a completely sensation-free treatment.",
+  },
+  comfortCtaTitle: { ar: "خايف من علاج الأسنان؟ اتعرف على طرق راحتك في مركز شاين", en: "Anxious about dental treatment? Find out how we keep you comfortable" },
+  comfortCta: { ar: "احجز كشف هادي", en: "Book a calm first visit" },
+  comfortDeviceAlt: { ar: "قلم البنج الإلكتروني في مركز أسنان شاين", en: "The computer-controlled anaesthesia device at Tooth Shine" },
 };

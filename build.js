@@ -520,12 +520,14 @@ function homePage(l) {
       )}
     </div></section>`
     : "";
-  const caseCats = [...new Set(biz.cases.map((c) => c.service))];
-  const cases = biz.cases.length
+  const jrCases = J.items.map((x) => (x.caseIndex !== undefined ? biz.cases[x.caseIndex] : x.caseService ? biz.cases.find((k) => k.service === x.caseService) : null)).filter(Boolean);
+  const galleryCases = biz.cases.filter((c) => !jrCases.includes(c));
+  const caseCats = [...new Set(galleryCases.map((c) => c.service))];
+  const cases = galleryCases.length
     ? `<section class="section cases" id="cases"><div class="wrap">
       <div class="s-head s-head--row">${sectionHead(t(J.casesKicker, l), t(H.casesTitle, l), t(H.casesNote, l))}${btnSheet(l, t(H.casesAll, l), null, "btn-line")}</div>
       <div class="case-filters" role="group" aria-label="${esc(t(J.casesKicker, l))}"><button type="button" class="cf is-on" data-cf="" aria-pressed="true">${esc(t(J.casesAllFilter, l))}</button>${caseCats.map((c) => `<button type="button" class="cf" data-cf="${c}" aria-pressed="false">${esc(t(svcOf(c).title, l))}</button>`).join("")}</div>
-      ${carousel(biz.cases.map((c) => caseCard(l, c, true).replace('<figure class="case-card"', `<figure class="case-card" data-case="${c.service}"`)).join(""), "car--cases")}
+      ${carousel(galleryCases.map((c) => caseCard(l, c, true).replace('<figure class="case-card"', `<figure class="case-card" data-case="${c.service}"`)).join(""), "car--cases")}
     </div></section>`
     : "";
   const midCta = biz.cases.length || biz.testimonials.length || (GR.items && GR.items.length)
@@ -536,6 +538,32 @@ function homePage(l) {
         .map((o) => `<article class="offer"><h3>${esc(t(o.title, l))}</h3><p>${esc(t(o.details, l))}</p>${o.validUntil ? `<p class="muted">${l === "ar" ? "ساري حتى" : "Valid until"} ${esc(o.validUntil)}</p>` : ""}</article>`)
         .join("")}</div></div></section>`
     : "";
+
+  const implSvc = svcOf("dental-implants");
+  const whyImplant = `<section class="section why-impl" id="why-implants"><div class="wrap">
+    ${sectionHead(t(J.whyKicker, l), t(J.whyTitle, l), t(J.whyLead, l))}
+    <div class="wi-layout">
+      <ol class="wi-grid">${J.whyItems.map((x, i) => `<li class="wi-card reveal" style="--d:${(i % 3) * 70}ms"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ol>
+      <aside class="wi-side reveal">
+        <figure class="fig wi-fig"><img src="/assets/img/illustrations/guided-implant-planning-600.webp" alt="${esc(l === "ar" ? "تخطيط مكان الزرعة على الكمبيوتر مع دليل جراحي" : "Computer planning of the implant position with a surgical guide")}" width="600" height="450" loading="lazy" decoding="async"><figcaption>${esc(l === "ar" ? "التخطيط الرقمي ومكان الزرعة قبل الجراحة." : "Digital planning of the implant position before surgery.")}<span class="fig-tag">${ILL(l)}</span></figcaption></figure>
+        ${(biz.implantSystems || []).length ? `<div class="wi-sys"><p class="jr-label">${esc(t(J.whySystemsLabel, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}
+        <div class="wi-cta">${btnSheet(l, t(J.whyCta, l), implSvc, "btn-primary btn-lg", "wa")}<a class="btn btn-line" href="${P.service(l, "dental-implants")}">${esc(t(J.whyMore, l))}${icon("arrow", "flip")}</a></div>
+      </aside>
+    </div>
+  </div></section>`;
+  const devPhoto = (biz.photos.equipment || {}).anesthesia;
+  const comfort = `<section class="section comfort-sig" id="comfort"><div class="wrap cs-grid">
+    <div class="cs-media reveal">${devPhoto ? `<figure class="photo cs-photo"><img src="/${devPhoto}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>` : `<div class="cs-art" aria-hidden="true"><span class="cs-ring"></span>${icon("pen", "cs-pen")}<span class="cs-flow"><i></i><i></i><i></i></span></div>`}</div>
+    <div class="cs-copy reveal" style="--d:80ms">
+      <p class="kicker">${esc(t(J.comfortKicker, l))}</p>
+      <h2>${esc(t(J.comfortTitle, l))}</h2>
+      <p class="cs-en" dir="ltr" lang="en">Computer-Controlled Local Anesthesia</p>
+      <p class="lead">${esc(t(J.comfortLead, l))}</p>
+      <ul class="cs-points">${J.comfortPoints.map((x) => `<li><span class="cs-ic">${icon(x.icon)}</span><div><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></div></li>`).join("")}</ul>
+      <p class="cs-note">${icon("shield")}<span>${esc(t(J.comfortNote, l))}</span></p>
+      <div class="cs-cta"><p>${esc(t(J.comfortCtaTitle, l))}</p>${btnSheet(l, t(J.comfortCta, l), svcOf("dental-examination"), "btn-primary btn-lg", "wa")}</div>
+    </div>
+  </div></section>`;
 
   const body = `
 <section class="hero hero--ask">
@@ -562,6 +590,8 @@ function homePage(l) {
 
 ${cases}
 
+${whyImplant}
+
 <section class="section digital" id="digital">
   <div class="wrap">
     ${sectionHead(t(J.digitalKicker, l), t(J.digitalTitle, l), t(J.digitalLead, l))}
@@ -570,6 +600,11 @@ ${cases}
     <div class="tech-grid tech-grid--sm">${tech.map((x, i) => techCard(l, x, i)).join("")}</div>
   </div>
 </section>
+
+${comfort}
+
+${reviews}
+${testimonials}
 
 <section class="section doctor" id="doctor">
   <div class="wrap doctor-grid">
@@ -619,9 +654,6 @@ ${cases}
       .join("")}</ol>
   </div>
 </section>
-
-${reviews}
-${testimonials}
 
 <section class="section services-sec" id="services">
   <div class="wrap">
@@ -763,6 +795,7 @@ function journeyPanel(l, x) {
       <p>${esc(t(x.explain, l))}</p>
       <p class="jr-label">${esc(t(J.optionsLabel, l))}</p>
       <ul class="jr-opts">${x.options.map((o) => `<li>${icon("check")}<span>${o.link ? `<a href="${P.service(l, o.link)}">${esc(t(o, l))}</a>` : esc(t(o, l))}</span></li>`).join("")}</ul>
+      ${x.comfortLink ? `<a class="jr-comfort" href="#comfort">${icon("pen")}<span>${esc(t(x.comfortLink, l))}</span>${icon("arrow", "flip")}</a>` : ""}
       <div class="jr-cta">${btnSheet(l, esc(t(x.cta, l)), sv, "btn-primary btn-lg", "wa")}${sv ? `<a class="btn btn-line" href="${P.service(l, sv.slug)}">${esc(t(J.readMore, l))}${icon("arrow", "flip")}</a>` : ""}</div>
       <p class="jr-note">${icon("shield")}<span>${esc(t(J.journeyNote, l))}</span></p>
     </div>
