@@ -255,7 +255,7 @@ module.exports = {
       images: [{ src: "assets/img/cases/rehab-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-1-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "cosmetic-restorative-dentistry", title: { ar: "تأهيل الفم وتجميل الابتسامة", en: "Full-mouth rehabilitation and smile design" },
       images: [{ src: "assets/img/cases/rehab-2-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-2-after.webp", label: { ar: "بعد", en: "After" } }] },
-    { service: "cosmetic-restorative-dentistry", title: { ar: "تجميل الابتسامة", en: "Smile transformation" },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "فينير إي ماكس للابتسامة", en: "E.max ceramic veneers" },
       images: [{ src: "assets/img/cases/smile-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/smile-1-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "composite-veneers", title: { ar: "فينير كومبوزيت", en: "Composite veneers" },
       images: [{ src: "assets/img/cases/composite-veneer-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/composite-veneer-after.webp", label: { ar: "بعد", en: "After" } }] },

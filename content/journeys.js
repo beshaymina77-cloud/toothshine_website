@@ -58,11 +58,12 @@ module.exports = {
       options: [
         { ar: "تبييض: لو المشكلة في اللون بس", en: "Whitening: when colour is the only concern", link: "teeth-whitening" },
         { ar: "فينير كومبوزيت: تعديل الشكل والمقاس مع أقل برد", en: "Composite veneers: reshaping with minimal tooth reduction", link: "composite-veneers" },
+        { ar: "فينير إي ماكس (سيراميك): قشرة خزف رفيعة لتعديل اللون والشكل", en: "E.max (ceramic) veneers: thin porcelain shells to improve colour and shape", link: "cosmetic-restorative-dentistry" },
         { ar: "تركيبات زيركونيا أو إي ماكس: للأسنان المكسورة أو المتغيرة كتير", en: "Zirconia or E.max: for heavily broken or discoloured teeth", link: "cosmetic-restorative-dentistry" },
       ],
       fig: { src: "assets/img/illustrations/porcelain-veneer.webp", alt: { ar: "قشرة بورسلين رفيعة بجانب نموذج للأسنان الأمامية", en: "A thin porcelain veneer beside a model of the front teeth" } },
       caption: { ar: "قشرة رفيعة بتتلصق على وش السنة.", en: "A thin shell bonded to the front of the tooth." },
-      caseService: "composite-veneers",
+      caseIndex: 7,
     },
     {
       id: "crooked",

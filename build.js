@@ -804,11 +804,19 @@ function journeyPanel(l, x) {
 }
 
 /* ---------- real clinic cases ---------- */
+const CS = require("./content/case-stories.js");
+function caseStory(l, c) {
+  const imgs = c.images || [{ src: c.before }];
+  const key = String(imgs[0].src).split("/").pop().replace(/\.[a-z]+$/, "");
+  const st = CS[key];
+  if (!st) return "";
+  return `<details class="case-story"><summary>${esc(t(CS.label, l))}</summary><p class="cs-concern">${esc(t(st.concern, l))}</p><ol>${st.steps.map((x) => `<li>${esc(t(x, l))}</li>`).join("")}</ol><p class="cs-result">${icon("check")}<span>${esc(t(st.result, l))}</span></p></details>`;
+}
 function caseCard(l, c, badge) {
   const sv = services.find((x) => x.slug === c.service);
   const imgs = c.images || [{ src: c.before, label: { ar: "قبل", en: "Before" } }, { src: c.after, label: { ar: "بعد", en: "After" } }];
   const n = imgs.length;
-  return `<figure class="case-card"><div class="case-set case-set--${n}">${imgs.map((m) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" loading="lazy" decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${badge && sv ? `<a class="badge" href="${P.service(l, sv.slug)}">${esc(t(sv.title, l))}</a>` : ""}<h3>${esc(t(c.title, l))}</h3></figcaption></figure>`;
+  return `<figure class="case-card"><div class="case-set case-set--${n}">${imgs.map((m) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" loading="lazy" decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${badge && sv ? `<a class="badge" href="${P.service(l, sv.slug)}">${esc(t(sv.title, l))}</a>` : ""}<h3>${esc(t(c.title, l))}</h3>${caseStory(l, c)}</figcaption></figure>`;
 }
 function serviceCases(l, s) {
   const list = biz.cases.filter((c) => c.service === s.slug);

@@ -1154,3 +1154,17 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 @media (prefers-reduced-motion: reduce) { .cs-flow i { animation: none; opacity: .7; } }
 .cs-en { margin: -4px 0 10px; font: 600 13px/1.4 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--baby); text-align: start; }
 [dir="rtl"] .cs-en { text-align: right; }
+
+/* ===== v13b: case stories ===== */
+.case-story { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; font-size: 14.5px; line-height: 1.75; }
+.case-story summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--blue); padding: 4px 0; }
+.case-story summary::-webkit-details-marker { display: none; }
+.case-story summary::after { content: "+"; margin-inline-start: auto; font: 600 18px/1 var(--font-head); color: var(--blue); }
+.case-story[open] summary::after { content: "−"; }
+.case-story .cs-concern { margin: 6px 0 4px; color: var(--ink); font-weight: 500; }
+.case-story ol { margin: 0; padding-inline-start: 20px; color: var(--muted); }
+.case-story ol li { margin: 2px 0; }
+.case-story .cs-result { display: flex; gap: 6px; margin: 8px 0 0; color: var(--navy); font-weight: 600; }
+.case-story .cs-result .ic { flex: none; width: 16px; height: 16px; margin-top: 5px; color: var(--wa); }
+.case-story ol { list-style: decimal; } [lang="ar"] .case-story ol, html[lang="ar"] .case-story ol { list-style: arabic-indic; }
+.case-story ol li::marker { color: var(--blue); font-weight: 600; }
