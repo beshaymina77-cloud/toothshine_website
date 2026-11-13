@@ -231,10 +231,11 @@ function sheet(l) {
 
 function mobileBar(l, s) {
   return `<div class="mbar" data-mbar>
-  <a class="mbar-btn mbar-wa" href="${P.branches(l)}" data-sheet data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${t(site.ui.whatsapp, l)}</span></a>
+  <a class="mbar-btn mbar-wa" href="${P.home(l)}#book" data-book-link>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>
   <a class="mbar-btn" href="${P.branches(l)}" data-sheet data-service="${s ? s.slug : ""}">${icon("phone")}<span>${t(site.ui.call, l)}</span></a>
   <a class="mbar-btn" href="${P.branches(l)}">${icon("pin")}<span>${t(site.ui.branches, l)}</span></a>
-</div>`;
+</div>
+<a class="fab-book" href="${P.home(l)}#book" data-fab>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>`;
 }
 
 function clientData(l) {
@@ -548,12 +549,12 @@ function homePage(l) {
         <a class="btn btn-outline-light btn-lg" href="${P.services(l)}">${t(site.ui.exploreServices, l)}${icon("arrow", "flip")}</a>
       </div>
     </div>
-    <div class="hero-visual hero-visual--dr reveal" style="--d:120ms">
-      <figure class="hero-portrait"><img src="/${doc.heroPhoto || doc.photo}" alt="${esc(t(doc.name, l))}" width="900" height="1165" fetchpriority="high"></figure>
-      <div class="hero-plate">
-        <p class="hp-name">${esc(t(doc.name, l))}</p>
-        <p class="hp-role">${esc(t(doc.role, l))}</p>
-        <ul class="hp-members">${doc.memberships.map((m) => `<li title="${esc(t(m, l))}"><b>${esc(m.abbr)}</b><span>${l === "ar" ? "عضو" : "Member"}</span></li>`).join("")}</ul>
+    <div class="hero-visual hero-visual--clinic reveal" style="--d:120ms">
+      <figure class="hero-clinic"><img src="/assets/img/illustrations/implant-parts.webp" alt="${esc(t(H.heroImgAlt, l))}" width="1200" height="900" fetchpriority="high"></figure>
+      <div class="hero-plate hero-plate--clinic">
+        <p class="hp-name">${esc(t(biz.brand.name, l))}</p>
+        <p class="hp-role">${icon("pin")}<span>${esc(t(H.heroBranches, l))}</span></p>
+        <ul class="hp-svcs">${featured.slice(0, 4).map((s) => `<li><a href="${P.service(l, s.slug)}">${esc(t(s.title, l))}</a></li>`).join("")}</ul>
       </div>
     </div>
   </div>

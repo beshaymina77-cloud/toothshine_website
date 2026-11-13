@@ -149,6 +149,8 @@ module.exports = {
         { id: "kids", ar: "أسنان أطفال", en: "Children's dentistry" },
       ],
     },
+    heroImgAlt: { ar: "رسم ثلاثي الأبعاد لزرعة أسنان ودعامة وتاج", en: "3D illustration of a dental implant, abutment and crown" },
+    heroBranches: { ar: "سبورتنج · العجمي، الإسكندرية", en: "Sporting · Agami, Alexandria" },
     heroFounder: { ar: "بإشراف المؤسس", en: "Led by founder" },
     heroBrand: { ar: "كل تخصصات الأسنان في مكان واحد", en: "Every dental specialty, under one roof" },
     visionLabel: { ar: "الرؤية", en: "Vision" },

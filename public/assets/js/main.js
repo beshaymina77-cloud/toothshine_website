@@ -200,3 +200,26 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
     window.location.href = "https://wa.me/" + br.value + "?text=" + encodeURIComponent(text);
   });
 })();
+
+/* ---------- floating book button + smooth jump to booking card ---------- */
+(function () {
+  var fab = document.querySelector("[data-fab]");
+  var book = document.getElementById("book");
+  var bookVisible = false;
+  if (book && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { bookVisible = e[0].isIntersecting; update(); }).observe(book);
+  }
+  function update() { if (fab) fab.classList.toggle("is-on", window.scrollY > 500 && !bookVisible); }
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+  if (book) {
+    document.querySelectorAll('a[href$="#book"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        book.scrollIntoView({ behavior: "smooth", block: "start" });
+        var n = book.querySelector("input[name=name]");
+        setTimeout(function () { if (n) n.focus({ preventScroll: true }); }, 600);
+      });
+    });
+  }
+})();

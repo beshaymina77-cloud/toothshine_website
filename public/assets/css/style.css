@@ -894,3 +894,28 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 @media (max-width: 640px) { .book-sec { margin-top: -28px; } .book-inputs { grid-template-columns: 1fr; } .book-submit { justify-self: stretch; } .chips-pick span { padding: 0 14px; font-size: 14.5px; } }
 .book-in, .book-in input { min-width: 0; width: 100%; box-sizing: border-box; }
 .figs > .fig:only-child { max-width: 760px; }
+
+/* v8: clinic visual in hero (no portrait) */
+.hero-visual--clinic { position: relative; align-self: center; }
+.hero-clinic { margin: 0; border-radius: 28px; overflow: hidden; box-shadow: 0 30px 80px rgba(3, 10, 40, .45); border: 1px solid rgba(207, 228, 251, .25); background: #e6f0fc; aspect-ratio: 4 / 3; }
+.hero-clinic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero-plate--clinic { position: relative; margin: -56px 22px 0; background: #fff; border-radius: 20px; padding: 16px 20px; box-shadow: 0 18px 44px rgba(3, 10, 40, .3); }
+.hero-plate--clinic .hp-name { font: 800 19px/1.2 var(--font-head); color: var(--navy); margin: 0 0 4px; }
+.hero-plate--clinic .hp-role { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--blue); margin: 0 0 12px; }
+.hero-plate--clinic .hp-role .ic { width: 16px; height: 16px; }
+.hp-svcs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.hp-svcs a { display: inline-flex; padding: 7px 12px; border-radius: 999px; background: #f4f8fe; border: 1px solid rgba(1, 84, 186, .18); color: var(--navy); font: 600 13.5px/1 var(--font-head); text-decoration: none; }
+.hp-svcs a:hover { background: var(--navy); color: #fff; }
+@media (max-width: 860px) {
+  .hero--dr .hero-visual--clinic { order: 2; max-width: 520px; width: 100%; margin: 8px auto 0; }
+  .hero-plate--clinic { margin: -40px 12px 0; }
+}
+.hero-plate--clinic { position: relative; inset: auto; display: block; }
+.hero-plate--clinic .hp-role { grid-column: auto; }
+
+/* Floating "book" button (desktop) */
+.fab-book { position: fixed; z-index: 60; bottom: 24px; inset-inline-start: 24px; display: inline-flex; align-items: center; gap: 10px; padding: 0 22px; min-height: 54px; border-radius: 999px; background: var(--navy); color: #fff; font: 700 16px/1 var(--font-head); text-decoration: none; box-shadow: 0 16px 40px rgba(11, 31, 87, .35); opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity .25s, transform .25s; }
+.fab-book .ic { width: 20px; height: 20px; color: #4ade80; }
+.fab-book.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.fab-book:hover { background: var(--blue); color: #fff; }
+@media (max-width: 860px) { .fab-book { display: none; } }
