@@ -919,3 +919,12 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .fab-book.is-on { opacity: 1; transform: none; pointer-events: auto; }
 .fab-book:hover { background: var(--blue); color: #fff; }
 @media (max-width: 860px) { .fab-book { display: none; } }
+
+/* Appointment note + hours in sheet/footer */
+.appt-note { display: flex; gap: 10px; align-items: flex-start; background: #eef5ff; border: 1px solid rgba(1, 84, 186, .2); color: var(--navy); border-radius: 14px; padding: 14px 18px; font: 600 15.5px/1.6 var(--font-head); margin: 0 0 24px; }
+.appt-note .ic { flex: none; width: 20px; height: 20px; color: var(--blue); margin-top: 3px; }
+.appt-note--sm { font-size: 14px; padding: 10px 14px; margin: 12px 0 0; }
+.sb-hours { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--blue); margin-top: 4px; }
+.sb-hours .ic { width: 14px; height: 14px; }
+.f-hours { display: flex; align-items: center; gap: 6px; font-size: 13px; opacity: .85; }
+.f-hours .ic { width: 14px; height: 14px; }

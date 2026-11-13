@@ -192,6 +192,7 @@ function footer(l) {
       ${biz.branches
         .map(
           (b) => `<li class="f-branch"><a href="${P.branches(l)}#${b.id}"><strong>${esc(t(b.name, l))}</strong></a>
+        ${t(b.hours, l) ? `<span class="f-hours">${icon("clock")} ${esc(t(b.hours, l))}</span>` : ""}
         ${b.phone ? `<a href="tel:+${b.phone}">${icon("phone")} <span dir="ltr">${esc(b.phoneDisplay || "+" + b.phone)}</span></a>` : ""}
         ${b.whatsapp ? `<a href="https://wa.me/${b.whatsapp}" target="_blank" rel="noopener">${icon("whatsapp")} <span dir="ltr">${esc(b.whatsappDisplay || "+" + b.whatsapp)}</span></a>` : ""}</li>`
         )
@@ -219,7 +220,7 @@ function sheet(l) {
         .map(
           (b) => `<li class="sheet-branch${b.priority ? " is-priority" : ""}">
         <div class="sb-name"><strong>${esc(t(b.name, l))}</strong>${b.priority ? `<span class="badge">${t(site.ui.mainBranch, l)}</span>` : ""}
-        ${t(b.address, l) ? `<span class="sb-addr">${esc(t(b.address, l))}</span>` : ""}</div>
+        ${t(b.address, l) ? `<span class="sb-addr">${esc(t(b.address, l))}</span>` : ""}${t(b.hours, l) ? `<span class="sb-hours">${icon("clock")}${esc(t(b.hours, l))}</span>` : ""}</div>
         <div class="sb-actions">${btnWA(l, b, null)}${btnCall(l, b)}${btnMap(l, b)}</div></li>`
         )
         .join("")}
@@ -566,7 +567,7 @@ function homePage(l) {
 
 <section class="book-sec" id="book"><div class="wrap">
   <form class="book-card reveal" data-book novalidate>
-    <div class="book-head"><p class="kicker">${esc(t(H.book.kicker, l))}</p><h2>${esc(t(H.book.title, l))}</h2><p>${esc(t(H.book.lead, l))}</p></div>
+    <div class="book-head"><p class="kicker">${esc(t(H.book.kicker, l))}</p><h2>${esc(t(H.book.title, l))}</h2><p>${esc(t(H.book.lead, l))}</p><p class="appt-note appt-note--sm">${icon("clock")}<span>${esc(t(H.apptNote, l))}</span></p></div>
     <fieldset class="book-field"><legend>${esc(t(H.book.service, l))}</legend><div class="chips-pick">${H.book.options.map((o, i) => `<label><input type="radio" name="service" value="${esc(t(o, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(o, l))}</span></label>`).join("")}</div></fieldset>
     <fieldset class="book-field"><legend>${esc(t(H.book.branch, l))}</legend><div class="chips-pick">${biz.branches.filter((x) => x.whatsapp).map((x, i) => `<label><input type="radio" name="branch" value="${esc(x.whatsapp)}" data-name="${esc(t(x.name, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(x.name, l))}</span></label>`).join("")}</div></fieldset>
     <div class="book-inputs">
@@ -698,6 +699,7 @@ ${offers}
 <section class="section branches-sec" id="branches">
   <div class="wrap">
     ${sectionHead(t(H.branchesKicker, l), t(H.branchesTitle, l), "")}
+    <p class="appt-note reveal">${icon("clock")}<span>${esc(t(H.apptNote, l))}</span></p>
     ${branchesBlock(l, null)}
   </div>
 </section>
@@ -822,6 +824,7 @@ function branchesPage(l) {
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(B.h1, l), P.branches(l)]];
   const body = `${pageHero(l, crumbs, t(B.h1, l), t(B.lead, l))}
 <section class="section"><div class="wrap">
+  <p class="appt-note reveal">${icon("clock")}<span>${esc(t(site.home.apptNote, l))}</span></p>
   <div class="branches-grid branches-grid--page">${biz.branches.map((b) => branchCard(l, b, null, "h2")).join("")}</div>
   <div class="how reveal"><h2>${t(B.howTitle, l)}</h2><ol class="how-steps">${B.how.map((x, i) => `<li><span class="step-n">${i + 1}</span><span>${esc(t(x, l))}</span></li>`).join("")}</ol></div>
 </div></section>

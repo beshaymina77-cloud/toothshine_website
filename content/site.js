@@ -260,6 +260,7 @@ module.exports = {
     teamSoon: { ar: "باقي فريق المركز – قريبًا", en: "The rest of our team – coming soon" },
 
     branchesKicker: { ar: "فروعنا", en: "Our branches" },
+    apptNote: { ar: "المواعيد في الفرعين بالحجز المسبق: سبورتنج يوميًا من 2 ظهرًا حتى 10 مساءً، والعجمي يوميًا من 12 ظهرًا حتى 11 مساءً.", en: "Both branches work by prior appointment: Sporting daily 2 PM – 10 PM, Agami daily 12 PM – 11 PM." },
     branchesTitle: { ar: "اختار الفرع الأقرب ليك", en: "Choose the branch nearest to you" },
 
     feedbackKicker: { ar: "تجارب المرضى", en: "Patient experiences" },
