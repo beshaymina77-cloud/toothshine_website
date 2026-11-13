@@ -20,6 +20,7 @@ const tech = require("./content/technology.js").filter((x) => !hideTech.includes
 const articles = require("./content/articles.js").slice().sort((a, b) => (a.date < b.date ? 1 : -1));
 const icons = require("./src/icons.js");
 const diagrams = require("./src/diagrams.js");
+const J = require("./content/journeys.js");
 
 const LANGS = ["ar", "en"];
 const VERSION = Date.now().toString(36);
@@ -506,6 +507,7 @@ function homePage(l) {
       </aside>
       ${carousel(
         GR.items
+          .slice(0, 6)
           .map((r) => {
             const br = biz.branches.find((b) => b.id === r.branch);
             const sv = svcOf((r.services || [])[0] || r.service);
@@ -518,11 +520,12 @@ function homePage(l) {
       )}
     </div></section>`
     : "";
-  const homeCases = biz.cases.filter((c, i, a) => a.findIndex((x) => x.service === c.service) === i);
-  const cases = homeCases.length
+  const caseCats = [...new Set(biz.cases.map((c) => c.service))];
+  const cases = biz.cases.length
     ? `<section class="section cases" id="cases"><div class="wrap">
-      <div class="s-head s-head--row">${sectionHead(t(H.casesKicker, l), t(H.casesTitle, l), t(H.casesNote, l))}${btnSheet(l, t(H.casesAll, l), null, "btn-line")}</div>
-      ${carousel(homeCases.map((c) => caseCard(l, c, true)).join(""), "car--cases")}
+      <div class="s-head s-head--row">${sectionHead(t(J.casesKicker, l), t(H.casesTitle, l), t(H.casesNote, l))}${btnSheet(l, t(H.casesAll, l), null, "btn-line")}</div>
+      <div class="case-filters" role="group" aria-label="${esc(t(J.casesKicker, l))}"><button type="button" class="cf is-on" data-cf="" aria-pressed="true">${esc(t(J.casesAllFilter, l))}</button>${caseCats.map((c) => `<button type="button" class="cf" data-cf="${c}" aria-pressed="false">${esc(t(svcOf(c).title, l))}</button>`).join("")}</div>
+      ${carousel(biz.cases.map((c) => caseCard(l, c, true).replace('<figure class="case-card"', `<figure class="case-card" data-case="${c.service}"`)).join(""), "car--cases")}
     </div></section>`
     : "";
   const midCta = biz.cases.length || biz.testimonials.length || (GR.items && GR.items.length)
@@ -535,49 +538,37 @@ function homePage(l) {
     : "";
 
   const body = `
-<section class="hero hero--dr">
+<section class="hero hero--ask">
   <div class="hero-glow" aria-hidden="true"></div>
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">${icon("pin")}<span>${esc(t(H.eyebrow, l))}</span></p>
-      <h1 class="hero-title">${esc(t(biz.brand.name, l))}</h1>
-      <p class="hero-sub">${esc(t(H.h1, l)).replace(/\n/g, " ")}</p>
-      <p class="hero-lead">${esc(t(H.lead, l))}</p>
-      <div class="hero-actions">
-        <a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(H.bookCta, l))}</span></a>
-        <a class="btn btn-outline-light btn-lg" href="${P.services(l)}">${t(site.ui.exploreServices, l)}${icon("arrow", "flip")}</a>
-      </div>
-      <a class="hero-founder" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a>
-    </div>
-    <div class="hero-visual hero-visual--clinic">
-      <figure class="hero-clinic"><img src="/assets/img/illustrations/implant-parts.webp" srcset="/assets/img/illustrations/implant-parts-600.webp 600w, /assets/img/illustrations/implant-parts.webp 1200w" sizes="(max-width: 860px) 92vw, 500px" alt="${esc(t(H.heroImgAlt, l))}" width="1200" height="900" fetchpriority="high"></figure>
-      <div class="hero-plate hero-plate--clinic">
-        <p class="hp-name">${esc(t(biz.brand.name, l))}</p>
-        <p class="hp-role">${icon("pin")}<span>${esc(t(H.heroBranches, l))}</span></p>
-        <ul class="hp-svcs">${featured.slice(0, 4).map((s) => `<li><a href="${P.service(l, s.slug)}">${esc(t(s.title, l))}</a></li>`).join("")}</ul>
-      </div>
-    </div>
-  </div>
   <div class="wrap">
-    ${(biz.trustStats || []).length ? `<ul class="stats reveal">${biz.trustStats.map((x) => `<li><strong dir="ltr">${esc(x.value)}</strong><span>${esc(t(x.label, l))}</span></li>`).join("")}</ul>` : ""}
-    <ul class="trust trust--dark reveal" style="--d:260ms">${H.trustStrip.map((x) => `<li>${icon(x.icon)}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
+    <p class="eyebrow">${icon("pin")}<span>${esc(t(J.brandLine, l))}</span></p>
+    <h1 class="hero-title hero-title--ask">${esc(t(J.title, l))}</h1>
+    <p class="hero-lead">${esc(t(J.sub, l))}</p>
+    <p class="ask-pick">${esc(t(J.pick, l))}</p>
+    <ul class="ask-grid">${J.items.map((x) => `<li><a class="ask-card" href="#j-${x.id}" data-journey="${x.id}">${x.img ? `<img src="/${x.img}" alt="" width="600" height="450" ${x.id === "missing" ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">` : `<span class="ask-ic">${icon(x.icon)}</span>`}<span class="ask-t"><strong>${esc(t(x.label, l))}</strong><small>${esc(t(x.hint, l))}</small></span>${icon("arrow", "flip ask-arrow")}</a></li>`).join("")}</ul>
+    <div class="ask-direct"><a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(J.direct, l))}</span></a><a class="hero-founder" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a></div>
   </div>
 </section>
 
-<section class="book-sec" id="book"><div class="wrap">
-  <form class="book-card reveal" data-book novalidate>
-    <div class="book-head"><p class="kicker">${esc(t(H.book.kicker, l))}</p><h2>${esc(t(H.book.title, l))}</h2><p>${esc(t(H.book.lead, l))}</p><p class="appt-note appt-note--sm">${icon("clock")}<span>${esc(t(H.apptNote, l))}</span></p></div>
-    <fieldset class="book-field"><legend>${esc(t(H.book.service, l))}</legend><div class="chips-pick">${H.book.options.map((o, i) => `<label><input type="radio" name="service" value="${esc(t(o, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(o, l))}</span></label>`).join("")}</div></fieldset>
-    <fieldset class="book-field"><legend>${esc(t(H.book.branch, l))}</legend><div class="chips-pick">${biz.branches.filter((x) => x.whatsapp).map((x, i) => `<label><input type="radio" name="branch" value="${esc(x.whatsapp)}" data-name="${esc(t(x.name, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(x.name, l))}</span></label>`).join("")}</div></fieldset>
-    <div class="book-inputs">
-      <label class="book-in"><span>${esc(t(H.book.name, l))}</span><input type="text" name="name" autocomplete="name" required maxlength="60"><em class="book-err">${esc(t(H.book.errName, l))}</em></label>
-      <label class="book-in"><span>${esc(t(H.book.phone, l))}</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="01x xxxx xxxx" required maxlength="20"><em class="book-err">${esc(t(H.book.errPhone, l))}</em></label>
+<section class="section jr" id="journey">
+  <div class="wrap">
+    ${sectionHead(t(J.journeyKicker, l), t(J.journeyTitle, l), t(J.journeyNote, l))}
+    <div class="jr-tabs" data-tabs data-jr>
+      <div class="jr-list" role="tablist" aria-label="${esc(t(J.journeyTitle, l))}">${J.items.map((x, i) => `<button class="jr-tab" type="button" role="tab" id="jt-${x.id}" aria-controls="j-${x.id}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ""} data-track="journey" data-label="${x.id}">${icon(x.icon)}<span>${esc(t(x.label, l))}</span></button>`).join("")}</div>
+      ${J.items.map((x) => journeyPanel(l, x)).join("")}
     </div>
-    <button class="btn btn-primary btn-lg book-submit" type="submit">${icon("whatsapp")}<span>${esc(t(H.book.submit, l))}</span></button>
-    <p class="book-privacy">${icon("shield")}<span>${esc(t(H.book.privacy, l))}</span></p>
-    <script type="application/json" data-book-msg>${JSON.stringify(t(H.book.msg, l)).replace(/</g, "\\u003c")}</script>
-  </form>
-</div></section>
+  </div>
+</section>
+
+${cases}
+
+<section class="section digital" id="digital">
+  <div class="wrap">
+    ${sectionHead(t(J.digitalKicker, l), t(J.digitalTitle, l), t(J.digitalLead, l))}
+    <ul class="dg-grid">${J.digitalCards.map((c) => `<li class="reveal"><a class="dg-card" href="${P.service(l, c.link)}${c.anchor}">${c.diagram ? `<span class="dg-media dg-media--svg">${diagrams[c.diagram](l)}</span>` : `<span class="dg-media"><img src="/${c.img}-600.webp" alt="${esc(t(c.title, l))}" width="600" height="450" loading="lazy" decoding="async"></span>`}<span class="dg-t"><strong>${esc(t(c.title, l))}</strong><span>${esc(t(c.body, l))}</span><em>${l === "ar" ? "صورة توضيحية" : "Illustration"}</em></span></a></li>`).join("")}</ul>
+    <div class="tech-grid tech-grid--sm">${tech.map((x, i) => techCard(l, x, i)).join("")}</div>
+  </div>
+</section>
 
 <section class="section doctor" id="doctor">
   <div class="wrap doctor-grid">
@@ -628,6 +619,9 @@ function homePage(l) {
   </div>
 </section>
 
+${reviews}
+${testimonials}
+
 <section class="section services-sec" id="services">
   <div class="wrap">
     ${sectionHead(t(H.servicesKicker, l), t(H.servicesTitle, l), t(H.servicesLead, l), "s-head--split")}
@@ -670,33 +664,24 @@ function homePage(l) {
 </section>
 
 
-${reviews}
-${cases}
-${testimonials}
-${midCta}
 
-
-<section class="section tech" id="technology">
-  <div class="wrap">
-    ${sectionHead(t(H.techKicker, l), t(H.techTitle, l), t(H.techLead, l))}
-    <div class="tech-grid">${tech.map((x, i) => techCard(l, x, i)).join("")}</div>
-  </div>
-</section>
-
-<section class="section comfort">
-  <div class="wrap comfort-grid">
-    <div class="comfort-copy reveal">
-      <p class="kicker">${esc(t(H.comfortKicker, l))}</p>
-      <h2>${esc(t(H.comfortTitle, l))}</h2>
-      <p>${esc(t(H.comfortBody, l))}</p>
-    </div>
-    <ul class="comfort-points">${H.comfortPoints
-      .map((p, i) => `<li class="reveal" style="--d:${i * 80}ms">${icon(["ear", "shield", "pen"][i])}<span>${esc(t(p, l))}</span></li>`)
-      .join("")}</ul>
-  </div>
-</section>
 
 ${offers}
+
+<section class="book-sec" id="book"><div class="wrap">
+  <form class="book-card reveal" data-book novalidate>
+    <div class="book-head"><p class="kicker">${esc(t(H.book.kicker, l))}</p><h2>${esc(t(H.book.title, l))}</h2><p>${esc(t(H.book.lead, l))}</p><p class="appt-note appt-note--sm">${icon("clock")}<span>${esc(t(H.apptNote, l))}</span></p></div>
+    <fieldset class="book-field"><legend>${esc(t(H.book.service, l))}</legend><div class="chips-pick">${H.book.options.map((o, i) => `<label><input type="radio" name="service" value="${esc(t(o, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(o, l))}</span></label>`).join("")}</div></fieldset>
+    <fieldset class="book-field"><legend>${esc(t(H.book.branch, l))}</legend><div class="chips-pick">${biz.branches.filter((x) => x.whatsapp).map((x, i) => `<label><input type="radio" name="branch" value="${esc(x.whatsapp)}" data-name="${esc(t(x.name, l))}"${i === 0 ? " checked" : ""}><span>${esc(t(x.name, l))}</span></label>`).join("")}</div></fieldset>
+    <div class="book-inputs">
+      <label class="book-in"><span>${esc(t(H.book.name, l))}</span><input type="text" name="name" autocomplete="name" required maxlength="60"><em class="book-err">${esc(t(H.book.errName, l))}</em></label>
+      <label class="book-in"><span>${esc(t(H.book.phone, l))}</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="01x xxxx xxxx" required maxlength="20"><em class="book-err">${esc(t(H.book.errPhone, l))}</em></label>
+    </div>
+    <button class="btn btn-primary btn-lg book-submit" type="submit">${icon("whatsapp")}<span>${esc(t(H.book.submit, l))}</span></button>
+    <p class="book-privacy">${icon("shield")}<span>${esc(t(H.book.privacy, l))}</span></p>
+    <script type="application/json" data-book-msg>${JSON.stringify(t(H.book.msg, l)).replace(/</g, "\\u003c")}</script>
+  </form>
+</div></section>
 
 <section class="section branches-sec" id="branches">
   <div class="wrap">
@@ -763,6 +748,25 @@ ${ctaBand(l, null)}`;
     body,
     null
   );
+}
+
+/* ---------- home concern journeys ---------- */
+function journeyPanel(l, x) {
+  const sv = services.find((y) => y.slug === x.service);
+  const c = x.caseIndex !== undefined ? biz.cases[x.caseIndex] : x.caseService ? biz.cases.find((k) => k.service === x.caseService) : null;
+  const media = x.diagram ? `<figure class="fig g-dg">${diagrams[x.diagram](l)}<figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${l === "ar" ? "رسم توضيحي" : "Diagram"}</span></figcaption></figure>`
+    : x.fig ? `<figure class="fig"><img src="/${esc(x.fig.src.replace(".webp", "-600.webp"))}" alt="${esc(t(x.fig.alt, l))}" width="600" height="450" loading="lazy" decoding="async"><figcaption>${esc(t(x.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>` : "";
+  return `<div class="jr-panel" role="tabpanel" id="j-${x.id}" aria-labelledby="jt-${x.id}" tabindex="0">
+    <div class="jr-main">
+      <h3>${esc(t(x.label, l))}</h3>
+      <p>${esc(t(x.explain, l))}</p>
+      <p class="jr-label">${esc(t(J.optionsLabel, l))}</p>
+      <ul class="jr-opts">${x.options.map((o) => `<li>${icon("check")}<span>${o.link ? `<a href="${P.service(l, o.link)}">${esc(t(o, l))}</a>` : esc(t(o, l))}</span></li>`).join("")}</ul>
+      <div class="jr-cta">${btnSheet(l, esc(t(x.cta, l)), sv, "btn-primary btn-lg", "wa")}${sv ? `<a class="btn btn-line" href="${P.service(l, sv.slug)}">${esc(t(J.readMore, l))}${icon("arrow", "flip")}</a>` : ""}</div>
+      <p class="jr-note">${icon("shield")}<span>${esc(t(J.journeyNote, l))}</span></p>
+    </div>
+    <div class="jr-side">${media}${c ? `<p class="jr-label">${esc(t(J.caseLabel, l))}</p>${caseCard(l, c, false)}` : ""}</div>
+  </div>`;
 }
 
 /* ---------- real clinic cases ---------- */

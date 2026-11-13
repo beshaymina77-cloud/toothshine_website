@@ -225,3 +225,50 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
     });
   }
 })();
+
+/* ---------- v12: concern cards → journey tabs, case filters, measurement ---------- */
+(function () {
+  var dl = function (o) { window.dataLayer = window.dataLayer || []; window.dataLayer.push(o); };
+  var jr = document.querySelector("[data-jr]");
+  function openJourney(id, scroll) {
+    var tab = document.getElementById("jt-" + id);
+    if (!tab) return false;
+    tab.click();
+    if (scroll) {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("journey").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
+    return true;
+  }
+  document.querySelectorAll("[data-journey]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (openJourney(a.getAttribute("data-journey"), true)) { e.preventDefault(); dl({ event: "concern_select", concern: a.getAttribute("data-journey") }); }
+    });
+  });
+  if (jr && /^#j-/.test(location.hash)) openJourney(location.hash.slice(3), false);
+
+  /* case filters */
+  var cases = document.querySelectorAll("[data-case]");
+  document.querySelectorAll("[data-cf]").forEach(function (b, _, all) {
+    b.addEventListener("click", function () {
+      var v = b.getAttribute("data-cf");
+      Array.prototype.forEach.call(all, function (x) { var on = x === b; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", String(on)); });
+      Array.prototype.forEach.call(cases, function (c) { c.hidden = !!v && c.getAttribute("data-case") !== v; });
+      var track = document.querySelector(".car--cases .car-track"); if (track) track.scrollLeft = 0;
+      window.dispatchEvent(new Event("resize"));
+      dl({ event: "case_filter", category: v || "all" });
+    });
+  });
+
+  /* measurement (pushes to dataLayer; read by Google tag / Pixel once installed) */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("a, button") : null;
+    if (!el) return;
+    if (el.hasAttribute("data-track")) dl({ event: "journey_step", concern: el.getAttribute("data-label") });
+    if (el.closest(".jr-cta") || el.closest(".g-cta") || el.closest(".g-toc")) dl({ event: "journey_cta", service: el.getAttribute("data-service") || "" });
+    if (el.hasAttribute("data-wa")) dl({ event: "whatsapp_click", branch: el.getAttribute("data-branch") || "", service: el.getAttribute("data-service") || "" });
+    if (el.getAttribute("href") && el.getAttribute("href").indexOf("tel:") === 0) dl({ event: "call_click", branch: el.getAttribute("data-branch") || "" });
+    if (el.closest(".case-card") || el.closest(".car--cases")) dl({ event: "case_engage" });
+  }, true);
+  document.querySelectorAll("input[name=branch]").forEach(function (r) { r.addEventListener("change", function () { dl({ event: "branch_select", branch: r.getAttribute("data-name") }); }); });
+})();
