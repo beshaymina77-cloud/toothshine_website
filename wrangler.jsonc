@@ -7,6 +7,7 @@
     "not_found_handling": "404-page"
   },
   "workers_dev": true,
+  "preview_urls": true,
   "routes": [
     { "pattern": "toothshinecenter.com", "custom_domain": true },
     { "pattern": "www.toothshinecenter.com", "custom_domain": true }
