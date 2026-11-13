@@ -239,7 +239,35 @@ module.exports = {
        service: "dental-implants",               // links the card + booking button
        title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
        story: { ar: "وصف مختصر وواقعي للحالة والعلاج", en: "..." } }   // optional */
-  cases: [],
+  cases: [
+    // Real clinic cases, cropped from the clinic's own posts (Nov 2026). Published with the patients' consent as confirmed by Dr. Beshay.
+    { service: "dental-implants", title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
+      images: [{ src: "assets/img/cases/implant-molar-1.webp", label: { ar: "١. الزرعة", en: "1. Implant" } }, { src: "assets/img/cases/implant-molar-2.webp", label: { ar: "٢. الالتئام", en: "2. Healing" } }, { src: "assets/img/cases/implant-molar-3.webp", label: { ar: "٣. النهائي", en: "3. Final" } }] },
+    { service: "dental-implants", title: { ar: "زرعتين لتعويض ضرسين", en: "Two implants replacing two molars" },
+      images: [{ src: "assets/img/cases/implant-two-1.webp", label: { ar: "١. الزرعات", en: "1. Implants" } }, { src: "assets/img/cases/implant-two-2.webp", label: { ar: "٢. الالتئام", en: "2. Healing" } }, { src: "assets/img/cases/implant-two-3.webp", label: { ar: "٣. النهائي", en: "3. Final" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تركيبات بورسلين للفك", en: "Porcelain restorations" },
+      images: [{ src: "assets/img/cases/porcelain-full-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/porcelain-full-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تركيبات زيركونيا", en: "Zirconia restorations" },
+      images: [{ src: "assets/img/cases/zirconia-full-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/zirconia-full-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تعويض سنة أمامية بالزيركونيا", en: "Replacing a front tooth with zirconia" },
+      images: [{ src: "assets/img/cases/zirconia-front-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/zirconia-front-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تأهيل الفم وتجميل الابتسامة", en: "Full-mouth rehabilitation and smile design" },
+      images: [{ src: "assets/img/cases/rehab-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-1-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تأهيل الفم وتجميل الابتسامة", en: "Full-mouth rehabilitation and smile design" },
+      images: [{ src: "assets/img/cases/rehab-2-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-2-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "تجميل الابتسامة", en: "Smile transformation" },
+      images: [{ src: "assets/img/cases/smile-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/smile-1-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "composite-veneers", title: { ar: "فينير كومبوزيت", en: "Composite veneers" },
+      images: [{ src: "assets/img/cases/composite-veneer-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/composite-veneer-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "teeth-whitening", title: { ar: "تبييض الأسنان في العيادة", en: "In-clinic whitening" },
+      images: [{ src: "assets/img/cases/whitening-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/whitening-1-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "teeth-whitening", title: { ar: "تبييض الأسنان في العيادة", en: "In-clinic whitening" },
+      images: [{ src: "assets/img/cases/whitening-2-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/whitening-2-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "teeth-whitening", title: { ar: "جلسة تبييض: حماية اللثة قبل التبييض", en: "Whitening visit: the gums are protected first" },
+      images: [{ src: "assets/img/cases/whitening-3-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/whitening-3-during.webp", label: { ar: "أثناء الجلسة", en: "During the visit" } }] },
+    { service: "tooth-extraction", title: { ar: "خلع ضرس عقل مدفون جراحيًا", en: "Surgical removal of an impacted wisdom tooth" },
+      images: [{ src: "assets/img/cases/wisdom-xray.webp", label: { ar: "الأشعة قبل الخلع", en: "X-ray before" } }, { src: "assets/img/cases/wisdom-tooth.webp", label: { ar: "الضرس بعد الخلع", en: "The tooth after removal" } }] },
+  ],
 
   /* ---------------- PATIENT STORIES (videos) ----------------
      Only videos the patient agreed to publish.

@@ -518,21 +518,11 @@ function homePage(l) {
       )}
     </div></section>`
     : "";
-  const cases = biz.cases.length
+  const homeCases = biz.cases.filter((c, i, a) => a.findIndex((x) => x.service === c.service) === i);
+  const cases = homeCases.length
     ? `<section class="section cases" id="cases"><div class="wrap">
       <div class="s-head s-head--row">${sectionHead(t(H.casesKicker, l), t(H.casesTitle, l), t(H.casesNote, l))}${btnSheet(l, t(H.casesAll, l), null, "btn-line")}</div>
-      ${carousel(
-        biz.cases
-          .map((c) => {
-            const sv = svcOf(c.service);
-            const img = c.image
-              ? `<img src="/${c.image}" alt="${esc(t(c.title, l))}" loading="lazy">`
-              : `<div class="case-pair"><div><img src="/${c.before}" alt="" loading="lazy"><span>${l === "ar" ? "قبل" : "Before"}</span></div><div><img src="/${c.after}" alt="" loading="lazy"><span>${l === "ar" ? "بعد" : "After"}</span></div></div>`;
-            return `<figure class="case-card"><div class="case-img">${img}</div><figcaption>${sv ? `<a class="badge" href="${P.service(l, sv.slug)}">${esc(t(sv.title, l))}</a>` : ""}<h3>${esc(t(c.title || c.caption, l))}</h3>${c.story ? `<p>${esc(t(c.story, l))}</p>` : ""}</figcaption></figure>`;
-          })
-          .join(""),
-        "car--cases"
-      )}
+      ${carousel(homeCases.map((c) => caseCard(l, c, true)).join(""), "car--cases")}
     </div></section>`
     : "";
   const midCta = biz.cases.length || biz.testimonials.length || (GR.items && GR.items.length)
@@ -775,12 +765,25 @@ ${ctaBand(l, null)}`;
   );
 }
 
+/* ---------- real clinic cases ---------- */
+function caseCard(l, c, badge) {
+  const sv = services.find((x) => x.slug === c.service);
+  const imgs = c.images || [{ src: c.before, label: { ar: "قبل", en: "Before" } }, { src: c.after, label: { ar: "بعد", en: "After" } }];
+  const n = imgs.length;
+  return `<figure class="case-card"><div class="case-set case-set--${n}">${imgs.map((m) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" loading="lazy" decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${badge && sv ? `<a class="badge" href="${P.service(l, sv.slug)}">${esc(t(sv.title, l))}</a>` : ""}<h3>${esc(t(c.title, l))}</h3></figcaption></figure>`;
+}
+function serviceCases(l, s) {
+  const list = biz.cases.filter((c) => c.service === s.slug);
+  if (!list.length) return "";
+  return `<section class="svc-cases reveal" id="cases"><h2>${esc(t(site.home.casesTitle, l))}</h2><p class="svc-cases-note">${esc(t(site.home.casesNote, l))}</p><div class="cases-grid">${list.map((c) => caseCard(l, c, false)).join("")}</div></section>`;
+}
+
 /* ---------- explained guide (implants) ---------- */
 const md = (x) => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 const ILL = (l) => (l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case");
 function guideToc(l, s) {
   const G = s.guide;
-  return `<nav class="g-toc reveal" aria-label="${esc(t(G.tocTitle, l))}"><p class="kicker">${esc(t(G.tocTitle, l))}</p><ol>${G.sections.map((x) => `<li><a href="#${x.id}">${esc(t(x.title, l))}</a></li>`).join("")}<li><a href="#faq">${t(site.ui.faqTitle, l)}</a></li></ol>${btnSheet(l, esc(t(G.cta, l)), s, "btn-primary", "wa")}</nav>`;
+  return `<nav class="g-toc reveal" aria-label="${esc(t(G.tocTitle, l))}"><p class="kicker">${esc(t(G.tocTitle, l))}</p><ol>${G.sections.map((x) => `<li><a href="#${x.id}">${esc(t(x.title, l))}</a></li>`).join("")}${biz.cases.some((c) => c.service === s.slug) ? `<li><a href="#cases">${esc(t(site.home.casesTitle, l))}</a></li>` : ""}<li><a href="#faq">${t(site.ui.faqTitle, l)}</a></li></ol>${btnSheet(l, esc(t(G.cta, l)), s, "btn-primary", "wa")}</nav>`;
 }
 function guideBlock(l, s, b) {
   if (b.p) return `<p>${md(t(b.p, l))}</p>`;
@@ -820,6 +823,7 @@ function servicePage(l, s) {
     ${s.techniques ? `<section class="svc-tq reveal" id="techniques"><h2>${esc(t(s.techniques.title, l))}</h2>${s.techniques.lead ? `<p class="svc-tq-lead">${esc(t(s.techniques.lead, l))}</p>` : ""}<div class="tq-grid">${s.techniques.items.map((x, i) => `<article class="tq-card${s.techniques.steps ? " tq-step" : ""}"><span class="mini-ic">${icon(x.icon)}</span>${s.techniques.steps ? `<span class="tq-num">${i + 1}</span>` : ""}<h3>${esc(t(x.title, l))}</h3>${l === "ar" ? `<p class="tq-en" dir="ltr">${esc(x.name)}</p>` : ""}<p>${esc(t(x.body, l))}</p></article>`).join("")}</div></section>` : ""}
     ${s.guide ? guideSections(l, s) : ""}
     ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 380px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
+    ${serviceCases(l, s)}
     ${s.compare ? `<section class="svc-cmp reveal"><h2>${esc(t(s.compare.title, l))}</h2><div class="cmp-wrap"><table class="cmp"><thead><tr>${s.compare.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${s.compare.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>${s.compare.note ? `<p class="cmp-note">${esc(t(s.compare.note, l))}</p>` : ""}</section>` : ""}
     ${(s.seeAlso || []).length ? `<nav class="see-also reveal" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
     ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#technology"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
