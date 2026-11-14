@@ -6,6 +6,8 @@ module.exports = {
   ui: {
     nav: {
       home: { ar: "الرئيسية", en: "Home" },
+      implants: { ar: "زراعة الأسنان", en: "Dental implants" },
+      cosmetic: { ar: "تجميل الأسنان", en: "Cosmetic dentistry" },
       services: { ar: "الخدمات", en: "Services" },
       technology: { ar: "التقنيات", en: "Technology" },
       doctor: { ar: "د. بشاي مينا", en: "Dr. Beshay Mina" },

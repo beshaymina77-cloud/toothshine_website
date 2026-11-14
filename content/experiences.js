@@ -23,11 +23,11 @@ module.exports = {
   /* ---------- A. implant explorer ---------- */
   implant: {
     tab: { ar: "الزرعة من جوه", en: "Inside an implant" },
-    kicker: { ar: "تجربة ثلاثية الأبعاد", en: "3D experience" },
-    title: { ar: "اتفرج على الزرعة من كل الزوايا", en: "Explore a dental implant from every angle" },
+    kicker: { ar: "ببساطة", en: "In simple terms" },
+    title: { ar: "يعني إيه زرعة أسنان؟", en: "Explore a dental implant from every angle" },
     lead: {
-      ar: "لف النموذج، وافصل الأجزاء، وقارن بين الزرعة والكوبري التقليدي.",
-      en: "Rotate the model, separate the parts, and compare an implant with a conventional bridge.",
+      ar: "جذر صناعي في العظم، وفوقه دعامة وتاج شكله زي الأسنان الطبيعية.",
+      en: "An artificial root in the bone, topped by an abutment and a crown that looks like a natural tooth.",
     },
     controls: [
       { set: "assemble:1", label: { ar: "شوف التركيب خطوة بخطوة", en: "Watch it assemble" }, info: "assemble" },
@@ -83,7 +83,7 @@ module.exports = {
     kicker: { ar: "التخطيط الرقمي", en: "Digital planning" },
     title: { ar: "من الأشعة للتاج: إزاي بنخطط الزرعة بالدليل الجراحي", en: "From scan to crown: how a guided implant is planned" },
     lead: {
-      ar: "ست خطوات، كل خطوة بتبني على اللي قبلها. اضغط على أي خطوة عشان تشوفها.",
+      ar: "ست خطوات، كل خطوة بتبني على اللي قبلها.",
       en: "Six steps, each building on the last. Tap a step to see it.",
     },
     stepLabel: { ar: "الخطوة", en: "Step" },
@@ -117,9 +117,9 @@ module.exports = {
   veneer: {
     tab: { ar: "الفينير والتيجان", en: "Veneers and crowns" },
     kicker: { ar: "تجميل الأسنان", en: "Aesthetic dentistry" },
-    title: { ar: "قطاع في السنة: الفرق بين الفينير والتاج", en: "A slice through the tooth: veneer versus crown" },
+    title: { ar: "الفرق بين الفينير والتاج", en: "A slice through the tooth: veneer versus crown" },
     lead: {
-      ar: "اختار نوع التركيبة وشوف المادة التجميلية (باللون الأزرق) وقد إيه بنشيل من السنة الطبيعية.",
+      ar: "الفينير قشرة رفيعة على السطح الأمامي للسنة، والتاج بيغطي السنة كلها. الأنسب بيتحدد بعد الكشف.",
       en: "Choose a restoration to see the material (in blue) and how much natural tooth is removed.",
     },
     layers: [

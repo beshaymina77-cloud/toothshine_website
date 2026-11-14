@@ -1563,3 +1563,32 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .ip-drsec .ip-feat-copy p { max-width: 60ch; }
 .ip-suit--wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 860px) { .ip-drsec .ip-feat-in { grid-template-columns: 1fr; } .ip-drsec .ip-dr-photo { width: min(78%, 340px); } .ip-suit--wide { grid-template-columns: 1fr 1fr; } .ip-drsec .ip-hero-cta .btn { width: 100%; justify-content: center; } }
+/* v19: static illustrations replace the 3D explorers */
+.ill-grid { display: grid; gap: clamp(14px, 2.4vw, 24px); }
+.ill-grid--1 { max-width: 760px; margin-inline: auto; }
+.ill-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ill-fig { margin: 0; }
+.ill-fig img { width: 100%; height: auto; display: block; border-radius: 20px; background: var(--ice); box-shadow: var(--shadow); }
+.ill-fig figcaption { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; margin-top: 10px; }
+.ill-fig figcaption strong { color: var(--navy); font-size: 17px; }
+.ill-steps { list-style: none; padding: 0; margin: clamp(18px, 3vw, 28px) auto 0; max-width: 760px; display: grid; gap: 10px; }
+.ill-steps li { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.ill-steps .ip-n { flex: none; margin: 0; }
+.ill-steps strong { color: var(--navy); }
+.ill-steps p { margin: 4px 0 0; line-height: 1.75; }
+@media (max-width: 860px) { .ill-grid--3 { grid-template-columns: 1fr; } }
+/* v19: home signature treatments */
+.signature { background: linear-gradient(180deg, var(--ice), #fff); }
+.sig-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 3vw, 32px); }
+.sig-card { background: #fff; border: 1px solid var(--line); border-radius: 28px; padding: clamp(14px, 2vw, 22px); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+.sig-card .ip-pair { box-shadow: none; padding: 0; }
+.sig-real { display: flex; align-items: center; gap: 6px; justify-content: center; font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+.sig-real .ic { width: 16px; height: 16px; color: #1a8a4a; }
+.sig-h { font-size: clamp(28px, 3.4vw, 40px); color: var(--navy); margin: 16px 0 8px; line-height: 1.25; }
+.sig-p { font-size: 17px; line-height: 1.8; margin: 0 0 12px; }
+.sig-tags { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+.sig-tags li { background: var(--ice); color: var(--navy); border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 600; }
+.sig-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+@media (max-width: 860px) { .sig-grid { grid-template-columns: 1fr; } .sig-cta .btn { flex: 1 1 100%; justify-content: center; } }
+.ip-pair--stack { grid-template-columns: 1fr; }
+.ip-pair--stack .ip-pair-ph { aspect-ratio: 830 / 330; }

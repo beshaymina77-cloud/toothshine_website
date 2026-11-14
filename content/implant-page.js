@@ -41,7 +41,7 @@ module.exports = {
   },
   why: {
     kicker: { ar: "ليه Tooth Shine؟", en: "Why Tooth Shine?" },
-    title: { ar: "تخطيط بيبدأ من شكل السنة النهائية", en: "Planning that starts from the final tooth" },
+    title: { ar: "ليه تختار مركز أسنان شاين لزراعة الأسنان؟", en: "Why choose Tooth Shine for dental implants?" },
     items: [
       { icon: "crown", title: { ar: "تخطيط حسب التركيبة النهائية", en: "Prosthetically driven planning" },
         body: { ar: "مكان الزرعة بيتحدد على أساس شكل ووظيفة السنة النهائية، والعضة، وكمية العظم المتاحة، والحدود التشريحية زي الأعصاب والجيوب الأنفية.", en: "The implant position is chosen around the final tooth's shape and function, your bite, the available bone and anatomical limits such as nerves and sinuses." } },
