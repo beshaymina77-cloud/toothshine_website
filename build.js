@@ -771,6 +771,7 @@ function homePage(l) {
       </aside>
       ${carousel(
         GR.items
+          .filter((r) => !/ليزر|laser/i.test(r.text || ""))
           .slice(0, 6)
           .map((r) => {
             const br = biz.branches.find((b) => b.id === r.branch);
