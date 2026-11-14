@@ -145,3 +145,96 @@ module.exports = {
   },
   reviewed: { ar: "المحتوى الطبي في الصفحة دي متراجع من د. بشاي مينا.", en: "The medical content on this page is reviewed by Dr. Beshay Mina." },
 };
+
+/* ---- v17 (Nov 14 2026, third brief): doctor-first order, 1–3 short sentences per section.
+   Order: doctor → experience & memberships → digital planning → electronic anaesthesia
+   → flapless (selected cases) → immediate placement (selected cases) → real cases
+   → education (from "The Dental Implant Journey" deck, prices/claims removed) → booking.
+   Clinical texts need Dr. Beshay's approval before going live. ---- */
+Object.assign(module.exports, {
+  dr: {
+    kw: { ar: "زراعة الأسنان في الإسكندرية · سبورتنج والعجمي", en: "Dental implants in Alexandria · Sporting & Agami" },
+    h1: { ar: "زراعة الأسنان مع د. بشاي مينا", en: "Dental implants with Dr. Beshay Mina" },
+    lead: {
+      ar: "مؤسس مركز أسنان شاين. بيركّز في شغله على زراعة الأسنان والتركيبات الثابتة، وبيبدأ كل حالة بتقييم كامل وشرح واضح للاختيارات.",
+      en: "Founder of Tooth Shine. His work focuses on dental implants and fixed restorations, and every case starts with a full assessment and a clear explanation of the options.",
+    },
+    cta2: { ar: "شوف حالات حقيقية", en: "See real cases" },
+    alt: { ar: "د. بشاي مينا، مؤسس مركز أسنان شاين", en: "Dr. Beshay Mina, founder of Tooth Shine" },
+  },
+  exp: {
+    title: { ar: "الخبرة والعضويات الطبية", en: "Clinical experience and memberships" },
+    items: [
+      { abbr: "ITI", ar: "عضو الفريق الدولي لزراعة الأسنان", en: "Member of the International Team for Implantology" },
+      { abbr: "ESOI", ar: "عضو الجمعية المصرية لزراعة الأسنان", en: "Member of the Egyptian Society of Oral Implantology" },
+    ],
+    founder: { ar: "مؤسس مركز أسنان شاين بفرعين: سبورتنج والعجمي", en: "Founder of Tooth Shine, with branches in Sporting and Agami" },
+    reviews: { ar: "تقييمات Google الحقيقية", en: "Real Google reviews" },
+    systems: { ar: "أنظمة زرعات بنشتغل بيها", en: "Implant systems we work with" },
+  },
+  plan: {
+    title: { ar: "تقييم دقيق وتخطيط رقمي", en: "Accurate assessment and digital planning" },
+    body: [
+      { ar: "بنبدأ بالكشف والتاريخ الطبي، وأشعة مناسبة لحالتك، وأشعة مقطعية (CBCT) في مركز أشعة متخصص لما الحالة تحتاج.", en: "We start with an examination, your medical history and suitable imaging, with a CBCT scan at a specialised radiology centre when needed." },
+      { ar: "بناخد المقاس بالماسح الضوئي داخل الفم، ونحدد مكان الزرعة على حسب شكل السنة النهائية والعضة.", en: "Impressions are taken with an intraoral scanner, and the implant position is planned around the final tooth and your bite." },
+    ],
+    alt: { ar: "صورة توضيحية لتخطيط مكان الزرعة رقميًا", en: "Illustration of digital implant planning" },
+    open3d: { ar: "شوف خطوات الدليل الجراحي 3D", en: "See the surgical guide steps in 3D" },
+  },
+  cclad: {
+    title: { ar: "راحة أكبر مع البنج الإلكتروني", en: "More comfort with computer-controlled anaesthesia" },
+    body: [
+      { ar: "جهاز البنج الإلكتروني بيدّي المخدر بسرعة وضغط متحكم فيهم، وده ممكن يخلّي الحقنة أريح.", en: "Computer-controlled anaesthesia delivers the anaesthetic at a controlled rate and pressure, which can make the injection more comfortable." },
+      { ar: "الإحساس بيختلف من شخص للتاني، والهدف تجربة أريح، مش وعد إن مفيش أي إحساس.", en: "Everyone feels it differently; the aim is more comfort, not a promise of feeling nothing." },
+    ],
+    link: { ar: "عندك خوف من علاج الأسنان؟", en: "Nervous about dental treatment?" },
+  },
+  flapless: {
+    title: { ar: "إمكانية الزراعة بدون شق لثة", en: "Flapless implant placement, when suitable" },
+    body: [
+      { ar: "في حالات مختارة، ممكن نركّب الزرعة من غير شق في اللثة ولا غرز.", en: "In selected cases, the implant can be placed without cutting the gum or stitches." },
+      { ar: "ده بيتحدد بعد الكشف والأشعة حسب العظم واللثة، ومش مناسب لكل الحالات.", en: "This is decided after examination and imaging, depending on the bone and gum; it is not suitable for every case." },
+    ],
+    alt: { ar: "صورة توضيحية ثلاثية الأبعاد للزرعة داخل العظم تحت اللثة", en: "3D illustration of an implant in the bone under the gum" },
+  },
+  immediate: {
+    title: { ar: "إمكانية الزراعة الفورية بعد الخلع", en: "Immediate implant placement after extraction, when suitable" },
+    body: [
+      { ar: "أحيانًا ممكن نركّب الزرعة في نفس جلسة الخلع، لو العظم وشكل مكان الخلع يسمحوا، ومفيش التهاب يمنع، والزرعة ثابتة كفاية.", en: "Sometimes the implant can go in at the same visit as the extraction, if the bone and socket allow, there is no infection that rules it out, and the implant is stable enough." },
+      { ar: "الزراعة الفورية غير التحميل الفوري: تركيب سنة مؤقتة على الزرعة بيتقرر لوحده، والتركيبة النهائية بتتركب بعد الالتئام.", en: "Immediate placement is not the same as immediate loading: a temporary tooth on the implant is a separate decision, and the final crown comes after healing." },
+    ],
+    alt: { ar: "صورة توضيحية ثلاثية الأبعاد لزرعة وتاج مكان سن مخلوع", en: "3D illustration of an implant and crown replacing an extracted tooth" },
+  },
+  cases2: {
+    title: { ar: "حالات زراعة حقيقية", en: "Real implant cases" },
+    note: { ar: "صور حقيقية من المركز، منشورة بموافقة المرضى. النتيجة بتختلف من شخص للتاني.", en: "Real photos from our centre, shared with patients' consent. Results vary between people." },
+  },
+  edu: {
+    kicker: { ar: "اعرف أكتر", en: "Learn more" },
+    title: { ar: "زراعة الأسنان ببساطة", en: "Dental implants, simply explained" },
+    whatTitle: { ar: "يعني إيه زرعة؟", en: "What is an implant?" },
+    what: { ar: "جذر صناعي من التيتانيوم بيتثبت في العظم مكان السنة المفقودة، وفوقه دعامة وتاج شكله زي الأسنان الطبيعية.", en: "A titanium root fixed in the bone where a tooth is missing, topped by an abutment and a crown that looks like a natural tooth." },
+    stagesTitle: { ar: "خطوات العلاج الأساسية", en: "The basic treatment stages" },
+    stages: [
+      { ar: "كشف وأشعة وخطة", en: "Examination, imaging and plan" },
+      { ar: "وضع الزرعة (وتطعيم عظم لو احتاج)", en: "Implant placement (with a bone graft if needed)" },
+      { ar: "فترة التحام بالعظم، غالبًا شهور", en: "Healing and bone fusion, usually months" },
+      { ar: "تركيب التاج النهائي والمتابعة", en: "Final crown and check-ups" },
+    ],
+    suitTitle: { ar: "إيه اللي بيحدد إن الزراعة مناسبة ليك؟", en: "What decides if an implant suits you?" },
+    suit: [
+      { icon: "exam", ar: "الحالة الصحية العامة والأدوية", en: "General health and medicines" },
+      { icon: "tooth", ar: "صحة اللثة وباقي الأسنان", en: "Gum health and the other teeth" },
+      { icon: "xray", ar: "كمية وجودة العظم في الأشعة", en: "Bone volume and quality on imaging" },
+      { icon: "pin", ar: "مكان السن المفقود", en: "Where the missing tooth is" },
+      { icon: "shield", ar: "التدخين والعادات اليومية", en: "Smoking and daily habits" },
+      { icon: "check", ar: "اكتمال نمو الفك", en: "Completed jaw growth" },
+    ],
+    suitNote: { ar: "القرار مش بيعتمد على عامل واحد، لكن على تقييم الحالة كلها.", en: "The decision rests on the whole assessment, not on one factor." },
+    ill: { ar: "الرسومات في القسم ده توضيحية، ومش حالات مرضى.", en: "Drawings in this section are illustrations, not patient cases." },
+  },
+  book2: {
+    title: { ar: "احجز تقييم زراعة الأسنان", en: "Book your dental implant assessment" },
+    lead: { ar: "اختار فرع سبورتنج أو العجمي، وابعت لنا على واتساب. الرسالة جاهزة.", en: "Choose Sporting or Agami and message us on WhatsApp. The message is ready." },
+  },
+});

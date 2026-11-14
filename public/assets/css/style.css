@@ -1502,3 +1502,59 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .ip-pair .ba-tag--b { left: auto; right: auto; inset-inline-start: 10px; top: 10px; }
 .ip-pair .ba-tag--a { left: auto; right: auto; inset-inline-start: 10px; top: 10px; }
 @media (max-width: 640px) { .ip-pair { gap: 5px; padding: 4px; border-radius: 18px; } .ip-pair-ph { border-radius: 14px; aspect-ratio: 1 / 1; } }
+
+/* ===== v17: implant page, doctor-first and visual-first ===== */
+.ip-hero--dr .ip-hero-in { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.ip-dr-photo { margin: 0; position: relative; justify-self: center; width: min(100%, 420px); }
+.ip-dr-photo img { width: 100%; height: auto; aspect-ratio: 900 / 1165; object-fit: cover; border-radius: 28px 28px 120px 28px; box-shadow: var(--shadow-lg); background: var(--ice); display: block; }
+.ip-dr-photo figcaption { position: absolute; inset-inline-start: 16px; bottom: 16px; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); border-radius: 14px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; box-shadow: var(--shadow); }
+.ip-dr-photo figcaption strong { color: var(--navy); font-size: 16px; }
+.ip-dr-photo figcaption span { color: var(--blue); font-weight: 700; font-size: 13px; letter-spacing: .04em; }
+.ip-exp { background: linear-gradient(180deg, #fff, var(--ice)); }
+.ip-exp-grid { list-style: none; margin: 0 0 22px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.ip-exp-grid li { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; color: var(--ink); font-weight: 600; line-height: 1.55; box-shadow: 0 1px 0 rgba(10,40,90,.03); }
+.ip-exp-abbr { font-family: var(--font-head); font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: .02em; }
+.ip-exp-ic { width: 40px; height: 40px; border-radius: 12px; background: var(--ice); display: grid; place-items: center; color: var(--blue); }
+.ip-exp-ic .ic { width: 22px; height: 22px; }
+.ip-feat-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(22px, 4vw, 60px); align-items: center; }
+.ip-feat--rev .ip-feat-media { order: 2; }
+.ip-feat--tint { background: var(--ice); }
+.ip-feat-copy h2 { font-size: clamp(24px, 3vw, 36px); color: var(--navy); margin: 0 0 14px; line-height: 1.3; }
+.ip-feat-copy p { font-size: 17px; line-height: 1.85; color: var(--ink); margin: 0 0 10px; max-width: 46ch; }
+.ip-feat-copy .ip-3d { margin-top: 14px; }
+.ip-fig2 { margin: 0; }
+.ip-fig2 img { width: 100%; height: auto; display: block; border-radius: 22px; background: var(--ice); box-shadow: var(--shadow); }
+.ip-fig2 figcaption { margin-top: 8px; text-align: center; }
+.ip-case-lead { margin: 0 0 clamp(18px, 3vw, 30px); }
+.ip-case-lead .ip-pair { padding: 8px; }
+.ip-case-lead figcaption { padding: 14px 4px 0; }
+.ip-case-lead h3 { color: var(--navy); margin: 6px 0; font-size: 20px; }
+.ip-rv { margin-top: clamp(24px, 4vw, 44px); }
+.ip-edu { background: linear-gradient(180deg, var(--ice), #fff); }
+.ip-edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 24px); }
+.ip-edu-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: clamp(16px, 2.4vw, 24px); box-shadow: var(--shadow); }
+.ip-edu-card .ip-fig2 img { box-shadow: none; border-radius: 16px; }
+.ip-edu-card h3 { color: var(--navy); font-size: 20px; margin: 14px 0 8px; }
+.ip-edu-card p { margin: 0 0 8px; line-height: 1.8; }
+.ip-mini-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ip-mini-steps li { display: flex; align-items: center; gap: 12px; background: var(--ice); border-radius: 14px; padding: 12px 14px; font-weight: 600; }
+.ip-mini-steps .ip-n { flex: none; margin: 0; }
+.ip-suit { list-style: none; margin: 0 0 8px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ip-suit li { display: flex; align-items: center; gap: 10px; background: var(--ice); border-radius: 14px; padding: 12px; font-weight: 600; font-size: 15px; line-height: 1.45; }
+.ip-suit .ic { width: 22px; height: 22px; color: var(--blue); flex: none; }
+.ip-cmp-acc { margin-top: clamp(16px, 2.4vw, 24px); background: #fff; border: 1px solid var(--line); border-radius: 18px; }
+.ip-cmp-acc > summary { padding: 16px 18px; }
+.ip-cmp-acc .ip-acc-body { padding: 0 18px 18px; overflow-x: auto; }
+@media (max-width: 960px) { .ip-exp-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 860px) {
+  .ip-hero--dr .ip-hero-in { grid-template-columns: 1fr; }
+  .ip-hero--dr .ip-dr-photo { order: -1; width: min(78%, 340px); }
+  .ip-feat-in { grid-template-columns: 1fr; }
+  .ip-feat--rev .ip-feat-media { order: 0; }
+  .ip-feat-copy p { font-size: 16px; }
+  .ip-edu-grid { grid-template-columns: 1fr; }
+  .ip-case-lead .ip-pair-ph { aspect-ratio: 3 / 3.2; }
+}
+@media (max-width: 420px) { .ip-exp-grid, .ip-suit { grid-template-columns: 1fr; } }
+.doc-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+@media (max-width: 860px) { .doc-cta .btn { flex: 1 1 100%; justify-content: center; } }

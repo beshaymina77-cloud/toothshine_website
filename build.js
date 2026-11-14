@@ -854,6 +854,34 @@ function homePage(l) {
   </div>
 </section>
 
+<section class="section doctor doctor--early" id="doctor">
+  <div class="wrap doctor-grid">
+    <div class="doc-portrait reveal">
+      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
+    </div>
+    <div class="doc-copy reveal" style="--d:80ms">
+      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
+      <h2>${esc(t(doc.name, l))}</h2>
+      <p class="doc-role">${esc(t(doc.role, l))}</p>
+      <p>${esc(t(H.doctorShort, l))}</p>
+      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
+      <p class="mini-label">${t(H.interestsLabel, l)}</p>
+      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
+      <ul class="members">${doc.memberships
+        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
+        .join("")}</ul>
+      <div class="doc-cta">${btnSheet(l, t(J.whyCta, l), svcOf("dental-implants"), "btn-primary", "wa")}<a class="btn btn-line" href="${P.service(l, "dental-implants")}">${esc(t(J.whyMore, l))}${icon("arrow", "flip")}</a></div>
+    </div>
+  </div>
+  ${biz.team.length > 1
+    ? `<div class="wrap team-grid">${biz.team
+        .slice(1)
+        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
+        .join("")}</div>`
+    : ""}
+</section>
+
 <section class="section jr" id="journey">
   <div class="wrap">
     ${sectionHead(t(J.journeyKicker, l), t(J.journeyTitle, l), t(J.journeyNote, l))}
@@ -878,35 +906,6 @@ ${whyImplant}
 
 ${comfort}
 
-
-
-<section class="section doctor" id="doctor">
-  <div class="wrap doctor-grid">
-    <div class="doc-portrait reveal">
-      ${doc.photo ? photo(doc.photo, t(doc.name, l), "arch") : `<div class="arch arch--empty" aria-hidden="true"><span class="mono">${l === "ar" ? "ب.م" : "BM"}</span></div>`}
-    </div>
-    <div class="doc-copy reveal" style="--d:80ms">
-      <p class="kicker">${esc(t(H.doctorKicker, l))}</p>
-      <h2>${esc(t(doc.name, l))}</h2>
-      <p class="doc-role">${esc(t(doc.role, l))}</p>
-      <p>${esc(t(H.doctorShort, l))}</p>
-      <blockquote class="doc-vision doc-vision--sm"><p>${esc(t(H.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
-      ${doc.qualifications.length ? `<ul class="quals">${doc.qualifications.map((q) => `<li>${esc(t(q, l))}</li>`).join("")}</ul>` : ""}
-      <p class="mini-label">${t(H.interestsLabel, l)}</p>
-      <ul class="chips">${doc.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-      <p class="mini-label">${t(H.membershipsLabel, l)}</p>
-      <ul class="members">${doc.memberships
-        .map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`)
-        .join("")}</ul>
-    </div>
-  </div>
-  ${biz.team.length > 1
-    ? `<div class="wrap team-grid">${biz.team
-        .slice(1)
-        .map((p) => `<article class="team-card">${photo(p.photo, t(p.name, l), "team-photo", "sparkle")}<h3>${esc(t(p.name, l))}</h3><p>${esc(t(p.role, l))}</p></article>`)
-        .join("")}</div>`
-    : ""}
-</section>
 
 ${reviews}
 ${testimonials}
@@ -1128,72 +1127,108 @@ function ipCaseCard(l, c, i) {
 }
 function implantPage(l, s) {
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.nav.services, l), P.services(l)], [t(s.title, l), P.service(l, s.slug)]];
-  const H = IP.hero;
   const cases = biz.cases.filter((c) => c.service === s.slug);
-  const heroCase = cases.find((c) => c.hero);
+  const heroCase = cases.find((c) => c.hero) || cases[0];
   const GR = biz.googleReviews || {};
   const bs = GR.branchSummary || {};
-  const rating = biz.branches.filter((b) => bs[b.id]).map((b) => `${bs[b.id].rating}★ ${t(b.name, l)}`).join(" · ");
   const doc = biz.team[0] || {};
-  const mem = (doc.memberships || []).map((m) => m.abbr).join(" · ");
-  const sec = (id, cls, inner) => `<section class="section ${cls}"${id ? ` id="${id}"` : ""}><div class="wrap">${inner}</div></section>`;
-  const head2 = (k, ti, le) => `<div class="s-head">${k ? `<p class="kicker">${esc(t(k, l))}</p>` : ""}<h2>${esc(t(ti, l))}</h2>${le ? `<p class="lead">${esc(t(le, l))}</p>` : ""}</div>`;
-  const hero = `<section class="ip-hero"><div class="wrap">
+  const D = IP.dr, E = IP.exp;
+  const img = (src, alt, w, h, sizes, tag, extra = "") => {
+    const s6 = src.replace(/\.(webp|jpg)$/, "-600.webp");
+    return `<figure class="ip-fig2${tag ? "" : " ip-fig2--photo"}"><img src="/${src}" srcset="/${s6} 600w, /${src} ${w}w" sizes="${sizes}" alt="${esc(alt)}" width="${w}" height="${h}" ${extra || 'loading="lazy"'} decoding="async">${tag ? `<figcaption><span class="fig-tag">${tag}</span></figcaption>` : ""}</figure>`;
+  };
+  const sents = (arr) => arr.map((x) => `<p>${esc(t(x, l))}</p>`).join("");
+  const feat = (id, cls, title, body, media, after = "") => `<section class="section ip-feat ${cls}" id="${id}"><div class="wrap ip-feat-in"><div class="ip-feat-media reveal">${media}</div><div class="ip-feat-copy reveal"><h2>${esc(t(title, l))}</h2>${sents(body)}${after}</div></div></section>`;
+
+  // 1. Doctor
+  const hero = `<section class="ip-hero ip-hero--dr"><div class="wrap">
     <nav class="crumbs" aria-label="breadcrumb"><ol>${crumbs.map(([n, h], i) => (i < crumbs.length - 1 ? `<li><a href="${h}">${esc(n)}</a></li>` : `<li aria-current="page">${esc(n)}</li>`)).join("")}</ol></nav>
     <div class="ip-hero-in">
       <div class="ip-hero-copy">
-        <h1><span class="ip-kw">${esc(t(H.kw, l))}</span>${esc(t(H.h1, l))}</h1>
-        <p class="ip-lead">${esc(t(H.lead, l))}</p>
-        <div class="ip-hero-cta">${ipBookBtn(l, t(H.cta, l))}<a class="btn btn-line btn-lg" href="#cases">${icon("check")}<span>${esc(t(H.cta2, l))}</span></a></div>
-        <ul class="ip-trust">${rating ? `<li>${icon("star")}<span>${esc((l === "ar" ? "تقييمات Google الحقيقية: " : "Real Google reviews: ") + rating)}</span></li>` : ""}${mem ? `<li>${icon("shield")}<span>${esc((l === "ar" ? "د. بشاي مينا · عضو " : "Dr. Beshay Mina · member of ") + mem)}</span></li>` : ""}<li>${icon("pin")}<span>${esc(l === "ar" ? "فرعين: سبورتنج والعجمي" : "Two branches: Sporting and Agami")}</span></li></ul>
+        <h1><span class="ip-kw">${esc(t(D.kw, l))}</span>${esc(t(D.h1, l))}</h1>
+        <p class="ip-lead">${esc(t(D.lead, l))}</p>
+        <div class="ip-hero-cta">${ipBookBtn(l, t(IP.hero.cta, l))}<a class="btn btn-line btn-lg" href="#cases">${icon("check")}<span>${esc(t(D.cta2, l))}</span></a></div>
       </div>
-      ${heroCase ? `<figure class="ip-hero-media">${heroCase.slider ? baSlider(l, heroCase, true) : `<div class="ip-pair">${heroCase.images.map((m, i) => `<div class="ip-pair-ph"><img src="/${esc(m.src)}" srcset="/${esc(m.src.replace(".webp", "-600.webp"))} 600w, /${esc(m.src)} 1200w" sizes="(max-width: 960px) 47vw, 300px" alt="${esc(t(heroCase.title, l))}: ${esc(t(m.label, l))}" width="1200" height="800" fetchpriority="high" decoding="async"><span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(t(m.label, l))}</span></div>`).join("")}</div>`}<figcaption>${icon("check")}<span>${esc(t(H.caseNote, l))}</span></figcaption></figure>` : ""}
+      <figure class="ip-dr-photo"><img src="/assets/img/dr-beshay-hero.webp" srcset="/assets/img/dr-beshay-hero-600.webp 600w, /assets/img/dr-beshay-hero.webp 900w" sizes="(max-width: 860px) 80vw, 420px" alt="${esc(t(D.alt, l))}" width="900" height="1165" fetchpriority="high" decoding="async"><figcaption><strong>${esc(t(doc.name, l))}</strong><span dir="ltr">ITI · ESOI</span></figcaption></figure>
     </div>
   </div></section>`;
-  const gallery = sec("cases", "ip-cases", `${head2(IP.cases.kicker, IP.cases.title, IP.cases.lead)}
+
+  // 2. Experience & memberships
+  const exp = `<section class="section ip-exp" id="experience"><div class="wrap">
+    <div class="s-head"><h2>${esc(t(E.title, l))}</h2></div>
+    <ul class="ip-exp-grid">
+      ${E.items.map((m) => `<li class="reveal"><span class="ip-exp-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`).join("")}
+      <li class="reveal"><span class="ip-exp-ic">${icon("center")}</span><span>${esc(t(E.founder, l))}</span></li>
+      ${biz.branches.filter((b) => bs[b.id]).length ? `<li class="reveal"><span class="ip-exp-ic">${icon("star")}</span><span>${esc(t(E.reviews, l))}: ${biz.branches.filter((b) => bs[b.id]).map((b) => `${esc(bs[b.id].rating)}★ ${esc(t(b.name, l))}`).join(" · ")}</span></li>` : ""}
+    </ul>
+    ${(biz.implantSystems || []).length ? `<div class="wi-sys wi-sys--row"><p class="jr-label">${esc(t(E.systems, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}
+  </div></section>`;
+
+  // 3. Digital planning
+  const PL = IP.plan;
+  const plan = feat("planning", "", PL.title, PL.body, img("assets/img/illustrations/guided-implant-planning.webp", t(PL.alt, l), 1200, 900, "(max-width: 860px) 92vw, 540px", ILL(l)),
+    `<details class="ip-3d"><summary>${icon("cube")}<span>${esc(t(PL.open3d, l))}</span></summary>${x3dBlock(l, ["guided"], { area: "implant-page" })}</details>`);
+
+  // 4. Electronic anaesthesia
+  const CC = IP.cclad;
+  const cclad = feat("comfort", "ip-feat--rev ip-feat--tint", CC.title, CC.body, `<div class="ip-comfort-art">${ccladAnim(l)}</div>`,
+    `<a class="ip-link" href="${PLP(l, "dental-anxiety")}">${esc(t(CC.link, l))}${icon("arrow", "flip")}</a>`);
+
+  // 5. Flapless  6. Immediate
+  const FL = IP.flapless, IM = IP.immediate;
+  const flapless = feat("flapless", "", FL.title, FL.body, img("assets/img/3d/implant-tissue.webp", t(FL.alt, l), 1200, 800, "(max-width: 860px) 92vw, 540px", ILL(l)));
+  const immediate = feat("immediate", "ip-feat--rev", IM.title, IM.body, img("assets/img/3d/implant.webp", t(IM.alt, l), 1200, 800, "(max-width: 860px) 92vw, 540px", ILL(l)));
+
+  // 7. Real cases
+  const pair = (c) => `<div class="ip-pair">${c.images.map((m, i) => `<div class="ip-pair-ph"><img src="/${esc(m.src)}" srcset="/${esc(m.src.replace(".webp", "-600.webp"))} 600w, /${esc(m.src)} 1200w" sizes="(max-width: 860px) 46vw, 560px" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" width="1200" height="800" loading="lazy" decoding="async"><span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(t(m.label, l))}</span></div>`).join("")}</div>`;
+  const C2 = IP.cases2;
+  const gallery = `<section class="section ip-cases" id="cases"><div class="wrap">
+    <div class="s-head"><h2>${esc(t(C2.title, l))}</h2></div>
+    ${heroCase ? `<figure class="ip-case-lead reveal" data-case-view="${esc(String(heroCase.images[0].src).split("/").pop())}">${pair(heroCase)}<figcaption><span class="ip-real">${icon("check")}${l === "ar" ? "حالة حقيقية" : "Real case"}</span><h3>${esc(t(heroCase.title, l))}</h3>${caseStory(l, heroCase)}</figcaption></figure>` : ""}
     <div class="ip-case-grid">${cases.filter((c) => c !== heroCase).map((c, i) => ipCaseCard(l, c, i)).join("")}</div>
-    <p class="ip-note">${esc(t(IP.cases.note, l))}</p>
-    <div class="ip-cta">${ipBookBtn(l, t(IP.cases.cta, l))}</div>`);
-  const why = sec("why", "ip-why", `${head2(IP.why.kicker, IP.why.title, "")}
-    <ol class="wi-grid">${IP.why.items.map((x, i) => `<li class="wi-card reveal" style="--d:${(i % 3) * 70}ms"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ol>
-    ${(biz.implantSystems || []).length ? `<div class="wi-sys wi-sys--row"><p class="jr-label">${esc(t(IP.why.systemsLabel, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}`);
-  const C = IP.comfort;
-  const comfort = sec("comfort", "ip-comfort", `<div class="ip-comfort-in">
-    <div>${head2(C.kicker, C.title, "")}<p class="ip-p">${esc(t(C.body, l))}</p>
-      <ul class="ticks">${C.points.map((x) => `<li>${icon("check")}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
-      <p class="ip-small">${esc(t(C.note, l))}</p>
-      <a class="ip-link" href="${PLP(l, "dental-anxiety")}">${esc(t(C.link, l))}${icon("arrow", "flip")}</a></div>
-    <div class="ip-comfort-art">${ccladAnim(l)}</div></div>`);
-  const W = IP.what;
-  const what = sec("what", "ip-what", `<div class="ip-what-in">
-    <figure class="fig ip-fig"><img src="/assets/img/illustrations/implant-parts.webp" srcset="/assets/img/illustrations/implant-parts-600.webp 600w, /assets/img/illustrations/implant-parts.webp 1200w" sizes="(max-width: 860px) 94vw, 520px" alt="${esc(t(W.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption><span class="fig-tag">${ILL(l)}</span></figcaption></figure>
-    <div>${head2(W.kicker, W.title, "")}<p class="ip-p">${esc(t(W.body, l))}</p><ul class="ticks">${W.parts.map((x) => `<li>${icon("check")}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
-    <details class="ip-3d"><summary>${icon("cube")}<span>${esc(t(W.open3d, l))}</span></summary>${x3dBlock(l, ["implant"], { area: "implant-page" })}</details></div></div>`);
-  const compare = sec("implant-vs-bridge", "ip-compare", `<div class="narrow">${head2("", IP.compare.title, IP.compare.lead)}${cmpTable(l, IP.compare)}<p class="cmp-note">${esc(t(IP.compare.note, l))}</p></div>`);
-  const journey = sec("journey", "ip-journey", `${head2("", IP.journey.title, "")}<ol class="ip-steps">${IP.journey.steps.map((x, i) => `<li class="reveal" style="--d:${i * 50}ms"><span class="ip-n">${i + 1}</span><h3>${esc(t(x.t, l))}</h3><p>${esc(t(x.d, l))}</p></li>`).join("")}</ol><p class="ip-note">${esc(t(IP.journey.note, l))}</p><div class="ip-cta">${ipBookBtn(l, t(H.cta, l))}</div>`);
+    <p class="ip-note">${esc(t(C2.note, l))}</p>
+    <div class="ip-cta">${ipBookBtn(l, t(IP.cases.cta, l))}</div>
+    <div class="ip-rv narrow">${serviceReviews(l, s)}</div>
+  </div></section>`;
+
+  // 8. Education
+  const ED = IP.edu;
+  const edu = `<section class="section ip-edu" id="learn"><div class="wrap">
+    <div class="s-head"><p class="kicker">${esc(t(ED.kicker, l))}</p><h2>${esc(t(ED.title, l))}</h2><p class="ip-small">${esc(t(ED.ill, l))}</p></div>
+    <div class="ip-edu-grid">
+      <article class="ip-edu-card reveal">${img("assets/img/illustrations/implant-parts.webp", t(IP.what.alt, l), 1200, 900, "(max-width: 860px) 92vw, 380px", "")}<h3>${esc(t(ED.whatTitle, l))}</h3><p>${esc(t(ED.what, l))}</p>
+        <details class="ip-3d"><summary>${icon("cube")}<span>${esc(t(IP.what.open3d, l))}</span></summary>${x3dBlock(l, ["implant"], { area: "implant-page" })}</details></article>
+      <article class="ip-edu-card reveal">${img("assets/img/3d/implant-bridge.webp", l === "ar" ? "صورة توضيحية: زرعة وكوبري" : "Illustration: implant and bridge", 1200, 800, "(max-width: 860px) 92vw, 380px", "")}<h3>${esc(t(IP.compare.title, l))}</h3><p>${esc(t(IP.compare.lead, l))}</p>
+        <a class="ip-link" href="#implant-vs-bridge" data-open="implant-vs-bridge">${l === "ar" ? "قارن بالتفصيل" : "Compare in detail"}${icon("arrow", "flip")}</a></article>
+      <article class="ip-edu-card reveal"><h3>${esc(t(ED.stagesTitle, l))}</h3><ol class="ip-mini-steps">${ED.stages.map((x, i) => `<li><span class="ip-n">${i + 1}</span><span>${esc(t(x, l))}</span></li>`).join("")}</ol></article>
+      <article class="ip-edu-card reveal"><h3>${esc(t(ED.suitTitle, l))}</h3><ul class="ip-suit">${ED.suit.map((x) => `<li>${icon(x.icon)}<span>${esc(t(x, l))}</span></li>`).join("")}</ul><p class="ip-small">${esc(t(ED.suitNote, l))}</p></article>
+    </div>
+    <details class="ip-acc-item ip-cmp-acc" id="implant-vs-bridge"><summary><h3>${esc(t(IP.compare.title, l))}</h3><span class="faq-ic">${icon("plus")}</span></summary><div class="ip-acc-body">${cmpTable(l, IP.compare)}<p class="cmp-note">${esc(t(IP.compare.note, l))}</p></div></details>
+  </div></section>`;
   const faq = `<section class="section faq-sec ip-faq" id="faq"><div class="wrap faq-grid">${sectionHead("", t(IP.faqTitle, l), "")}${faqList(l, IP.faqs)}</div></section>`;
-  const B = IP.book;
+
+  // 9. Booking
+  const B = IP.book, B2 = IP.book2;
   const book = `<section class="lp-book ip-book" id="book"><div class="wrap">
-    <div class="s-head"><h2>${esc(t(B.title, l))}</h2><p class="lead">${esc(t(B.lead, l))}</p></div>
+    <div class="s-head"><h2>${esc(t(B2.title, l))}</h2><p class="lead">${esc(t(B2.lead, l))}</p></div>
     <div class="lp-branches">${biz.branches.map((b) => `<article class="lp-br${b.priority ? " is-main" : ""}"><div class="lp-br-top"><h3>${esc(t(b.name, l))}</h3>${b.priority ? `<span class="badge">${t(site.ui.mainBranch, l)}</span>` : ""}</div>
       <p class="lp-br-meta">${icon("pin")}<span>${esc(t(b.address, l) || t(b.area, l))}</span></p>
       ${t(b.hours, l) ? `<p class="lp-br-meta">${icon("clock")}<span>${esc(t(b.hours, l))}</span></p>` : ""}
       <div class="lp-br-act">${ipWa(l, b, "btn-lg")}${lpCall(l, b)}${b.mapsUrl ? `<a class="btn btn-ghost" data-act="map" data-branch="${b.id}" href="${b.mapsUrl}" target="_blank" rel="noopener">${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>` : ""}</div></article>`).join("")}</div>
     <p class="book-privacy">${icon("shield")}<span>${esc(t(B.privacy, l))}</span></p>
   </div></section>`;
-  const guide = s.guide ? sec("guide", "ip-guide", `<div class="narrow">${head2("", IP.guide.title, IP.guide.lead)}
+  const guide = s.guide ? `<section class="section ip-guide" id="guide"><div class="wrap narrow"><div class="s-head"><h2>${esc(t(IP.guide.title, l))}</h2><p class="lead">${esc(t(IP.guide.lead, l))}</p></div>
     <div class="ip-acc">${s.guide.sections.filter((x) => x.id !== "implant-vs-bridge").map((x) => `<details class="ip-acc-item" id="${x.id}"><summary><h3>${esc(t(x.title, l))}</h3><span class="faq-ic">${icon("plus")}</span></summary><div class="ip-acc-body">${x.blocks.filter((b) => !b.cta).map((b) => guideBlock(l, s, b)).join("")}</div></details>`).join("")}</div>
     ${(s.seeAlso || []).length ? `<nav class="see-also" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
-    <p class="g-reviewed">${icon("check")}<span>${esc(t(IP.reviewed, l))}</span></p></div>`) : "";
-  const reviews = `<section class="section ip-reviews"><div class="wrap narrow">${serviceReviews(l, s)}</div></section>`;
+    <p class="g-reviewed">${icon("check")}<span>${esc(t(IP.reviewed, l))}</span></p></div></section>` : "";
   const body = `${hero}
+${exp}
+${plan}
+${cclad}
+${flapless}
+${immediate}
 ${gallery}
-${why}
-${comfort}
-${what}
-${compare}
-${journey}
-${reviews}
+${edu}
 ${faq}
 ${book}
 ${guide}
