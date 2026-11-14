@@ -131,7 +131,7 @@ module.exports = {
      Empty = a designed placeholder panel is shown instead. */
   photos: {
     heroClinic: "assets/img/hero-implant-photo.webp",   // main image for the homepage opening
-    heroAlt: { ar: "صورة توضيحية لزرعة أسنان داخل عظم الفك: الزرعة والدعامة والتاج مع العظم واللثة", en: "Illustration of a dental implant in the jawbone: implant, abutment and crown with bone and gum" },
+    heroAlt: { ar: "صورة توضيحية لأجزاء زراعة الأسنان: الزرعة داخل العظم، ثم الدعامة، ثم التاج، مع اللثة", en: "Illustration of dental implant parts: the implant in the bone, then the abutment and the crown, with the gum" },
     interior: [],            // list of clinic interior photos
     equipment: {             // photos of the actual devices
       scanner: "",

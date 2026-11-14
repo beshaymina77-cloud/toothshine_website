@@ -1388,3 +1388,4 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .dev-photo figcaption { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 .tp-img { position: relative; }
 @media (max-width: 640px) { .dev-photo img { height: 260px; } }
+.tp-img .ask-tag { top: auto; bottom: 10px; }

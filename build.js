@@ -938,7 +938,7 @@ ${testimonials}
           <div class="tp-actions"><a class="btn btn-primary" href="${P.service(l, s.slug)}">${t(site.ui.learnMore, l)}${icon("arrow", "flip")}</a>${btnSheet(l, t(site.ui.chooseBranch, l), s, "btn-line")}</div>
         </div>
         <div class="tp-side">
-          ${s.slug === "dental-implants" && biz.photos.heroClinic ? `<figure class="tp-img"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" loading="lazy" width="825" height="553"><span class="ask-tag">${l === "ar" ? "صورة توضيحية" : "Illustration"}</span></figure>` : ""}
+          ${s.slug === "dental-implants" && biz.photos.heroClinic ? `<figure class="tp-img"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" loading="lazy" width="1200" height="750"><span class="ask-tag">${l === "ar" ? "صورة توضيحية" : "Illustration"}</span></figure>` : ""}
           <p class="tp-label">${t(site.ui.whyTitle, l)}</p>
           <ul class="ticks">${s.reasons[l].slice(0, 4).map((r) => `<li>${icon("check")}<span>${esc(r)}</span></li>`).join("")}</ul>
         </div>
