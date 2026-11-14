@@ -248,14 +248,14 @@ module.exports = {
 
   cases: [
     // Real clinic cases, cropped from the clinic's own posts (Nov 2026). Published with the patients' consent as confirmed by Dr. Beshay.
-    { service: "dental-implants", hero: true, title: { ar: "تعويض سن مفقود بزرعة وتجميل الابتسامة", en: "Replacing a missing tooth with an implant, with a smile makeover" },
-      images: [{ src: "assets/img/cases/implant-front-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/implant-front-after.webp", label: { ar: "بعد", en: "After" } }] },
-    { service: "dental-implants", title: { ar: "تعويض الأسنان الأمامية العلوية بزرعتين وتركيبات ثابتة", en: "Replacing the upper front teeth with two implants and fixed restorations" },
+    { service: "dental-implants", hero: true, title: { ar: "تعويض الأسنان الأمامية العلوية بزرعتين وتركيبات ثابتة", en: "Replacing the upper front teeth with two implants and fixed restorations" },
       images: [{ src: "assets/img/cases/implant-rehab-2.webp", label: { ar: "أثناء العلاج: الزرعتين", en: "During treatment: the two implants" } }, { src: "assets/img/cases/implant-rehab-3.webp", label: { ar: "بعد التركيبات", en: "After the restorations" } }] },
     { service: "dental-implants", title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
       images: [{ src: "assets/img/cases/implant-molar-1.webp", label: { ar: "١. الزرعة", en: "1. Implant" } }, { src: "assets/img/cases/implant-molar-2.webp", label: { ar: "٢. الالتئام", en: "2. Healing" } }, { src: "assets/img/cases/implant-molar-3.webp", label: { ar: "٣. النهائي", en: "3. Final" } }] },
     { service: "dental-implants", title: { ar: "زرعتين لتعويض ضرسين", en: "Two implants replacing two molars" },
       images: [{ src: "assets/img/cases/implant-two-1.webp", label: { ar: "١. الزرعات", en: "1. Implants" } }, { src: "assets/img/cases/implant-two-2.webp", label: { ar: "٢. الالتئام", en: "2. Healing" } }, { src: "assets/img/cases/implant-two-3.webp", label: { ar: "٣. النهائي", en: "3. Final" } }] },
+    { service: "cosmetic-restorative-dentistry", title: { ar: "فينير إي ماكس للابتسامة", en: "E.max ceramic veneers" },
+      images: [{ src: "assets/img/cases/smile-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/smile-1-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "cosmetic-restorative-dentistry", title: { ar: "تركيبات بورسلين للفك", en: "Porcelain restorations" },
       images: [{ src: "assets/img/cases/porcelain-full-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/porcelain-full-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "cosmetic-restorative-dentistry", title: { ar: "تركيبات زيركونيا", en: "Zirconia restorations" },
@@ -266,8 +266,6 @@ module.exports = {
       images: [{ src: "assets/img/cases/rehab-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-1-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "cosmetic-restorative-dentistry", title: { ar: "تأهيل الفم وتجميل الابتسامة", en: "Full-mouth rehabilitation and smile design" },
       images: [{ src: "assets/img/cases/rehab-2-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/rehab-2-after.webp", label: { ar: "بعد", en: "After" } }] },
-    { service: "cosmetic-restorative-dentistry", title: { ar: "فينير إي ماكس للابتسامة", en: "E.max ceramic veneers" },
-      images: [{ src: "assets/img/cases/smile-1-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/smile-1-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "composite-veneers", title: { ar: "فينير كومبوزيت", en: "Composite veneers" },
       images: [{ src: "assets/img/cases/composite-veneer-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/composite-veneer-after.webp", label: { ar: "بعد", en: "After" } }] },
     { service: "teeth-whitening", title: { ar: "تبييض الأسنان في العيادة", en: "In-clinic whitening" },

@@ -477,6 +477,7 @@ function implantScene(container, opts) {
       if (k === "explode") explode(v === "on" || v === true);
       if (k === "assemble") assemble();
       if (k === "stage") stage(+v);
+      if (k === "gap") { resetGuided(); implant.visible = false; S.invalidate(); }
       if (k === "rotate") { S.controls.rotateLeft ? S.controls.rotateLeft(+v) : null; S.invalidate(); }
       if (k === "reset") S.frameObject(root, 1, new Vector3(2.5, 0, 0), 40);
     },

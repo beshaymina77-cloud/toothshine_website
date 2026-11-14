@@ -27,7 +27,7 @@ module.exports = {
     {
       id: "missing",
       icon: "implant",
-      img: "assets/img/illustrations/implant-parts-600.webp",
+      img: "assets/img/3d/card-gap-600.webp",
       imgTag: "ill",
       label: { ar: "عندي سن مفقود", en: "I have a missing tooth" },
       hint: { ar: "زراعة، كوبري، أو طقم", en: "Implant, bridge or denture" },
@@ -69,7 +69,7 @@ module.exports = {
       x3d: "veneer",
       x3dPoster: "veneer-ceramic",
       caption: { ar: "قطاع ثلاثي الأبعاد: الفينير مقابل التاج.", en: "A 3D slice: veneer versus crown." },
-      caseIndex: 7,
+      caseIndex: 3,
     },
     {
       id: "crooked",
@@ -94,8 +94,8 @@ module.exports = {
     {
       id: "fear",
       icon: "shield",
-      img: "assets/img/card-calm-600.webp",
-      imgTag: "dr",
+      img: "assets/img/illustrations/card-calm-600.webp",
+      imgTag: "ill",
       label: { ar: "قلقان من علاج الأسنان", en: "Nervous about dental treatment" },
       hint: { ar: "خلّينا نساعدك تبدأ براحة واطمئنان", en: "Let us help you start calmly and with confidence" },
       service: "dental-examination",
