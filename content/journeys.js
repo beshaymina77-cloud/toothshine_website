@@ -27,7 +27,7 @@ module.exports = {
     {
       id: "missing",
       icon: "implant",
-      img: "assets/img/illustrations/card-implant-600.webp",
+      img: "assets/img/illustrations/implant-parts-600.webp",
       imgTag: "ill",
       label: { ar: "عندي سن مفقود", en: "I have a missing tooth" },
       hint: { ar: "زراعة، كوبري، أو طقم", en: "Implant, bridge or denture" },
