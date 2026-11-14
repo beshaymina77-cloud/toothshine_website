@@ -94,9 +94,10 @@ module.exports = {
     {
       id: "fear",
       icon: "shield",
-      img: "",
-      label: { ar: "بخاف من علاج الأسنان", en: "I'm afraid of dental treatment" },
-      hint: { ar: "هنمشي معاك بهدوء", en: "We take it calmly with you" },
+      img: "assets/img/card-calm-600.webp",
+      imgTag: "dr",
+      label: { ar: "قلقان من علاج الأسنان", en: "Nervous about dental treatment" },
+      hint: { ar: "خلّينا نساعدك تبدأ براحة واطمئنان", en: "Let us help you start calmly and with confidence" },
       service: "dental-examination",
       cta: { ar: "احجز كشف هادي", en: "Book a calm first visit" },
       explain: {
@@ -109,7 +110,7 @@ module.exports = {
         { ar: "قلم البنج الإلكتروني في الحالات المناسبة، لحقنة أهدى", en: "Computer-controlled anaesthesia where suitable, for a gentler injection" },
         { ar: "تقسيم العلاج على جلسات أقصر لو ده أريح لك", en: "Shorter visits if that suits you better" },
       ],
-      comfortLink: { ar: "اعرف أكتر عن قلم البنج الإلكتروني", en: "More about computer-controlled anaesthesia" },
+      comfortLink: { ar: "اعرف أكتر عن البنج الإلكتروني", en: "More about computer-controlled anaesthesia" },
     },
   ],
   casesKicker: { ar: "حالات حقيقية", en: "Real cases" },
@@ -162,7 +163,7 @@ module.exports = {
 
   /* ---------- v13: comfort / electronic anaesthesia ---------- */
   comfortKicker: { ar: "راحتك أولًا", en: "Your comfort first" },
-  comfortTitle: { ar: "خايف من حقنة البنج؟ اكتشف قلم البنج الإلكتروني في Tooth Shine", en: "Nervous about injections? Meet computer-controlled anaesthesia at Tooth Shine" },
+  comfortTitle: { ar: "خايف من حقنة البنج؟ راحتك أثناء العلاج أولوية", en: "Nervous about injections? Your comfort during treatment comes first" },
   comfortLead: {
     ar: "قلم البنج الإلكتروني جهاز بيتحكم في دخول البنج بدل ما يعتمد على ضغط إيد الدكتور بس.",
     en: "Computer-controlled local anaesthesia uses a device to regulate how the anaesthetic is delivered, instead of relying on hand pressure alone.",
@@ -179,7 +180,7 @@ module.exports = {
   },
   comfortCtaTitle: { ar: "خايف من علاج الأسنان؟ اتعرف على طرق راحتك في مركز شاين", en: "Anxious about dental treatment? Find out how we keep you comfortable" },
   comfortCta: { ar: "احجز كشف هادي", en: "Book a calm first visit" },
-  comfortDeviceAlt: { ar: "قلم البنج الإلكتروني في مركز أسنان شاين", en: "The computer-controlled anaesthesia device at Tooth Shine" },
+  comfortDeviceAlt: { ar: "البنج الإلكتروني في مركز أسنان شاين", en: "The computer-controlled anaesthesia device at Tooth Shine" },
 
   /* ---------- v14: orthodontics / clear aligners ---------- */
   orthoKicker: { ar: "تقويم الأسنان", en: "Orthodontics" },

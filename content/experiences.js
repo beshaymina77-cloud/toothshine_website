@@ -147,7 +147,7 @@ module.exports = {
 
   /* ---------- D. computer-controlled local anaesthesia ---------- */
   cclad: {
-    kicker: { ar: "قلم البنج الإلكتروني", en: "Computer-controlled anaesthesia" },
+    kicker: { ar: "البنج الإلكتروني", en: "Computer-controlled anaesthesia" },
     title: { ar: "إزاي الجهاز بيتحكم في دخول البنج؟", en: "How does the device control the injection?" },
     lead: {
       ar: "الفرق مش في نوع البنج، الفرق في طريقة دخوله: الجهاز بيدخّل البنج ببطء وبمعدل ثابت بدل ما يعتمد على ضغط الإيد بس.",
@@ -155,7 +155,7 @@ module.exports = {
     },
     laneHand: { ar: "حقنة عادية", en: "Standard syringe" },
     laneHandSub: { ar: "السرعة والضغط بيعتمدوا على الإيد", en: "Speed and pressure depend on the hand" },
-    laneDevice: { ar: "قلم البنج الإلكتروني", en: "Computer-controlled device" },
+    laneDevice: { ar: "البنج الإلكتروني", en: "Computer-controlled device" },
     laneDeviceSub: { ar: "تدفق بطيء ومنتظم بيتحكم فيه الجهاز", en: "Slow, regulated flow controlled by the device" },
     axis: { ar: "الوقت", en: "Time" },
     steps: [
@@ -168,7 +168,5 @@ module.exports = {
       ar: "ده مش ليزر ومش بيلغي الحقنة. ممكن يقلل الإحساس بالحقنة عند كتير من المرضى، لكن الإحساس بيختلف من شخص للتاني.",
       en: "This is not a laser and it does not replace the injection. It may make the injection feel gentler for many patients, but everyone's experience differs.",
     },
-    deviceCaption: { ar: "قلم البنج الإلكتروني (صورة المنتج). صورة الجهاز في العيادة هتتحط مكانها.", en: "The computer-controlled anaesthesia pen (product photo). A photo of the clinic's own device will replace it." },
-    devicePending: { ar: "رسم توضيحي للجهاز. صورة الجهاز الحقيقي في العيادة هتتحط هنا.", en: "Illustration of the device. A photo of the clinic's actual device will go here." },
   },
 };

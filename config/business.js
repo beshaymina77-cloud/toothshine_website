@@ -135,7 +135,7 @@ module.exports = {
     interior: [],            // list of clinic interior photos
     equipment: {             // photos of the actual devices
       scanner: "",
-      anesthesia: "assets/img/equipment-anesthesia-pen.webp", // manufacturer product photo (Nov 14 2026), cleaned; replace with a real clinic photo
+      anesthesia: "", // only a real photo of the device in the clinic (doctor: no product photos)
       xray: "",
       prophyjet: "",
     },
@@ -248,6 +248,10 @@ module.exports = {
 
   cases: [
     // Real clinic cases, cropped from the clinic's own posts (Nov 2026). Published with the patients' consent as confirmed by Dr. Beshay.
+    { service: "dental-implants", hero: true, title: { ar: "تعويض سن مفقود بزرعة وتجميل الابتسامة", en: "Replacing a missing tooth with an implant, with a smile makeover" },
+      images: [{ src: "assets/img/cases/implant-front-before.webp", label: { ar: "قبل", en: "Before" } }, { src: "assets/img/cases/implant-front-after.webp", label: { ar: "بعد", en: "After" } }] },
+    { service: "dental-implants", title: { ar: "تعويض الأسنان الأمامية العلوية بزرعتين وتركيبات ثابتة", en: "Replacing the upper front teeth with two implants and fixed restorations" },
+      images: [{ src: "assets/img/cases/implant-rehab-2.webp", label: { ar: "أثناء العلاج: الزرعتين", en: "During treatment: the two implants" } }, { src: "assets/img/cases/implant-rehab-3.webp", label: { ar: "بعد التركيبات", en: "After the restorations" } }] },
     { service: "dental-implants", title: { ar: "تعويض ضرس مفقود بزرعة", en: "Replacing a missing molar with an implant" },
       images: [{ src: "assets/img/cases/implant-molar-1.webp", label: { ar: "١. الزرعة", en: "1. Implant" } }, { src: "assets/img/cases/implant-molar-2.webp", label: { ar: "٢. الالتئام", en: "2. Healing" } }, { src: "assets/img/cases/implant-molar-3.webp", label: { ar: "٣. النهائي", en: "3. Final" } }] },
     { service: "dental-implants", title: { ar: "زرعتين لتعويض ضرسين", en: "Two implants replacing two molars" },

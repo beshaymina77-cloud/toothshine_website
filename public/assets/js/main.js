@@ -11,14 +11,28 @@
   /* ---------- header shadow + mobile bar hide on footer ---------- */
   var header = $("[data-header]");
   var mbar = $("[data-mbar]");
-  var footer = $(".site-footer");
+  var footer = $(".site-footer") || $(".lp-foot");
   function onScroll() {
     if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  if (mbar && footer && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (e) { mbar.classList.toggle("is-hidden", e[0].isIntersecting); }).observe(footer);
+  /* hide the sticky bar while the footer, a booking section or a hero CTA row is on screen,
+     so it never covers content or sits on top of another booking button */
+  if (mbar && "IntersectionObserver" in window) {
+    var seen = new Set();
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+      mbar.classList.toggle("is-hidden", seen.size > 0);
+    }, { rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".site-footer, .lp-foot, #book, .lp-book, .branches-sec, .book-sec, .ip-hero-cta, .lp-hero-cta, .hero-actions, .cta-band").forEach(function (el) { io.observe(el); });
+    /* also step aside while another booking/WhatsApp button passes through the bar's strip */
+    var band = Math.max(0, window.innerHeight - 96);
+    var io2 = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+      mbar.classList.toggle("is-hidden", seen.size > 0);
+    }, { rootMargin: "-" + band + "px 0px 0px 0px" });
+    document.querySelectorAll("main a.btn-wa, main a.btn-primary, main [data-sheet].btn, main [data-lp-book].btn").forEach(function (el) { io2.observe(el); });
   }
 
   /* ---------- mobile menu ---------- */
@@ -457,4 +471,31 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
     var tab = root.querySelector('[data-x3d-tab="' + a.getAttribute("data-open-x3d") + '"]');
     if (tab) tab.click();
   });
+})();
+
+/* v16: before/after slider */
+(function () {
+  document.querySelectorAll("[data-ba]").forEach(function (box) {
+    var r = box.querySelector("[data-ba-range]");
+    if (!r) return;
+    var set = function () { box.style.setProperty("--p", r.value + "%"); };
+    r.addEventListener("input", set);
+    var moved = false;
+    r.addEventListener("input", function () {
+      if (!moved && window.dataLayer) { moved = true; window.dataLayer.push({ event: "case_slider", case_id: (box.closest("[data-case-view]") || {}).getAttribute ? box.closest("[data-case-view]").getAttribute("data-case-view") : "" }); }
+    });
+    set();
+  });
+})();
+
+/* v16: a link to a section inside a closed <details> opens it */
+(function () {
+  function openTarget() {
+    var id = decodeURIComponent((location.hash || "").slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.tagName === "DETAILS" && !el.open) { el.open = true; el.scrollIntoView({ block: "start" }); }
+  }
+  window.addEventListener("hashchange", openTarget);
+  openTarget();
 })();

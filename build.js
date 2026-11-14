@@ -21,6 +21,7 @@ const articles = require("./content/articles.js").slice().sort((a, b) => (a.date
 const icons = require("./src/icons.js");
 const diagrams = require("./src/diagrams.js");
 const J = require("./content/journeys.js");
+const IP = require("./content/implant-page.js");
 
 const LANGS = ["ar", "en"];
 const VERSION = Date.now().toString(36);
@@ -285,7 +286,7 @@ ${body}
 ${footer(l)}
 ${mobileBar(l, s)}
 ${sheet(l)}
-${clientData(l)}
+${clientData(l, opts.extraSvc)}
 <script src="/assets/js/main.js?v=${VERSION}" defer></script>
 </body>
 </html>`;
@@ -529,16 +530,9 @@ function ccladAnim(l) {
   </figure>`;
 }
 function deviceVisual(l) {
+  // Only a real clinic photo of the device is shown; no product shots or drawings.
   const dev = (biz.photos.equipment || {}).anesthesia;
-  if (dev) return `<figure class="dev-photo"><img src="/${dev}" alt="${esc(t(J.comfortDeviceAlt, l))}" width="441" height="885" loading="lazy" decoding="async"><figcaption>${esc(t(X.cclad.deviceCaption, l))}</figcaption></figure>`;
-  return `<figure class="dev-ill"><svg viewBox="0 0 320 220" aria-hidden="true"><defs><linearGradient id="dvb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe8f8"/></linearGradient></defs>
-    <rect x="54" y="92" width="200" height="36" rx="18" fill="url(#dvb)" stroke="#0b1f57" stroke-width="2.5"/>
-    <rect x="96" y="100" width="58" height="20" rx="6" fill="#0b1f57"/><text x="125" y="115" text-anchor="middle" font-size="11" fill="#cfe4fb" font-family="system-ui">0.005 ml/s</text>
-    <circle cx="186" cy="110" r="7" fill="#0154ba"/><circle cx="210" cy="110" r="7" fill="#cfe4fb" stroke="#0154ba"/>
-    <path d="M254 104h26l14 6-14 6h-26z" fill="#e2e8f1" stroke="#0b1f57" stroke-width="2"/><path d="M294 110h18" stroke="#56627b" stroke-width="2"/>
-    <path d="M54 110H20" stroke="#0b1f57" stroke-width="3" stroke-linecap="round"/>
-    <g class="dev-waves" fill="none" stroke="#0154ba" stroke-width="2"><path d="M306 92a24 24 0 0 1 0 36"/><path d="M296 84a36 36 0 0 1 0 52"/></g></svg>
-    <figcaption>${esc(t(X.cclad.devicePending, l))}</figcaption></figure>`;
+  return dev ? `<figure class="photo dev-clinic"><img src="/${dev}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>` : "";
 }
 
 /* ---------- landing pages ---------- */
@@ -636,7 +630,7 @@ function lpSection(l, pg, key) {
     case "process":
       return `<section class="section lp-process"><div class="wrap narrow">${H("", t(pg.process.title, l), "")}<ol class="steps steps--lp">${pg.process.steps.map((x, i) => `<li class="step reveal" style="--d:${i * 60}ms"><span class="step-n">${i + 1}</span><p>${esc(t(x, l))}</p></li>`).join("")}</ol></div></section>`;
     case "cclad":
-      return `<section class="section lp-cclad" id="device"><div class="wrap">${H(t(X.cclad.kicker, l), t(X.cclad.title, l), t(X.cclad.lead, l))}${pg.heroDevice ? ccladAnim(l) : `<div class="cc-grid"><div class="cc-dev">${deviceVisual(l)}</div>${ccladAnim(l)}</div>`}</div></section>`;
+      return `<section class="section lp-cclad" id="device"><div class="wrap">${H(t(X.cclad.kicker, l), t(X.cclad.title, l), t(X.cclad.lead, l))}${pg.heroDevice || !deviceVisual(l) ? ccladAnim(l) : `<div class="cc-grid"><div class="cc-dev">${deviceVisual(l)}</div>${ccladAnim(l)}</div>`}</div></section>`;
     case "firstVisit":
       return `<section class="section lp-process"><div class="wrap narrow">${H("", t(pg.firstVisit.title, l), "")}<ol class="steps steps--lp">${pg.firstVisit.steps.map((x, i) => `<li class="step reveal" style="--d:${i * 60}ms"><span class="step-n">${i + 1}</span><p>${esc(t(x, l))}</p></li>`).join("")}</ol>
         <aside class="signal reveal"><span class="signal-ic" aria-hidden="true">✋</span><div><h3>${esc(t(pg.signal.title, l))}</h3><p>${esc(t(pg.signal.body, l))}</p></div></aside>${lpCta(l, pg)}</div></section>`;
@@ -656,7 +650,7 @@ function lpHero(l, pg) {
     const c = biz.cases.find((k) => (k.images || [])[0].src.includes(pg.heroCase));
     if (c) visual = `<figure class="lp-hero-media lp-hero-case"><div class="case-set case-set--2">${c.images.map((m, i) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" width="600" height="600" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${esc(t(c.title, l))} · ${esc(t(LP.common.casesNote, l))}</figcaption></figure>`;
   }
-  if (pg.heroDevice) visual = `<div class="lp-hero-media lp-hero-dev">${deviceVisual(l)}</div>`;
+  if (pg.heroDevice) visual = deviceVisual(l) ? `<div class="lp-hero-media lp-hero-dev">${deviceVisual(l)}</div>` : `<figure class="lp-hero-media lp-hero-dr"><img src="/assets/img/dr-beshay-mina.jpg" alt="${esc(l === "ar" ? "د. بشاي مينا في مركز أسنان شاين" : "Dr. Beshay Mina at Tooth Shine")}" width="880" height="1100" fetchpriority="high" decoding="async"><figcaption>${esc(l === "ar" ? "د. بشاي مينا · هنمشي معاك خطوة بخطوة" : "Dr. Beshay Mina · we go step by step with you")}</figcaption></figure>`;
   return `<section class="lp-hero"><div class="wrap lp-hero-in">
     <div class="lp-hero-copy">
       <p class="eyebrow">${icon("pin")}<span>${esc(t(J.brandLine, l))}</span></p>
@@ -712,8 +706,9 @@ function reviewCard(l, r) {
 function serviceReviews(l, s) {
   const GR = biz.googleReviews || { items: [] };
   if (!GR.items || !GR.items.length) return "";
-  const own = GR.items.filter((r) => (r.services || []).includes(s.slug));
-  const fill = GR.items.filter((r) => !own.includes(r)).slice(0, Math.max(0, 4 - own.length));
+  const ok = (r) => !/ليزر|laser/i.test(r.text || ""); // the anaesthesia device is not a laser: skip reviews that call it one
+  const own = GR.items.filter((r) => ok(r) && (r.services || []).includes(s.slug));
+  const fill = GR.items.filter((r) => ok(r) && !own.includes(r)).slice(0, Math.max(0, 4 - own.length));
   const bs = GR.branchSummary || {};
   const H = site.home;
   return `<section class="svc-reviews reveal" id="reviews"><h2>${icon("star")}${esc(t(own.length ? H.svcReviewsTitle : H.reviewsKicker, l))}</h2>
@@ -854,7 +849,7 @@ function homePage(l) {
     <h1 class="hero-title hero-title--ask">${esc(t(J.title, l))}</h1>
     <p class="hero-lead">${esc(t(J.sub, l))}</p>
     <p class="ask-pick">${esc(t(J.pick, l))}</p>
-    <ul class="ask-grid">${J.items.map((x) => `<li><a class="ask-card" href="#j-${x.id}" data-journey="${x.id}">${x.img ? `<span class="ask-media"><img src="/${x.img}" alt="" width="600" height="450" ${x.id === "missing" ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${x.imgTag ? `<em class="ask-tag">${x.imgTag === "case" ? (l === "ar" ? "حالة حقيقية" : "Real case") : x.imgTag === "ill" ? (l === "ar" ? "صورة توضيحية" : "Illustration") : "3D"}</em>` : ""}</span>` : `<span class="ask-ic">${icon(x.icon)}</span>`}<span class="ask-t"><strong>${esc(t(x.label, l))}</strong><small>${esc(t(x.hint, l))}</small></span>${icon("arrow", "flip ask-arrow")}</a></li>`).join("")}</ul>
+    <ul class="ask-grid">${J.items.map((x) => `<li><a class="ask-card" href="#j-${x.id}" data-journey="${x.id}">${x.img ? `<span class="ask-media"><img src="/${x.img}" alt="" width="600" height="450" ${x.id === "missing" ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${x.imgTag ? `<em class="ask-tag">${x.imgTag === "case" ? (l === "ar" ? "حالة حقيقية" : "Real case") : x.imgTag === "ill" ? (l === "ar" ? "صورة توضيحية" : "Illustration") : x.imgTag === "dr" ? (l === "ar" ? "د. بشاي مينا" : "Dr. Beshay Mina") : "3D"}</em>` : ""}</span>` : `<span class="ask-ic">${icon(x.icon)}</span>`}<span class="ask-t"><strong>${esc(t(x.label, l))}</strong><small>${esc(t(x.hint, l))}</small></span>${icon("arrow", "flip ask-arrow")}</a></li>`).join("")}</ul>
     <div class="ask-direct"><a class="btn btn-light btn-lg" href="#book">${icon("whatsapp")}<span>${esc(t(J.direct, l))}</span></a><a class="hero-founder" href="#doctor"><span class="hf-label">${esc(t(H.heroFounder, l))}</span><strong>${esc(t(doc.name, l))}</strong><span class="hf-members" dir="ltr">${doc.memberships.map((m) => esc(m.abbr)).join(" · ")}</span></a></div>
   </div>
 </section>
@@ -1105,7 +1100,110 @@ function guideSections(l, s) {
   return s.guide.sections.map((x, i) => `<section class="g-sec reveal" id="${x.id}"><h2><span class="g-num">${i + 1}</span>${esc(t(x.title, l))}</h2>${x.blocks.map((b) => guideBlock(l, s, b)).join("")}</section>`).join("");
 }
 
+/* ---------- dental implant page (patient-first) ---------- */
+const IPKEY = "implant-eval";
+function ipWa(l, b, cls = "") {
+  if (!b.whatsapp) return "";
+  const href = `https://wa.me/${b.whatsapp}?text=${encodeURIComponent(waText(l, t(IP.waService, l), b))}`;
+  return `<a class="btn btn-wa ${cls}" href="${href}" target="_blank" rel="noopener" data-act="wa" data-wa data-branch="${b.id}" data-service="${IPKEY}">${icon("whatsapp")}<span>${esc(t(LP.common.waBranch, l).replace("{branch}", t(b.name, l)))}</span></a>`;
+}
+function ipBookBtn(l, label, cls = "btn-primary btn-lg") {
+  return `<a class="btn ${cls}" href="${P.branches(l)}" data-sheet data-mode="wa" data-service="${IPKEY}">${icon("whatsapp")}<span>${esc(label)}</span></a>`;
+}
+function baSlider(l, c, eager) {
+  const [b, a] = c.images;
+  const lz = eager ? 'fetchpriority="high"' : 'loading="lazy"';
+  const src6 = (x) => x.replace(".webp", "-600.webp");
+  const im = (m, cls) => `<img class="${cls}" src="/${esc(m.src)}" srcset="/${esc(src6(m.src))} 600w, /${esc(m.src)} 1200w" sizes="(max-width: 860px) 94vw, 560px" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" width="1200" height="800" ${lz} decoding="async">`;
+  return `<div class="ba" data-ba style="--p:50%">${im(a, "ba-after")}<div class="ba-before">${im(b, "")}</div>
+    <span class="ba-tag ba-tag--b">${esc(t(b.label, l))}</span><span class="ba-tag ba-tag--a">${esc(t(a.label, l))}</span>
+    <span class="ba-handle" aria-hidden="true"><i></i></span>
+    <input type="range" min="0" max="100" value="50" aria-label="${esc(t(IP.cases.slide, l))}" data-ba-range></div>`;
+}
+function ipCaseCard(l, c, i) {
+  const n = (c.images || []).length;
+  const media = c.slider ? baSlider(l, c, false)
+    : `<div class="case-set case-set--${n}">${c.images.map((m) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" loading="lazy" decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div>`;
+  return `<figure class="case-card ip-case${c.slider ? " ip-case--wide" : ""}" data-case-view="${esc(String(c.images[0].src).split("/").pop())}">${media}<figcaption><span class="ip-real">${icon("check")}${l === "ar" ? "حالة حقيقية" : "Real case"}</span><h3>${esc(t(c.title, l))}</h3>${caseStory(l, c)}</figcaption></figure>`;
+}
+function implantPage(l, s) {
+  const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.nav.services, l), P.services(l)], [t(s.title, l), P.service(l, s.slug)]];
+  const H = IP.hero;
+  const cases = biz.cases.filter((c) => c.service === s.slug);
+  const heroCase = cases.find((c) => c.hero);
+  const GR = biz.googleReviews || {};
+  const bs = GR.branchSummary || {};
+  const rating = biz.branches.filter((b) => bs[b.id]).map((b) => `${bs[b.id].rating}★ ${t(b.name, l)}`).join(" · ");
+  const doc = biz.team[0] || {};
+  const mem = (doc.memberships || []).map((m) => m.abbr).join(" · ");
+  const sec = (id, cls, inner) => `<section class="section ${cls}"${id ? ` id="${id}"` : ""}><div class="wrap">${inner}</div></section>`;
+  const head2 = (k, ti, le) => `<div class="s-head">${k ? `<p class="kicker">${esc(t(k, l))}</p>` : ""}<h2>${esc(t(ti, l))}</h2>${le ? `<p class="lead">${esc(t(le, l))}</p>` : ""}</div>`;
+  const hero = `<section class="ip-hero"><div class="wrap">
+    <nav class="crumbs" aria-label="breadcrumb"><ol>${crumbs.map(([n, h], i) => (i < crumbs.length - 1 ? `<li><a href="${h}">${esc(n)}</a></li>` : `<li aria-current="page">${esc(n)}</li>`)).join("")}</ol></nav>
+    <div class="ip-hero-in">
+      <div class="ip-hero-copy">
+        <h1><span class="ip-kw">${esc(t(H.kw, l))}</span>${esc(t(H.h1, l))}</h1>
+        <p class="ip-lead">${esc(t(H.lead, l))}</p>
+        <div class="ip-hero-cta">${ipBookBtn(l, t(H.cta, l))}<a class="btn btn-line btn-lg" href="#cases">${icon("check")}<span>${esc(t(H.cta2, l))}</span></a></div>
+        <ul class="ip-trust">${rating ? `<li>${icon("star")}<span>${esc((l === "ar" ? "تقييمات Google الحقيقية: " : "Real Google reviews: ") + rating)}</span></li>` : ""}${mem ? `<li>${icon("shield")}<span>${esc((l === "ar" ? "د. بشاي مينا · عضو " : "Dr. Beshay Mina · member of ") + mem)}</span></li>` : ""}<li>${icon("pin")}<span>${esc(l === "ar" ? "فرعين: سبورتنج والعجمي" : "Two branches: Sporting and Agami")}</span></li></ul>
+      </div>
+      ${heroCase ? `<figure class="ip-hero-media">${heroCase.slider ? baSlider(l, heroCase, true) : `<div class="ip-pair">${heroCase.images.map((m, i) => `<div class="ip-pair-ph"><img src="/${esc(m.src)}" srcset="/${esc(m.src.replace(".webp", "-600.webp"))} 600w, /${esc(m.src)} 1200w" sizes="(max-width: 960px) 47vw, 300px" alt="${esc(t(heroCase.title, l))}: ${esc(t(m.label, l))}" width="1200" height="800" fetchpriority="high" decoding="async"><span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(t(m.label, l))}</span></div>`).join("")}</div>`}<figcaption>${icon("check")}<span>${esc(t(H.caseNote, l))}</span></figcaption></figure>` : ""}
+    </div>
+  </div></section>`;
+  const gallery = sec("cases", "ip-cases", `${head2(IP.cases.kicker, IP.cases.title, IP.cases.lead)}
+    <div class="ip-case-grid">${cases.filter((c) => c !== heroCase).map((c, i) => ipCaseCard(l, c, i)).join("")}</div>
+    <p class="ip-note">${esc(t(IP.cases.note, l))}</p>
+    <div class="ip-cta">${ipBookBtn(l, t(IP.cases.cta, l))}</div>`);
+  const why = sec("why", "ip-why", `${head2(IP.why.kicker, IP.why.title, "")}
+    <ol class="wi-grid">${IP.why.items.map((x, i) => `<li class="wi-card reveal" style="--d:${(i % 3) * 70}ms"><span class="wi-ic">${icon(x.icon)}</span><h3>${esc(t(x.title, l))}</h3><p>${esc(t(x.body, l))}</p></li>`).join("")}</ol>
+    ${(biz.implantSystems || []).length ? `<div class="wi-sys wi-sys--row"><p class="jr-label">${esc(t(IP.why.systemsLabel, l))}</p><ul>${biz.implantSystems.map((x) => `<li dir="ltr">${esc(x.name)}</li>`).join("")}</ul></div>` : ""}`);
+  const C = IP.comfort;
+  const comfort = sec("comfort", "ip-comfort", `<div class="ip-comfort-in">
+    <div>${head2(C.kicker, C.title, "")}<p class="ip-p">${esc(t(C.body, l))}</p>
+      <ul class="ticks">${C.points.map((x) => `<li>${icon("check")}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
+      <p class="ip-small">${esc(t(C.note, l))}</p>
+      <a class="ip-link" href="${PLP(l, "dental-anxiety")}">${esc(t(C.link, l))}${icon("arrow", "flip")}</a></div>
+    <div class="ip-comfort-art">${ccladAnim(l)}</div></div>`);
+  const W = IP.what;
+  const what = sec("what", "ip-what", `<div class="ip-what-in">
+    <figure class="fig ip-fig"><img src="/assets/img/illustrations/implant-parts.webp" srcset="/assets/img/illustrations/implant-parts-600.webp 600w, /assets/img/illustrations/implant-parts.webp 1200w" sizes="(max-width: 860px) 94vw, 520px" alt="${esc(t(W.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption><span class="fig-tag">${ILL(l)}</span></figcaption></figure>
+    <div>${head2(W.kicker, W.title, "")}<p class="ip-p">${esc(t(W.body, l))}</p><ul class="ticks">${W.parts.map((x) => `<li>${icon("check")}<span>${esc(t(x, l))}</span></li>`).join("")}</ul>
+    <details class="ip-3d"><summary>${icon("cube")}<span>${esc(t(W.open3d, l))}</span></summary>${x3dBlock(l, ["implant"], { area: "implant-page" })}</details></div></div>`);
+  const compare = sec("implant-vs-bridge", "ip-compare", `<div class="narrow">${head2("", IP.compare.title, IP.compare.lead)}${cmpTable(l, IP.compare)}<p class="cmp-note">${esc(t(IP.compare.note, l))}</p></div>`);
+  const journey = sec("journey", "ip-journey", `${head2("", IP.journey.title, "")}<ol class="ip-steps">${IP.journey.steps.map((x, i) => `<li class="reveal" style="--d:${i * 50}ms"><span class="ip-n">${i + 1}</span><h3>${esc(t(x.t, l))}</h3><p>${esc(t(x.d, l))}</p></li>`).join("")}</ol><p class="ip-note">${esc(t(IP.journey.note, l))}</p><div class="ip-cta">${ipBookBtn(l, t(H.cta, l))}</div>`);
+  const faq = `<section class="section faq-sec ip-faq" id="faq"><div class="wrap faq-grid">${sectionHead("", t(IP.faqTitle, l), "")}${faqList(l, IP.faqs)}</div></section>`;
+  const B = IP.book;
+  const book = `<section class="lp-book ip-book" id="book"><div class="wrap">
+    <div class="s-head"><h2>${esc(t(B.title, l))}</h2><p class="lead">${esc(t(B.lead, l))}</p></div>
+    <div class="lp-branches">${biz.branches.map((b) => `<article class="lp-br${b.priority ? " is-main" : ""}"><div class="lp-br-top"><h3>${esc(t(b.name, l))}</h3>${b.priority ? `<span class="badge">${t(site.ui.mainBranch, l)}</span>` : ""}</div>
+      <p class="lp-br-meta">${icon("pin")}<span>${esc(t(b.address, l) || t(b.area, l))}</span></p>
+      ${t(b.hours, l) ? `<p class="lp-br-meta">${icon("clock")}<span>${esc(t(b.hours, l))}</span></p>` : ""}
+      <div class="lp-br-act">${ipWa(l, b, "btn-lg")}${lpCall(l, b)}${b.mapsUrl ? `<a class="btn btn-ghost" data-act="map" data-branch="${b.id}" href="${b.mapsUrl}" target="_blank" rel="noopener">${icon("pin")}<span>${t(site.ui.directions, l)}</span></a>` : ""}</div></article>`).join("")}</div>
+    <p class="book-privacy">${icon("shield")}<span>${esc(t(B.privacy, l))}</span></p>
+  </div></section>`;
+  const guide = s.guide ? sec("guide", "ip-guide", `<div class="narrow">${head2("", IP.guide.title, IP.guide.lead)}
+    <div class="ip-acc">${s.guide.sections.filter((x) => x.id !== "implant-vs-bridge").map((x) => `<details class="ip-acc-item" id="${x.id}"><summary><h3>${esc(t(x.title, l))}</h3><span class="faq-ic">${icon("plus")}</span></summary><div class="ip-acc-body">${x.blocks.filter((b) => !b.cta).map((b) => guideBlock(l, s, b)).join("")}</div></details>`).join("")}</div>
+    ${(s.seeAlso || []).length ? `<nav class="see-also" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
+    <p class="g-reviewed">${icon("check")}<span>${esc(t(IP.reviewed, l))}</span></p></div>`) : "";
+  const reviews = `<section class="section ip-reviews"><div class="wrap narrow">${serviceReviews(l, s)}</div></section>`;
+  const body = `${hero}
+${gallery}
+${why}
+${comfort}
+${what}
+${compare}
+${journey}
+${reviews}
+${faq}
+${book}
+${guide}
+<p class="wrap disclaimer">${esc(t(site.ui.disclaimer, l))}</p>`;
+  const procLD = { "@context": "https://schema.org", "@type": "MedicalProcedure", name: t(s.title, l), procedureType: "https://schema.org/SurgicalProcedure", bodyLocation: l === "ar" ? "الفك والأسنان" : "Jaw and teeth", url: abs(P.service(l, s.slug)), description: t(IP.meta, l) };
+  return layout(l, { page: "service page-implant", title: t(IP.title, l), desc: t(IP.meta, l), pathAr: P.service("ar", s.slug), pathEn: P.service("en", s.slug), jsonld: [crumbLD(crumbs), faqLD(l, IP.faqs), procLD], extraSvc: { [IPKEY]: t(IP.waService, l) } }, body, s);
+}
+
 function servicePage(l, s) {
+  if (s.slug === "dental-implants") return implantPage(l, s);
   const crumbs = [
     [t(site.ui.breadcrumbHome, l), P.home(l)],
     [t(site.ui.nav.services, l), P.services(l)],
