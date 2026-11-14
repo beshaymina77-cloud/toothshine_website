@@ -530,7 +530,7 @@ function ccladAnim(l) {
 }
 function deviceVisual(l) {
   const dev = (biz.photos.equipment || {}).anesthesia;
-  if (dev) return `<figure class="photo cs-photo"><img src="/${dev}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>`;
+  if (dev) return `<figure class="dev-photo"><img src="/${dev}" alt="${esc(t(J.comfortDeviceAlt, l))}" width="441" height="885" loading="lazy" decoding="async"><figcaption>${esc(t(X.cclad.deviceCaption, l))}</figcaption></figure>`;
   return `<figure class="dev-ill"><svg viewBox="0 0 320 220" aria-hidden="true"><defs><linearGradient id="dvb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe8f8"/></linearGradient></defs>
     <rect x="54" y="92" width="200" height="36" rx="18" fill="url(#dvb)" stroke="#0b1f57" stroke-width="2.5"/>
     <rect x="96" y="100" width="58" height="20" rx="6" fill="#0b1f57"/><text x="125" y="115" text-anchor="middle" font-size="11" fill="#cfe4fb" font-family="system-ui">0.005 ml/s</text>
@@ -726,7 +726,7 @@ function homePage(l) {
   const H = site.home;
   const doc = biz.team[0];
   const heroVisual = biz.photos.heroClinic
-    ? `<figure class="photo hero-photo"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" width="825" height="553" fetchpriority="high"></figure>`
+    ? `<figure class="photo hero-photo"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" width="825" height="553" fetchpriority="high"><span class="ask-tag">${l === "ar" ? "صورة توضيحية" : "Illustration"}</span></figure>`
     : `<div class="hero-art" aria-hidden="true"><span class="hero-glyph">${l === "ar" ? "شاين" : "Shine"}</span>${icon("sparkle", "hero-spark")}<span class="hero-ring"></span></div>`;
 
   const svcOf = (slug) => services.find((x) => x.slug === slug);
@@ -834,7 +834,7 @@ function homePage(l) {
   </div></section>`;
   const devPhoto = (biz.photos.equipment || {}).anesthesia;
   const comfort = `<section class="section comfort-sig" id="comfort"><div class="wrap cs-grid">
-    <div class="cs-media reveal">${devPhoto ? `<figure class="photo cs-photo"><img src="/${devPhoto}" alt="${esc(t(J.comfortDeviceAlt, l))}" loading="lazy" decoding="async"></figure>` : `<div class="cs-art" aria-hidden="true"><span class="cs-ring"></span>${icon("pen", "cs-pen")}<span class="cs-flow"><i></i><i></i><i></i></span></div>`}</div>
+    <div class="cs-media reveal">${devPhoto ? deviceVisual(l) : `<div class="cs-art" aria-hidden="true"><span class="cs-ring"></span>${icon("pen", "cs-pen")}<span class="cs-flow"><i></i><i></i><i></i></span></div>`}</div>
     <div class="cs-copy reveal" style="--d:80ms">
       <p class="kicker">${esc(t(J.comfortKicker, l))}</p>
       <h2>${esc(t(J.comfortTitle, l))}</h2>
@@ -938,7 +938,7 @@ ${testimonials}
           <div class="tp-actions"><a class="btn btn-primary" href="${P.service(l, s.slug)}">${t(site.ui.learnMore, l)}${icon("arrow", "flip")}</a>${btnSheet(l, t(site.ui.chooseBranch, l), s, "btn-line")}</div>
         </div>
         <div class="tp-side">
-          ${s.slug === "dental-implants" && biz.photos.heroClinic ? `<figure class="tp-img"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" loading="lazy" width="825" height="553"></figure>` : ""}
+          ${s.slug === "dental-implants" && biz.photos.heroClinic ? `<figure class="tp-img"><img src="/${biz.photos.heroClinic}" alt="${esc(t(biz.photos.heroAlt, l))}" loading="lazy" width="825" height="553"><span class="ask-tag">${l === "ar" ? "صورة توضيحية" : "Illustration"}</span></figure>` : ""}
           <p class="tp-label">${t(site.ui.whyTitle, l)}</p>
           <ul class="ticks">${s.reasons[l].slice(0, 4).map((r) => `<li>${icon("check")}<span>${esc(r)}</span></li>`).join("")}</ul>
         </div>

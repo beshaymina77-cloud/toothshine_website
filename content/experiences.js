@@ -168,6 +168,7 @@ module.exports = {
       ar: "ده مش ليزر ومش بيلغي الحقنة. ممكن يقلل الإحساس بالحقنة عند كتير من المرضى، لكن الإحساس بيختلف من شخص للتاني.",
       en: "This is not a laser and it does not replace the injection. It may make the injection feel gentler for many patients, but everyone's experience differs.",
     },
+    deviceCaption: { ar: "قلم البنج الإلكتروني (صورة المنتج). صورة الجهاز في العيادة هتتحط مكانها.", en: "The computer-controlled anaesthesia pen (product photo). A photo of the clinic's own device will replace it." },
     devicePending: { ar: "رسم توضيحي للجهاز. صورة الجهاز الحقيقي في العيادة هتتحط هنا.", en: "Illustration of the device. A photo of the clinic's actual device will go here." },
   },
 };

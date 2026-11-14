@@ -130,12 +130,12 @@ module.exports = {
   /* ---------------- PHOTO SLOTS ----------------
      Empty = a designed placeholder panel is shown instead. */
   photos: {
-    heroClinic: "assets/img/hero-implant.jpg",   // main image for the homepage opening
-    heroAlt: { ar: "رسم توضيحي لزرعة أسنان داخل عظم الفك", en: "Illustration of a dental implant in the jawbone" },
+    heroClinic: "assets/img/hero-implant-photo.webp",   // main image for the homepage opening
+    heroAlt: { ar: "صورة توضيحية لزرعة أسنان داخل عظم الفك: الزرعة والدعامة والتاج مع العظم واللثة", en: "Illustration of a dental implant in the jawbone: implant, abutment and crown with bone and gum" },
     interior: [],            // list of clinic interior photos
     equipment: {             // photos of the actual devices
       scanner: "",
-      anesthesia: "",
+      anesthesia: "assets/img/equipment-anesthesia-pen.webp", // manufacturer product photo (Nov 14 2026), cleaned; replace with a real clinic photo
       xray: "",
       prophyjet: "",
     },
