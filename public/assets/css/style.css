@@ -1389,3 +1389,4 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .tp-img { position: relative; }
 @media (max-width: 640px) { .dev-photo img { height: 260px; } }
 .tp-img .ask-tag { top: auto; bottom: 10px; }
+@media (max-width: 640px) { .ask-tag { top: auto; bottom: 5px; inset-inline-start: 50%; transform: translateX(-50%); font-size: 9px; padding: 3px 6px; white-space: nowrap; } [dir="rtl"] .ask-tag { transform: translateX(50%); } .tp-img .ask-tag { transform: none; inset-inline-start: 10px; font-size: 11px; padding: 5px 8px; } }
