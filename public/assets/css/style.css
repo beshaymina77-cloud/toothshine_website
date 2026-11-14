@@ -1558,3 +1558,8 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 @media (max-width: 420px) { .ip-exp-grid, .ip-suit { grid-template-columns: 1fr; } }
 .doc-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 @media (max-width: 860px) { .doc-cta .btn { flex: 1 1 100%; justify-content: center; } }
+.ip-drsec { background: linear-gradient(180deg, #fff, var(--ice)); }
+.ip-drsec .ip-feat-in { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.ip-drsec .ip-feat-copy p { max-width: 60ch; }
+.ip-suit--wide { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 860px) { .ip-drsec .ip-feat-in { grid-template-columns: 1fr; } .ip-drsec .ip-dr-photo { width: min(78%, 340px); } .ip-suit--wide { grid-template-columns: 1fr 1fr; } .ip-drsec .ip-hero-cta .btn { width: 100%; justify-content: center; } }

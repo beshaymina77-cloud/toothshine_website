@@ -160,6 +160,7 @@ Object.assign(module.exports, {
       en: "Founder of Tooth Shine. His work focuses on dental implants and fixed restorations, and every case starts with a full assessment and a clear explanation of the options.",
     },
     cta2: { ar: "شوف حالات حقيقية", en: "See real cases" },
+    kicker: { ar: "تعرّف على الطبيب", en: "Meet the dentist" },
     alt: { ar: "د. بشاي مينا، مؤسس مركز أسنان شاين", en: "Dr. Beshay Mina, founder of Tooth Shine" },
   },
   exp: {
