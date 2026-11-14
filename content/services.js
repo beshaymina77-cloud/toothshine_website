@@ -48,6 +48,22 @@ module.exports = [
     compare: {"title": {"ar": "ثابت ولا شفاف؟", "en": "Fixed or clear?"}, "cols": [{"ar": "", "en": ""}, {"ar": "التقويم الثابت", "en": "Fixed braces"}, {"ar": "التقويم الشفاف", "en": "Clear aligners"}], "rows": [[{"ar": "الشكل", "en": "Appearance"}, {"ar": "باين (في أنواع بلون السنة)", "en": "Visible (tooth-coloured options exist)"}, {"ar": "شبه مش باين", "en": "Nearly invisible"}], [{"ar": "الحالات المناسبة", "en": "Suitable cases"}, {"ar": "معظم الحالات، ومنها المعقدة", "en": "Most cases, including complex ones"}, {"ar": "حالات كتير لكن مش كلها", "en": "Many cases, but not all"}], [{"ar": "الالتزام المطلوب", "en": "Commitment"}, {"ar": "ثابت في الفم، والالتزام بالمواعيد والتنظيف", "en": "Stays in place; attend reviews and keep it clean"}, {"ar": "لازم يتلبس حوالي 20–22 ساعة في اليوم", "en": "Must be worn about 20–22 hours a day"}], [{"ar": "الأكل والتنظيف", "en": "Eating & cleaning"}, {"ar": "تجنب الأكل الناشف واللزج، والتنظيف محتاج مجهود أكتر", "en": "Avoid hard and sticky food; cleaning takes more effort"}, {"ar": "بيتشال وقت الأكل والتفريش", "en": "Removed for eating and brushing"}]], "note": {"ar": "المدة والنتيجة بيختلفوا من حالة للتانية، والطبيب بيوضحهم بعد دراسة حالتك.", "en": "Duration and results vary between cases; the dentist explains them after studying yours."}},
     figures: [{"src": "assets/img/illustrations/clear-aligner.webp", "alt": {"ar": "قالب تقويم شفاف فوق نموذج للأسنان", "en": "A clear aligner tray above a dental model"}, "caption": {"ar": "التقويم الشفاف: قوالب شفافة بتتغيّر على مراحل لتحريك الأسنان تدريجيًا.", "en": "Clear aligners: transparent trays changed in stages to move teeth gradually."}}],
     highlight: {"kicker": {"ar": "متاح في المركز", "en": "Available at the center"}, "title": {"ar": "التقويم الشفاف (Clear Aligners)", "en": "Clear aligners"}, "body": {"ar": "قوالب شفافة شبه مش باينة، بتتشال وقت الأكل والتنظيف، وحركة الأسنان بتتخطط على الكمبيوتر قبل البداية. مناسب لحالات كتير، والطبيب بيحدد إذا كان مناسب لحالتك بعد الكشف.", "en": "Nearly invisible clear trays, removed for eating and cleaning, with tooth movement planned on the computer before starting. Suits many cases; the dentist confirms whether it suits yours after the examination."}, "cta": {"ar": "قارن الشفاف بالثابت", "en": "Compare with fixed braces"}},
+    extra: [
+      {
+        id: "extraction-for-orthodontics",
+        title: { ar: "الخلع علشان التقويم (خلع الضواحك الأولى)", en: "Extraction for orthodontics (first premolars)" },
+        lead: {
+          ar: "في بعض حالات الزحام الشديد أو بروز الأسنان الأمامية، مفيش مكان كفاية لترتيب الأسنان. ساعتها ممكن خطة التقويم تشمل خلع سنتين أو أربعة من الضواحك الأولى (الأوائل) علشان نعمل مساحة. ومش كل حالة تقويم محتاجة خلع.",
+          en: "In some cases of severe crowding or protruding front teeth there is not enough space to align the teeth. The orthodontic plan may then include removing two or four first premolars to create space. Not every orthodontic case needs extractions.",
+        },
+        items: [
+          { icon: "exam", title: { ar: "القرار بعد دراسة الحالة", en: "Decided after case analysis" }, body: { ar: "بنحدد الحاجة للخلع من الأشعة وقياسات الأسنان والفك، وبنشرح لك السبب قبل أي خطوة.", en: "The need for extraction is decided from X-rays and tooth and jaw measurements, and we explain why before any step." } },
+          { icon: "extraction", title: { ar: "توقيت الخلع", en: "Timing" }, body: { ar: "غالبًا قبل تركيب التقويم أو في بدايته، حسب خطة العلاج.", en: "Usually before or at the start of treatment, according to the plan." } },
+          { icon: "aligner", title: { ar: "التقويم بيقفل المساحة", en: "The braces close the space" }, body: { ar: "الأسنان بتتحرك تدريجيًا لحد ما الفراغ يتقفل والأسنان تترتب.", en: "The teeth are moved gradually until the space closes and the teeth are aligned." } },
+          { icon: "list", title: { ar: "فيه بدائل أحيانًا", en: "Alternatives in some cases" }, body: { ar: "زي توسيع الفك أو برد بسيط بين الأسنان، حسب الحالة. بنقارن لك بينهم بوضوح.", en: "Such as arch expansion or slight reduction between teeth, depending on the case. We compare them with you clearly." } },
+        ],
+      },
+    ],
     faqs: [
       {
         q: { ar: "هل التقويم الشفاف ينفع لكل الحالات؟", en: "Are clear aligners suitable for everyone?" },
@@ -762,6 +778,32 @@ module.exports = [
     },
     tech: ["xray", "anesthesia"],
     techniques: {"title": {"ar": "خطوات الخلع", "en": "Extraction step by step"}, "steps": true, "items": [{"icon": "xray", "name": "Assessment", "title": {"ar": "التقييم", "en": "Assessment"}, "body": {"ar": "مراجعة التاريخ الطبي والأدوية، وأشعة لتقييم الجذور والعظم.", "en": "Reviewing medical history and medications, with X-rays to assess the roots and bone."}}, {"icon": "ear", "name": "Anaesthesia", "title": {"ar": "التخدير", "en": "Anaesthesia"}, "body": {"ar": "تخدير موضعي، والتأكد إن المكان مخدّر كويس قبل البدء.", "en": "Local anaesthesia, making sure the area is fully numb before starting."}}, {"icon": "extraction", "name": "Extraction", "title": {"ar": "الخلع", "en": "Extraction"}, "body": {"ar": "خلع السنة بأقل ضرر ممكن للعظم والأنسجة حواليها.", "en": "Removing the tooth with as little trauma as possible to the surrounding bone and tissue."}}, {"icon": "doc", "name": "Aftercare", "title": {"ar": "التعليمات بعد الخلع", "en": "Aftercare"}, "body": {"ar": "تعليمات مكتوبة: الشاش، الأكل، النظافة، والأدوية، ومتى تتواصل مع العيادة.", "en": "Written instructions on gauze, eating, cleaning and medication, and when to contact the clinic."}}]},
+    extra: [
+      {
+        id: "surgical-extraction",
+        title: { ar: "الخلع الجراحي", en: "Surgical extraction" },
+        lead: {
+          ar: "بعض الأسنان مش بتتخلع بالطريقة العادية، زي ضرس العقل المدفون أو الجذور المكسورة. في الحالات دي بنعمل خلع جراحي بالبنج الموضعي، بعد تقييم بالأشعة.",
+          en: "Some teeth cannot be removed the usual way, such as an impacted wisdom tooth or broken roots. In these cases we perform a surgical extraction under local anaesthetic, after assessment with X-rays.",
+        },
+        whenLabel: { ar: "إمتى بنحتاج خلع جراحي؟", en: "When is a surgical extraction needed?" },
+        when: [
+          { ar: "ضرس عقل مدفون أو مدفون جزئيًا", en: "A fully or partly impacted wisdom tooth" },
+          { ar: "جذور مكسورة أو متبقية في العظم", en: "Broken or retained roots" },
+          { ar: "سنة مكسورة تحت مستوى اللثة", en: "A tooth broken below the gum line" },
+          { ar: "سنة جذورها معقوفة أو ملتصقة بالعظم", en: "A tooth with curved roots or roots fused to the bone" },
+        ],
+        steps: true,
+        items: [
+          { icon: "xray", title: { ar: "تقييم بالأشعة", en: "X-ray assessment" }, body: { ar: "أشعة مناسبة، وأشعة مقطعية (CBCT) لما يكون الضرس قريب من العصب أو الجيب الأنفي.", en: "Suitable X-rays, with a CBCT scan when the tooth is close to the nerve or the sinus." } },
+          { icon: "ear", title: { ar: "بنج موضعي", en: "Local anaesthetic" }, body: { ar: "بنتأكد إن المكان مخدّر كويس قبل ما نبدأ.", en: "We make sure the area is fully numb before starting." } },
+          { icon: "extraction", title: { ar: "فتحة صغيرة في اللثة", en: "A small opening in the gum" }, body: { ar: "وأحيانًا بنقسم الضرس لأجزاء علشان يطلع بأقل ضرر ممكن للعظم.", en: "Sometimes the tooth is divided into parts so it comes out with as little damage to the bone as possible." } },
+          { icon: "doc", title: { ar: "غرز وتعليمات", en: "Stitches and aftercare" }, body: { ar: "غرز صغيرة، وتعليمات مكتوبة، وميعاد متابعة لو الغرز محتاجة تتفك.", en: "Small stitches, written instructions, and a follow-up visit if the stitches need removing." } },
+        ],
+        note: { ar: "التورم والألم البسيط بعد الخلع الجراحي طبيعيين لأيام، وبنديك تعليمات وأدوية للتحكم فيهم.", en: "Some swelling and mild pain for a few days after a surgical extraction is normal; we give you instructions and medication to manage it." },
+        casesLink: { ar: "شوف حالات خلع ضرس عقل مدفون حقيقية", en: "See real impacted wisdom tooth cases" },
+      },
+    ],
     faqs: [
       {
         q: { ar: "هل لازم أعوّض السنة بعد الخلع؟", en: "Do I need to replace the tooth afterwards?" },

@@ -159,6 +159,7 @@ function header(l, current, altHref) {
   const items = [
     ["implants", P.service(l, "dental-implants")],
     ["cosmetic", P.service(l, "cosmetic-restorative-dentistry")],
+    ["ortho", P.service(l, "orthodontics")],
     ["services", P.services(l)],
     ["doctor", P.home(l) + "#doctor"],
     ["articles", P.articles(l)],
@@ -370,7 +371,7 @@ function orgLD(l) {
     };
     if (b.phone) o.telephone = "+" + b.phone;
     if (b.mapsUrl) o.hasMap = b.mapsUrl;
-    if (b.open && b.open.opens) o.openingHoursSpecification = [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: b.open.opens, closes: b.open.closes }];
+    if (b.open && b.open.opens) o.openingHoursSpecification = [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].filter((d) => !(b.open.closed || []).includes(d)), opens: b.open.opens, closes: b.open.closes }];
     if (b.geo && b.geo.lat) o.geo = { "@type": "GeoCoordinates", latitude: b.geo.lat, longitude: b.geo.lng };
     return o;
   });
@@ -786,7 +787,10 @@ function homePage(l) {
     </div></section>`
     : "";
   const jrCases = J.items.map((x) => (x.caseIndex !== undefined ? biz.cases[x.caseIndex] : x.caseService ? biz.cases.find((k) => k.service === x.caseService) : null)).filter(Boolean);
-  const galleryCases = biz.cases.filter((c) => !jrCases.includes(c));
+  // Home gallery order (doctor, Nov 14 2026): 2 implant cases, rehab cases, zirconia, porcelain, then the E.max veneer case
+  const emax = biz.cases.find((c) => String(c.images[0].src).includes("smile-1"));
+  const galleryCases = biz.cases.filter((c) => !jrCases.includes(c) && c !== emax);
+  if (emax) { const pi = galleryCases.findIndex((c) => String(c.images[0].src).includes("porcelain-full")); galleryCases.splice(pi + 1, 0, emax); }
   const caseCats = [...new Set(galleryCases.map((c) => c.service))];
   const cases = galleryCases.length
     ? `<section class="section cases" id="cases"><div class="wrap">
@@ -1087,6 +1091,13 @@ function caseCard(l, c, badge) {
   const n = imgs.length;
   return `<figure class="case-card"><div class="case-set case-set--${n}">${imgs.map((m) => `<div class="case-ph"><img src="/${esc(m.src)}" alt="${esc(t(c.title, l))}: ${esc(t(m.label, l))}" loading="lazy" decoding="async"><span>${esc(t(m.label, l))}</span></div>`).join("")}</div><figcaption>${badge && sv ? `<a class="badge" href="${P.service(l, sv.slug)}">${esc(t(sv.title, l))}</a>` : ""}<h3>${esc(t(c.title, l))}</h3>${caseStory(l, c)}</figcaption></figure>`;
 }
+/* extra service sections (Nov 14 2026): surgical extraction, extraction for orthodontics */
+function extraSections(l, s) {
+  return (s.extra || []).map((x) => `<section class="svc-tq svc-extra reveal" id="${x.id}"><h2>${esc(t(x.title, l))}</h2>${x.lead ? `<p class="svc-tq-lead">${esc(t(x.lead, l))}</p>` : ""}
+    ${x.when ? `<p class="mini-label">${esc(t(x.whenLabel, l))}</p><ul class="ticks">${x.when.map((r) => `<li>${icon("check")}<span>${esc(t(r, l))}</span></li>`).join("")}</ul>` : ""}
+    <div class="tq-grid">${x.items.map((it, i) => `<article class="tq-card${x.steps ? " tq-step" : ""}"><span class="mini-ic">${icon(it.icon)}</span>${x.steps ? `<span class="tq-num">${i + 1}</span>` : ""}<h3>${esc(t(it.title, l))}</h3><p>${esc(t(it.body, l))}</p></article>`).join("")}</div>
+    ${x.note ? `<p class="svc-cases-note">${icon("shield")} ${esc(t(x.note, l))}</p>` : ""}${x.casesLink ? `<p><a class="ip-link" href="#cases">${esc(t(x.casesLink, l))}${icon("arrow", "flip")}</a></p>` : ""}</section>`).join("");
+}
 function serviceCases(l, s) {
   const list = biz.cases.filter((c) => c.service === s.slug);
   if (!list.length) return "";
@@ -1279,6 +1290,7 @@ function servicePage(l, s) {
       <section class="svc-block reveal"><h2>${icon("doc")}${t(site.ui.assessTitle, l)}</h2><ol class="nums">${s.assessment[l].map((r) => `<li><span>${esc(r)}</span></li>`).join("")}</ol></section>
     </div>
     ${s.techniques ? `<section class="svc-tq reveal" id="techniques"><h2>${esc(t(s.techniques.title, l))}</h2>${s.techniques.lead ? `<p class="svc-tq-lead">${esc(t(s.techniques.lead, l))}</p>` : ""}<div class="tq-grid">${s.techniques.items.map((x, i) => `<article class="tq-card${s.techniques.steps ? " tq-step" : ""}"><span class="mini-ic">${icon(x.icon)}</span>${s.techniques.steps ? `<span class="tq-num">${i + 1}</span>` : ""}<h3>${esc(t(x.title, l))}</h3>${l === "ar" ? `<p class="tq-en" dir="ltr">${esc(x.name)}</p>` : ""}<p>${esc(t(x.body, l))}</p></article>`).join("")}</div></section>` : ""}
+    ${extraSections(l, s)}
     ${s.guide ? guideSections(l, s) : ""}
     ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 380px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
     ${serviceCases(l, s)}

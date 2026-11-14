@@ -8,6 +8,7 @@ module.exports = {
       home: { ar: "الرئيسية", en: "Home" },
       implants: { ar: "زراعة الأسنان", en: "Dental implants" },
       cosmetic: { ar: "تجميل الأسنان", en: "Cosmetic dentistry" },
+      ortho: { ar: "تقويم الأسنان", en: "Orthodontics" },
       services: { ar: "الخدمات", en: "Services" },
       technology: { ar: "التقنيات", en: "Technology" },
       doctor: { ar: "د. بشاي مينا", en: "Dr. Beshay Mina" },
