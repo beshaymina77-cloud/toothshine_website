@@ -59,6 +59,16 @@
   store("ts-lang", TS.lang);
 
   /* ---------- WhatsApp message with time-based greeting ---------- */
+  /* First line tells reception where the booking came from (Google ad vs website). No personal or medical data. */
+  function waSource(svc) {
+    var u = {};
+    try { u = JSON.parse(sessionStorage.getItem("ts-utm") || "{}"); } catch (e) {}
+    var ad = u.click_id === "gclid" || /google/i.test(u.utm_source || "");
+    var ar = document.documentElement.lang === "ar";
+    var src = ad ? (ar ? "حجز من إعلان جوجل" : "Booking via Google ad") : (ar ? "حجز من الموقع" : "Booking via website");
+    return src + (svc ? " – " + svc : "");
+  }
+  window.tsWaSource = waSource;
   function greeting() {
     var h = new Date().getHours();
     return h >= 4 && h < 12 ? TS.greetings.morning : TS.greetings.evening;
@@ -67,7 +77,7 @@
     var b = TS.branches && TS.branches[branchId];
     if (!b || !b.wa) return "";
     var svc = (serviceSlug && TS.services[serviceSlug]) || TS.general;
-    var msg = TS.template.replace("{greeting}", greeting()).replace("{service}", svc).replace("{branch}", b.name);
+    var msg = waSource(svc) + "\n" + TS.template.replace("{greeting}", greeting()).replace("{service}", svc).replace("{branch}", b.name);
     return "https://wa.me/" + b.wa + "?text=" + encodeURIComponent(msg);
   }
 
@@ -209,9 +219,11 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
     var svc = f.querySelector("input[name=service]:checked");
     var br = f.querySelector("input[name=branch]:checked");
     if (!br) return;
-    var text = tpl.replace("{name}", name).replace("{phone}", phone)
+    var text = (window.tsWaSource ? window.tsWaSource(svc ? svc.value : "") + "\n" : "") + tpl.replace("{name}", name).replace("{phone}", phone)
       .replace("{service}", svc ? svc.value : "").replace("{branch}", br.getAttribute("data-name"));
     if (window.dataLayer) window.dataLayer.push({ event: "booking_whatsapp", service: svc && svc.value, branch: br.getAttribute("data-name") });
+    if (typeof window.tsTrack === "function") window.tsTrack("booking_click", { method: "whatsapp", branch: br.getAttribute("data-name"), placement: "booking_form" });
+    if (window.tsConv) window.tsConv();
     if (typeof window.fbq === "function") window.fbq("track", "Lead");
     window.location.href = "https://wa.me/" + br.value + "?text=" + encodeURIComponent(text);
   });
@@ -317,6 +329,8 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
     if (typeof window.gtag === "function") window.gtag("event", name, p);
   }
   window.tsTrack = track;
+  function tsConv() { if (CFG.ads && CFG.adsLead && typeof window.gtag === "function") window.gtag("event", "conversion", { send_to: CFG.adsLead }); }
+  window.tsConv = tsConv;
   var hasAny = !!(CFG.ga4 || CFG.ads || CFG.meta);
   var consent = ls("ts-consent");
   function loadMeta() {
@@ -354,10 +368,9 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
       var br = el.getAttribute("data-branch") || "";
       track("booking_click", { method: act === "wa" ? "whatsapp" : "phone", branch: br, placement: place });
       track("branch_select", { branch: br });
-      if (ls("ts-consent") === "yes") {
-        if (CFG.ads && CFG.adsLead && typeof window.gtag === "function") window.gtag("event", "conversion", { send_to: CFG.adsLead });
-        if (window.fbq) window.fbq("track", "Contact");
-      }
+      /* Google Ads conversion always fires; Consent Mode v2 (default denied) keeps it cookieless until the visitor accepts. */
+      tsConv();
+      if (ls("ts-consent") === "yes" && window.fbq) window.fbq("track", "Contact");
     } else if (act === "map") track("directions_click", { branch: el.getAttribute("data-branch") || "", placement: place });
     else if (el.hasAttribute("data-lp-book")) track("cta_click", { placement: place });
     else if (el.hasAttribute("data-sheet")) track("cta_click", { placement: place, opens: "branch_sheet" });

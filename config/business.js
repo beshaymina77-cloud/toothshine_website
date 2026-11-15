@@ -244,7 +244,7 @@ module.exports = {
      ga4: "G-XXXXXXX" · googleAds: "AW-XXXXXXX" · googleAdsLead: "AW-XXXXXXX/abcDEF" (conversion label)
      metaPixel: "1234567890". Ads/Meta load only after the visitor accepts the cookie notice.
      No medical details are ever sent: only page type, branch, booking method and campaign (UTM). */
-  tracking: { ga4: "", googleAds: "", googleAdsLead: "", metaPixel: "" },
+  tracking: { ga4: "", googleAds: "AW-16473775818", googleAdsLead: "AW-16473775818/6ZLuCIC50rgdEMq9p689", metaPixel: "" },
 
   cases: [
     // Real clinic cases, cropped from the clinic's own posts (Nov 2026). Published with the patients' consent as confirmed by Dr. Beshay.
