@@ -49,7 +49,7 @@ module.exports = {
       priority: true,
       /* Source: clinic social-media designs (Nov 2026) — confirm before launch */
       address: {
-        ar: "سبورتنج على البحر، طريق الجيش، عقار 75، أمام نفق الهانير",
+        ar: "سبورتنج على البحر، طريق الجيش، عقار 75، أمام نفق الهايبر",
         en: "75 El Geish Road (sea front), Sporting, Alexandria",
       },
       hours: { ar: "من السبت للخميس، من 2 ظهرًا حتى 10 مساءً · الجمعة إجازة", en: "Saturday to Thursday, 2:00 PM – 10:00 PM · Closed on Friday" },
@@ -72,12 +72,12 @@ module.exports = {
       area: { ar: "العجمي", en: "Agami" },
       priority: false,
       address: {
-        ar: "الكيلو 21، أعلى فرع فودافون، بجوار مدخل شارع التأمين",
-        en: "Km 21, above the Vodafone store, next to El Taameen Street entrance, Agami",
+        ar: "طريق إسكندرية مطروح، الكيلو 21، أعلى فرع فودافون، بجوار مدخل شارع التأمين، العجمي",
+        en: "Km 21 Alexandria–Matrouh Road, above the Vodafone store, next to El Taameen Street entrance, Agami",
       },
-      hours: { ar: "يوميًا من 12 ظهرًا حتى 11 مساءً", en: "Daily, 12:00 PM – 11:00 PM" },
+      hours: { ar: "من السبت للخميس، من 12 ظهرًا حتى 11 مساءً · الجمعة من 2 ظهرًا حتى 8 مساءً", en: "Saturday to Thursday, 12:00 PM – 11:00 PM · Friday, 2:00 PM – 8:00 PM" },
       bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
-      open: { opens: "12:00", closes: "23:00" }, // for Google structured data (daily)
+      open: { opens: "12:00", closes: "23:00", closed: ["Friday"], special: [{ days: ["Friday"], opens: "14:00", closes: "20:00" }] }, // structured data: daily, Friday 2–8 PM (doctor Nov 14 2026, matches Google profile)
       phone: "201286641616",                // 012 8664 1616
       phoneDisplay: "012 8664 1616",
       whatsapp: "201013594549",             // 010 1359 4549

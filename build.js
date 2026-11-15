@@ -37,6 +37,7 @@ const P = {
   services: (l) => `${prefix(l)}/services/`,
   service: (l, s) => `${prefix(l)}/services/${s}/`,
   branches: (l) => `${prefix(l)}/branches/`,
+  branch: (l, id) => `${prefix(l)}/branches/${id}/`,
   articles: (l) => `${prefix(l)}/articles/`,
   article: (l, s) => `${prefix(l)}/articles/${s}/`,
 };
@@ -311,7 +312,7 @@ function branchCard(l, b, s, headingTag = "h3") {
   return `<article class="branch${b.priority ? " branch--main" : ""}" id="${b.id}">
     ${b.photo ? photo(b.photo, t(b.name, l), "b-photo") : ""}
     <div class="b-top"><${headingTag} class="b-name">${esc(t(b.name, l))}</${headingTag}></div>
-    <p class="b-area">${esc(t(b.area, l))} · ${esc(t(biz.brand.city, l))}</p>
+    <p class="b-area">${esc(t(b.area, l))} · ${esc(t(biz.brand.city, l))}${site.branchPages && site.branchPages[b.id] ? ` · <a class="b-page" href="${P.branch(l, b.id)}">${esc(t(site.branchPages.pageLink, l))}</a>` : ""}</p>
     <div class="b-rows">
       ${row("pin", t(site.ui.address, l), t(b.address, l))}
       ${row("clock", t(site.ui.hours, l), t(b.hours, l))}
@@ -360,7 +361,7 @@ function orgLD(l) {
       "@type": "Dentist",
       "@id": abs(`/#${b.id}`),
       name: `${t(biz.brand.name, l)} – ${t(b.name, l)}`,
-      url: abs(P.branches(l) + "#" + b.id),
+      url: abs(P.branch(l, b.id)),
       address: {
         "@type": "PostalAddress",
         ...(t(b.address, l) ? { streetAddress: t(b.address, l) } : {}),
@@ -371,7 +372,8 @@ function orgLD(l) {
     };
     if (b.phone) o.telephone = "+" + b.phone;
     if (b.mapsUrl) o.hasMap = b.mapsUrl;
-    if (b.open && b.open.opens) o.openingHoursSpecification = [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].filter((d) => !(b.open.closed || []).includes(d)), opens: b.open.opens, closes: b.open.closes }];
+    if (b.open && b.open.opens) o.openingHoursSpecification = [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].filter((d) => !(b.open.closed || []).includes(d)), opens: b.open.opens, closes: b.open.closes }]
+      .concat((b.open.special || []).map((x) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: x.days, opens: x.opens, closes: x.closes })));
     if (b.geo && b.geo.lat) o.geo = { "@type": "GeoCoordinates", latitude: b.geo.lat, longitude: b.geo.lng };
     return o;
   });
@@ -1354,6 +1356,45 @@ function branchesPage(l) {
   );
 }
 
+function branchPage(l, b) {
+  const BP = site.branchPages, X = BP[b.id];
+  const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.branchesPage.h1, l), P.branches(l)], [t(b.name, l), P.branch(l, b.id)]];
+  const GR = biz.googleReviews || { items: [] };
+  const rv = (GR.items || []).filter((r) => r.branch === b.id && !/ليزر|laser/i.test(r.text || "")).slice(0, 6);
+  const bs = (GR.branchSummary || {})[b.id];
+  const other = biz.branches.filter((x) => x.id !== b.id);
+  const svcList = featured.concat(others);
+  const body = `${pageHero(l, crumbs, t(X.h1, l), t(X.lead, l))}
+<section class="section"><div class="wrap">
+  <p class="appt-note reveal">${icon("clock")}<span>${esc(t(site.home.apptNote, l))}</span></p>
+  <div class="branches-grid branches-grid--page">${branchCard(l, b, null, "h2")}</div>
+  <div class="how reveal"><h2>${esc(t(BP.findTitle, l))}</h2><ol class="how-steps">${X.find.map((x, i) => `<li><span class="step-n">${i + 1}</span><span>${esc(t(x, l))}</span></li>`).join("")}</ol></div>
+</div></section>
+<section class="section"><div class="wrap">
+  ${sectionHead("", t(BP.servicesTitle, l), t(BP.servicesLead, l))}
+  <ul class="ticks">${svcList.map((s) => `<li>${icon("check")}<a href="${P.service(l, s.slug)}">${esc(t(s.title, l))}</a></li>`).join("")}</ul>
+</div></section>
+${rv.length ? `<section class="section"><div class="wrap"><section class="svc-reviews reveal" id="reviews"><h2>${icon("star")}${esc(t(BP.reviewsTitle, l))}</h2>
+  ${bs ? `<div class="svc-rv-sum"><a href="${GR.profiles[b.id]}" target="_blank" rel="noopener"><strong>${esc(bs.rating)}</strong><span class="stars">★★★★★</span><small>${esc(t(b.name, l))} · ${esc(t(site.home.reviewsBased, l).replace("{count}", bs.count))}</small></a></div>` : ""}
+  <div class="svc-rv-grid">${rv.map((r) => reviewCard(l, r)).join("")}</div></section></div></section>` : ""}
+${other.length ? `<section class="section"><div class="wrap"><h2 class="sub-title">${esc(t(BP.otherTitle, l))}</h2><div class="branches-grid">${other.map((x) => branchCard(l, x, null)).join("")}</div></div></section>` : ""}
+${ctaBand(l, null)}`;
+  const org = orgLD(l);
+  const ld = Object.assign({ "@context": "https://schema.org" }, org.department.find((d) => d["@id"] === abs(`/#${b.id}`)), {
+    image: abs("/" + biz.brand.shareImage),
+    priceRange: undefined,
+    parentOrganization: { "@id": abs("/#org") },
+    ...(bs ? {} : {}),
+  });
+  delete ld.priceRange;
+  return layout(
+    l,
+    { page: "branches", title: t(X.title, l), desc: t(X.meta, l), pathAr: P.branch("ar", b.id), pathEn: P.branch("en", b.id), jsonld: [ld, crumbLD(crumbs)] },
+    body,
+    null
+  );
+}
+
 function articlesPage(l) {
   const A = site.articlesPage;
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)]];
@@ -1455,6 +1496,7 @@ for (const l of LANGS) {
   write(P.home(l), homePage(l));
   write(P.services(l), servicesPage(l));
   write(P.branches(l), branchesPage(l));
+  for (const b of biz.branches) if (site.branchPages && site.branchPages[b.id]) write(P.branch(l, b.id), branchPage(l, b));
   write(P.articles(l), articlesPage(l));
   for (const a of articles) write(P.article(l, a.slug), articlePage(l, a));
   for (const s of services) write(P.service(l, s.slug), servicePage(l, s));
@@ -1462,7 +1504,7 @@ for (const l of LANGS) {
 }
 write("404.html", notFound());
 
-urls.push(["home"], ["services"], ["branches"], ["articles"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
+urls.push(["home"], ["services"], ["branches"], ...biz.branches.filter((b) => site.branchPages && site.branchPages[b.id]).map((b) => ["branch", b.id]), ["articles"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls
