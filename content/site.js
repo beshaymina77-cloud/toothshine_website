@@ -357,6 +357,7 @@ module.exports = {
 
   /* Per-branch local pages (/branches/<id>/). Location facts only; no medical claims. */
   branchPages: {
+    enabled: false, // doctor (Nov 15 2026): no separate branch pages for now; keep text for later
     pageLink: { ar: "صفحة الفرع والاتجاهات", en: "Branch page & directions" },
     servicesTitle: { ar: "الخدمات المتاحة في الفرع", en: "Services at this branch" },
     servicesLead: {

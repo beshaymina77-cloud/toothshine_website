@@ -312,7 +312,7 @@ function branchCard(l, b, s, headingTag = "h3") {
   return `<article class="branch${b.priority ? " branch--main" : ""}" id="${b.id}">
     ${b.photo ? photo(b.photo, t(b.name, l), "b-photo") : ""}
     <div class="b-top"><${headingTag} class="b-name">${esc(t(b.name, l))}</${headingTag}></div>
-    <p class="b-area">${esc(t(b.area, l))} · ${esc(t(biz.brand.city, l))}${site.branchPages && site.branchPages[b.id] ? ` · <a class="b-page" href="${P.branch(l, b.id)}">${esc(t(site.branchPages.pageLink, l))}</a>` : ""}</p>
+    <p class="b-area">${esc(t(b.area, l))} · ${esc(t(biz.brand.city, l))}${site.branchPages && site.branchPages.enabled && site.branchPages[b.id] ? ` · <a class="b-page" href="${P.branch(l, b.id)}">${esc(t(site.branchPages.pageLink, l))}</a>` : ""}</p>
     <div class="b-rows">
       ${row("pin", t(site.ui.address, l), t(b.address, l))}
       ${row("clock", t(site.ui.hours, l), t(b.hours, l))}
@@ -361,7 +361,7 @@ function orgLD(l) {
       "@type": "Dentist",
       "@id": abs(`/#${b.id}`),
       name: `${t(biz.brand.name, l)} – ${t(b.name, l)}`,
-      url: abs(P.branch(l, b.id)),
+      url: abs(site.branchPages && site.branchPages.enabled ? P.branch(l, b.id) : P.branches(l) + "#" + b.id),
       address: {
         "@type": "PostalAddress",
         ...(t(b.address, l) ? { streetAddress: t(b.address, l) } : {}),
@@ -1489,7 +1489,7 @@ for (const l of LANGS) {
   write(P.home(l), homePage(l));
   write(P.services(l), servicesPage(l));
   write(P.branches(l), branchesPage(l));
-  for (const b of biz.branches) if (site.branchPages && site.branchPages[b.id]) write(P.branch(l, b.id), branchPage(l, b));
+  for (const b of biz.branches) if (site.branchPages && site.branchPages.enabled && site.branchPages[b.id]) write(P.branch(l, b.id), branchPage(l, b));
   write(P.articles(l), articlesPage(l));
   for (const a of articles) write(P.article(l, a.slug), articlePage(l, a));
   for (const s of services) write(P.service(l, s.slug), servicePage(l, s));
@@ -1497,7 +1497,7 @@ for (const l of LANGS) {
 }
 write("404.html", notFound());
 
-urls.push(["home"], ["services"], ["branches"], ...biz.branches.filter((b) => site.branchPages && site.branchPages[b.id]).map((b) => ["branch", b.id]), ["articles"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
+urls.push(["home"], ["services"], ["branches"], ...biz.branches.filter((b) => site.branchPages && site.branchPages.enabled && site.branchPages[b.id]).map((b) => ["branch", b.id]), ["articles"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls
