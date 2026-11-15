@@ -270,7 +270,7 @@ module.exports = {
     teamSoon: { ar: "باقي فريق المركز – قريبًا", en: "The rest of our team – coming soon" },
 
     branchesKicker: { ar: "فروعنا", en: "Our branches" },
-    apptNote: { ar: "المواعيد في الفرعين بالحجز المسبق: سبورتنج يوميًا من 2 ظهرًا حتى 10 مساءً، والعجمي يوميًا من 12 ظهرًا حتى 11 مساءً.", en: "Both branches work by prior appointment: Sporting daily 2 PM – 10 PM, Agami daily 12 PM – 11 PM." },
+    apptNote: { ar: "المواعيد في الفرعين بالحجز المسبق: سبورتنج من السبت للخميس من 2 ظهرًا حتى 10 مساءً (الجمعة إجازة)، والعجمي من السبت للخميس من 12 ظهرًا حتى 11 مساءً والجمعة من 2 ظهرًا حتى 8 مساءً.", en: "Both branches work by prior appointment: Sporting Saturday–Thursday 2 PM – 10 PM (closed Friday); Agami Saturday–Thursday 12 PM – 11 PM, Friday 2 PM – 8 PM." },
     branchesTitle: { ar: "اختار الفرع الأقرب ليك", en: "Choose the branch nearest to you" },
 
     feedbackKicker: { ar: "تجارب المرضى", en: "Patient experiences" },
@@ -353,6 +353,54 @@ module.exports = {
       { ar: "ابعت رسالة واتساب أو اتصل بالفرع.", en: "Send a WhatsApp message or call the branch." },
       { ar: "قول لنا الخدمة اللي بتسأل عليها، وهنقترح عليك أقرب موعد مناسب.", en: "Tell us what you're asking about and we'll suggest a suitable time." },
     ],
+  },
+
+  /* Per-branch local pages (/branches/<id>/). Location facts only; no medical claims. */
+  branchPages: {
+    pageLink: { ar: "صفحة الفرع والاتجاهات", en: "Branch page & directions" },
+    servicesTitle: { ar: "الخدمات المتاحة في الفرع", en: "Services at this branch" },
+    servicesLead: {
+      ar: "الفرعين بيقدموا خدمات المركز. اسأل الفرع عن المواعيد المتاحة للخدمة اللي محتاجها.",
+      en: "Both branches offer the center's services. Ask the branch about available times for the treatment you need.",
+    },
+    findTitle: { ar: "إزاي توصل للفرع", en: "How to find us" },
+    reviewsTitle: { ar: "تقييمات حقيقية على Google لهذا الفرع", en: "Real Google reviews for this branch" },
+    otherTitle: { ar: "الفرع التاني", en: "Our other branch" },
+    agami: {
+      title: { ar: "مركز أسنان في العجمي – الكيلو 21 | مركز أسنان شاين", en: "Dentist in Agami, Km 21 Alexandria | Tooth Shine Dental Center" },
+      meta: {
+        ar: "فرع العجمي لمركز أسنان شاين: الكيلو 21 أعلى فرع فودافون بجوار مدخل شارع التأمين. زراعة وتجميل وتقويم وأسنان أطفال. المواعيد بالحجز المسبق على واتساب.",
+        en: "Tooth Shine Dental Center, Agami branch: Km 21, above the Vodafone store next to El Taameen Street. Implants, cosmetic dentistry, orthodontics and children's dentistry. Book on WhatsApp.",
+      },
+      h1: { ar: "مركز أسنان شاين في العجمي – الكيلو 21", en: "Tooth Shine Dental Center in Agami – Km 21" },
+      lead: {
+        ar: "فرع العجمي بيخدم سكان العجمي والكيلو 21 والمناطق القريبة غرب الإسكندرية، بنفس فريق ومعايير مركز أسنان شاين وبإشراف د. بشاي مينا.",
+        en: "Our Agami branch serves Agami, Km 21 and nearby areas west of Alexandria, with the same team and standards as Tooth Shine and under the supervision of Dr. Beshay Mina.",
+      },
+      find: [
+        { ar: "على طريق إسكندرية مطروح عند الكيلو 21.", en: "On the Alexandria–Matrouh road at Km 21." },
+        { ar: "الفرع في الدور اللي فوق فرع فودافون.", en: "The branch is on the floor above the Vodafone store." },
+        { ar: "بجوار مدخل شارع التأمين.", en: "Next to the entrance of El Taameen Street." },
+        { ar: "افتح الاتجاهات على خرائط جوجل من الزرار تحت، أو كلّم الفرع وهنوصفلك الطريق.", en: "Open Google Maps directions with the button below, or call the branch and we'll guide you." },
+      ],
+    },
+    sporting: {
+      title: { ar: "مركز أسنان في سبورتنج – طريق الجيش | مركز أسنان شاين", en: "Dentist in Sporting, El Geish Road Alexandria | Tooth Shine Dental Center" },
+      meta: {
+        ar: "فرع سبورتنج لمركز أسنان شاين: طريق الجيش عقار 75 أمام نفق الهايبر. زراعة وتجميل وتقويم وأسنان أطفال. المواعيد بالحجز المسبق على واتساب.",
+        en: "Tooth Shine Dental Center, Sporting branch: 75 El Geish Road, opposite the Hyper tunnel. Implants, cosmetic dentistry, orthodontics and children's dentistry. Book on WhatsApp.",
+      },
+      h1: { ar: "مركز أسنان شاين في سبورتنج – طريق الجيش", en: "Tooth Shine Dental Center in Sporting – El Geish Road" },
+      lead: {
+        ar: "فرع سبورتنج على البحر في طريق الجيش، قريب من سيدي جابر وكليوباترا والإبراهيمية، وبإشراف د. بشاي مينا.",
+        en: "Our Sporting branch is on the El Geish sea road, close to Sidi Gaber, Cleopatra and Ibrahimia, under the supervision of Dr. Beshay Mina.",
+      },
+      find: [
+        { ar: "سبورتنج على البحر، طريق الجيش، عقار 75.", en: "75 El Geish Road (sea front), Sporting." },
+        { ar: "أمام نفق الهايبر (نفق سبورتنج).", en: "Opposite the Hyper tunnel (Sporting tunnel)." },
+        { ar: "افتح الاتجاهات على خرائط جوجل من الزرار تحت، أو كلّم الفرع وهنوصفلك الطريق.", en: "Open Google Maps directions with the button below, or call the branch and we'll guide you." },
+      ],
+    },
   },
 
   articlesPage: {
