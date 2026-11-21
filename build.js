@@ -1363,11 +1363,18 @@ ${ctaBand(l, null)}`;
   return layout(l, { page: "articles", title: t(A.title, l), desc: t(A.meta, l), pathAr: P.articles("ar"), pathEn: P.articles("en"), jsonld: [crumbLD(crumbs)] }, body, null);
 }
 
+/* article figure: { src | srcs: [..], labels: [..], alt, cap, tag: "case" | "ill" } */
+function artFig(l, v) {
+  const srcs = v.srcs || [v.src];
+  const tag = v.tag === "case" ? (l === "ar" ? "حالة حقيقية من المركز، منشورة بموافقة المريض" : "A real case from our centre, shared with the patient's consent") : ILL(l);
+  const one = (src, i) => { const s6 = src.replace(/\.(webp|jpg)$/, "-600.webp"); const has6 = fs.existsSync(path.join(__dirname, "public", s6)); return `<div class="art-ph"><img src="/${esc(src)}"${has6 ? ` srcset="/${esc(s6)} 600w, /${esc(src)} 1200w" sizes="(max-width: 860px) 92vw, 680px"` : ""} alt="${esc(v.alt)}${v.labels ? ": " + esc(v.labels[i]) : ""}" loading="lazy" decoding="async">${v.labels ? `<span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(v.labels[i])}</span>` : ""}</div>`; };
+  return `<figure class="art-fig${srcs.length > 1 ? " art-fig--" + srcs.length : ""}"><div class="art-fig-in">${srcs.map(one).join("")}</div><figcaption>${v.cap ? `<span>${esc(v.cap)}</span>` : ""}<span class="fig-tag">${esc(tag)}</span></figcaption></figure>`;
+}
 function articlePage(l, a) {
   const svc = services.find((x) => x.slug === a.service);
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)], [t(a.title, l), P.article(l, a.slug)]];
   const blocks = a.body[l]
-    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : `<p>${esc(v)}</p>`))
+    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : type === "img" ? artFig(l, v) : `<p>${esc(v)}</p>`))
     .join("\n");
   const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time>${a.reviewedBy ? ` · ${t(site.ui.reviewedBy, l)} ${esc(t(a.reviewedBy, l))}` : ""}</p>`;
   const others = articles.filter((x) => x.slug !== a.slug).slice(0, 2);
@@ -1396,7 +1403,7 @@ ${ctaBand(l, svc)}`;
     datePublished: a.date,
     dateModified: a.updated || a.date,
     mainEntityOfPage: abs(P.article(l, a.slug)),
-    image: abs("/" + biz.brand.shareImage),
+    image: abs("/" + (a.cover || biz.brand.shareImage)),
     author: a.reviewedBy ? { "@type": "Person", name: t(a.reviewedBy, l) } : { "@type": "Organization", name: t(biz.brand.name, l) },
     publisher: { "@type": "Organization", name: t(biz.brand.name, l), logo: { "@type": "ImageObject", url: abs("/assets/img/apple-touch-icon.png") } },
   };
