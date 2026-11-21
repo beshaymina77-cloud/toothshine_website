@@ -1592,3 +1592,14 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 @media (max-width: 860px) { .sig-grid { grid-template-columns: 1fr; } .sig-cta .btn { flex: 1 1 100%; justify-content: center; } }
 .ip-pair--stack { grid-template-columns: 1fr; }
 .ip-pair--stack .ip-pair-ph { aspect-ratio: 830 / 330; }
+/* articles: figures */
+.art-fig { margin: 22px 0 26px; }
+.art-fig-in { display: grid; gap: 8px; }
+.art-fig--2 .art-fig-in { grid-template-columns: 1fr 1fr; }
+.art-fig--3 .art-fig-in { grid-template-columns: repeat(3, 1fr); }
+.art-ph { position: relative; border-radius: 16px; overflow: hidden; background: var(--ice); }
+.art-ph img { width: 100%; height: auto; display: block; }
+.art-fig--2 .art-ph, .art-fig--3 .art-ph { aspect-ratio: 4 / 3; }
+.art-fig--2 .art-ph img, .art-fig--3 .art-ph img { height: 100%; object-fit: cover; }
+.art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
+.art-fig figcaption .fig-tag { font-size: 12px; }
