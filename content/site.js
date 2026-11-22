@@ -357,7 +357,7 @@ module.exports = {
 
   /* Per-branch local pages (/branches/<id>/). Location facts only; no medical claims. */
   branchPages: {
-    enabled: false, // doctor (Nov 15 2026): no separate branch pages for now; keep text for later
+    enabled: true, // doctor approved publishing both branch pages (Nov 22 2026)
     pageLink: { ar: "صفحة الفرع والاتجاهات", en: "Branch page & directions" },
     servicesTitle: { ar: "الخدمات المتاحة في الفرع", en: "Services at this branch" },
     servicesLead: {
@@ -375,8 +375,8 @@ module.exports = {
       },
       h1: { ar: "مركز أسنان شاين في العجمي – الكيلو 21", en: "Tooth Shine Dental Center in Agami – Km 21" },
       lead: {
-        ar: "فرع العجمي بيخدم سكان العجمي والكيلو 21 والمناطق القريبة غرب الإسكندرية، بنفس فريق ومعايير مركز أسنان شاين وبإشراف د. بشاي مينا.",
-        en: "Our Agami branch serves Agami, Km 21 and nearby areas west of Alexandria, with the same team and standards as Tooth Shine and under the supervision of Dr. Beshay Mina.",
+        ar: "فرع العجمي في الكيلو 21 بيخدم سكان العجمي وأبو يوسف و6 أكتوبر والبيطاش والهانوفيل والمناطق القريبة غرب الإسكندرية، بنفس فريق ومعايير مركز أسنان شاين وبإشراف د. بشاي مينا.",
+        en: "Our Agami branch at Km 21 serves Agami, Abu Youssef, 6th of October, Bitash, Hannoville and nearby areas west of Alexandria, with the same team and standards as Tooth Shine and under the supervision of Dr. Beshay Mina.",
       },
       find: [
         { ar: "على طريق إسكندرية مطروح عند الكيلو 21.", en: "On the Alexandria–Matrouh road at Km 21." },
@@ -393,8 +393,8 @@ module.exports = {
       },
       h1: { ar: "مركز أسنان شاين في سبورتنج – طريق الجيش", en: "Tooth Shine Dental Center in Sporting – El Geish Road" },
       lead: {
-        ar: "فرع سبورتنج على البحر في طريق الجيش، قريب من سيدي جابر وكليوباترا والإبراهيمية، وبإشراف د. بشاي مينا.",
-        en: "Our Sporting branch is on the El Geish sea road, close to Sidi Gaber, Cleopatra and Ibrahimia, under the supervision of Dr. Beshay Mina.",
+        ar: "فرع سبورتنج على البحر في طريق الجيش، قريب من سيدي جابر والإبراهيمية وكليوباترا وكامب شيزار ومحطة الرمل، وبإشراف د. بشاي مينا.",
+        en: "Our Sporting branch is on the El Geish sea road, close to Sidi Gaber, Ibrahimia, Cleopatra, Camp Shezar and Raml Station, under the supervision of Dr. Beshay Mina.",
       },
       find: [
         { ar: "سبورتنج على البحر، طريق الجيش، عقار 75.", en: "75 El Geish Road (sea front), Sporting." },
