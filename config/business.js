@@ -294,6 +294,18 @@ module.exports = {
        instagram: "https://www.instagram.com/reel/..." } */
   testimonials: [],
 
+  /* ---------------- LATEST VIDEOS ("آخر فيديوهاتنا") ----------------
+     Videos the doctor picked from our own Instagram / Facebook.
+     Paste the post link only (official embed, no tokens, no widgets):
+     { url: "https://www.instagram.com/reel/CODE/" }   or
+     { url: "https://www.facebook.com/reel/1234567890/" }
+     The section stays hidden while the list is empty. Newest first.
+     Videos showing patients: only with the patient's consent. */
+  latestVideos: [
+    { url: "https://www.facebook.com/reel/4506532519491897/" },
+    { url: "https://www.facebook.com/reel/1456775569987937/" },
+  ],
+
   /* ---------------- TRUST NUMBERS (optional) ----------------
      Shown under the homepage headline ONLY when filled.
      Use numbers you can prove (e.g. from records). Leave [] if unsure.
