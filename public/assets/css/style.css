@@ -1603,3 +1603,13 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-fig--2 .art-ph img, .art-fig--3 .art-ph img { height: 100%; object-fit: cover; }
 .art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
 .art-fig figcaption .fig-tag { font-size: 12px; }
+
+/* latest videos (Instagram / Facebook official embeds) */
+.lv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; align-items: start; }
+.lv-item { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(1, 40, 90, .08); min-width: 0; }
+.lv-item .instagram-media { margin: 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; border: 0 !important; border-radius: 16px !important; box-shadow: none !important; }
+.lv-item--fb iframe { display: block; width: 100%; aspect-ratio: 9 / 16; border: 0; }
+.lv-fallback { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 220px; padding: 20px; font-weight: 700; color: var(--blue); text-decoration: none; }
+.lv-fallback svg { width: 22px; height: 22px; }
+.lv-more { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+@media (max-width: 600px) { .lv-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .lv-item { scroll-snap-align: start; } }

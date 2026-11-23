@@ -160,6 +160,22 @@
     if (tabs.length) select(tabs[0]);
   });
 
+  /* ---------- latest videos: load Instagram's official embed script only when the section is near ---------- */
+  var igBox = $("[data-ig-embeds]");
+  if (igBox) {
+    var igLoad = function () {
+      if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+      var sc = doc.createElement("script");
+      sc.src = "https://www.instagram.com/embed.js";
+      sc.async = true;
+      doc.body.appendChild(sc);
+    };
+    if ("IntersectionObserver" in window) {
+      var igIo = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { igIo.disconnect(); igLoad(); } }, { rootMargin: "600px 0px" });
+      igIo.observe(igBox);
+    } else igLoad();
+  }
+
   /* ---------- carousels ---------- */
   $$("[data-carousel]").forEach(function (c) {
     var track = $(".car-track", c);

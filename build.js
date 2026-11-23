@@ -756,6 +756,18 @@ function homePage(l) {
       )}
     </div></section>`
     : "";
+  const LV = biz.latestVideos || [];
+  const lvItem = (v) => {
+    const u = String(v.url || "").split("?")[0];
+    if (/facebook\.com\//.test(u)) return `<div class="lv-item lv-item--fb"><iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(u)}&show_text=false&width=320" title="${esc(t(H.videosTitle, l))}" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
+    return `<div class="lv-item lv-item--ig"><blockquote class="instagram-media" data-instgrm-permalink="${esc(u)}?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"><a class="lv-fallback" href="${esc(u)}" target="_blank" rel="noopener">${icon("instagram")}<span>${t(H.videosOpen, l)}</span></a></blockquote></div>`;
+  };
+  const latestVideos = LV.length
+    ? `<section class="section latest-videos" id="videos"><div class="wrap">${sectionHead(t(H.videosKicker, l), t(H.videosTitle, l), t(H.videosNote, l))}
+      <div class="lv-grid reveal"${LV.some((v) => /instagram\.com\//.test(v.url)) ? " data-ig-embeds" : ""}>${LV.map(lvItem).join("")}</div>
+      <div class="lv-more">${biz.social.instagram ? `<a class="btn btn-line btn-sm" href="${biz.social.instagram}" target="_blank" rel="noopener">${icon("instagram")}<span>${t(H.videosFollow, l)}</span></a>` : ""}${biz.social.facebook ? `<a class="btn btn-line btn-sm" href="${biz.social.facebook}" target="_blank" rel="noopener">${icon("facebook")}<span>${t(H.videosFollowFb, l)}</span></a>` : ""}</div>
+    </div></section>`
+    : "";
   const GR = biz.googleReviews || { items: [], profiles: {}, summary: {} };
   const stars = (n) => `<span class="stars" aria-label="${n}/5">${"★".repeat(n)}<span class="stars-off">${"★".repeat(5 - n)}</span></span>`;
   const gLink = biz.branches.map((b) => GR.profiles && GR.profiles[b.id]).find(Boolean);
@@ -932,6 +944,7 @@ ${comfort}
 
 ${reviews}
 ${testimonials}
+${latestVideos}
 
 <section class="section services-sec" id="services">
   <div class="wrap">
