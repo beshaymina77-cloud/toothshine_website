@@ -35,6 +35,7 @@ module.exports = [
         ["img", { src: "assets/img/illustrations/implant-parts.webp", alt: "أجزاء زرعة الأسنان داخل العظم", cap: "صورة توضيحية لأجزاء الزرعة، وليست حالة مريض.", tag: "ill" }],
         ["h2", "يعني إيه زراعة بدون شق (Flapless)؟"],
         ["p", "بدل ما الطبيب يعمل شق في اللثة ويرفعها علشان يشوف العظم، بيعمل فتحة دايرية صغيرة في اللثة بنفس قطر الزرعة تقريبًا، ومنها بيجهز مكان الزرعة ويركّبها. علشان ده يتعمل بأمان لازم الطبيب يعرف شكل العظم بالظبط من غير ما يشوفه بعينه، وده بيتم بالأشعة المقطعية والتخطيط الرقمي، وكتير بنستخدم معاه دليل جراحي رقمي يوجّه الزرعة لمكانها."],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "دليل جراحي رقمي متركب على الأسنان في الفم قبل زراعة الأسنان", cap: "الدليل الجراحي متركب على الأسنان في الفم. الفتحة الدايرية هي مكان الزرعة اللي اتحدد في التخطيط، ومن خلالها بتتحط الزرعة.", tag: "case" }],
         ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["١. الدليل على الأسنان", "٢. بعد الزراعة"], alt: "زراعة بدون شق بالدليل الجراحي في حالة من المركز", cap: "حالة حقيقية من المركز: الدليل الجراحي متركب على الأسنان والفتحة على قد الزرعة بالظبط، وبعدها الزرعة اتحطت من غير شق في اللثة ومن غير غرز.", tag: "case" }],
         ["h2", "مميزاتها للمريض"],
         ["ul", [
@@ -68,6 +69,7 @@ module.exports = [
         ["img", { src: "assets/img/illustrations/implant-parts.webp", alt: "Parts of a dental implant in the bone", cap: "Illustration of implant parts, not a patient case.", tag: "ill" }],
         ["h2", "What is flapless implant placement?"],
         ["p", "Instead of cutting and lifting the gum to see the bone, the dentist makes a small round opening in the gum roughly the diameter of the implant, then prepares the site and places the implant through it. To do this safely, the dentist must know the exact shape of the bone without seeing it directly. This is done with a CBCT scan and digital planning, and often a digital surgical guide that directs the implant to its planned position."],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "A digital surgical guide seated on the teeth before implant placement", cap: "The surgical guide seated on the teeth. The round opening marks the implant position set during planning; the implant is placed through it.", tag: "case" }],
         ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["1. Guide in place", "2. After placement"], alt: "Flapless guided implant placement in a case from our centre", cap: "A real case from our centre: the surgical guide seated on the teeth with an opening the size of the implant, then the implant placed without a gum incision and without stitches.", tag: "case" }],
         ["h2", "Benefits for the patient"],
         ["ul", [
@@ -116,6 +118,7 @@ module.exports = [
         ["h2", "يعني إيه دليل جراحي رقمي؟"],
         ["p", "الدليل الجراحي قالب رفيع بيتركب على الأسنان أو اللثة وقت الزراعة، وفيه فتحة أو أكتر بتوجّه أدوات الطبيب. القالب ده بيتصمم على الكمبيوتر حسب حالتك بالظبط وبيتطبع، فالزرعة بتتحط في نفس المكان والزاوية والعمق اللي اتخطط لهم قبل الزراعة."],
         ["img", { src: "assets/img/illustrations/guided-implant-planning.webp", alt: "تخطيط رقمي لمكان زرعة الأسنان على الأشعة", cap: "صورة توضيحية للتخطيط الرقمي للزراعة، وليست حالة مريض.", tag: "ill" }],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "دليل جراحي رقمي متركب على الأسنان في الفم قبل زراعة الأسنان", cap: "الدليل الجراحي متركب على الأسنان في الفم. الفتحة الدايرية هي مكان الزرعة اللي اتحدد في التخطيط، ومن خلالها بتتحط الزرعة.", tag: "case" }],
         ["h2", "الخطوات من الأول للآخر"],
         ["ul", [
           "الكشف: الطبيب بيكشف على الفم كله، وبيسأل عن صحتك العامة والأدوية.",
@@ -156,6 +159,7 @@ module.exports = [
         ["h2", "What is a digital surgical guide?"],
         ["p", "A surgical guide is a thin template fitted over the teeth or gum during placement, with one or more openings that direct the dentist's instruments. It is designed on the computer for your exact case and then printed, so the implant goes into the position, angle and depth planned beforehand."],
         ["img", { src: "assets/img/illustrations/guided-implant-planning.webp", alt: "Digital implant planning on a scan", cap: "Illustration of digital implant planning, not a patient case.", tag: "ill" }],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "A digital surgical guide seated on the teeth before implant placement", cap: "The surgical guide seated on the teeth. The round opening marks the implant position set during planning; the implant is placed through it.", tag: "case" }],
         ["h2", "The steps from start to finish"],
         ["ul", [
           "Examination: the dentist examines the whole mouth and asks about your general health and medications.",
@@ -468,6 +472,7 @@ module.exports = [
         ["p", "قبل أي حاجة، الطبيب بيكشف على الفم كله مش بس مكان السنة الناقصة: اللثة، الأسنان المجاورة، العضة، وصحتك العامة والأدوية اللي بتاخدها. بعدها بتتعمل أشعة، وفي حالات كتير أشعة مقطعية ثلاثية الأبعاد (CBCT) علشان نشوف ارتفاع وعرض العظم ومكان الأعصاب والجيوب الأنفية."],
         ["p", "الفكرة المهمة هنا إننا بنخطط للسنة النهائية الأول، وبعدين بنحدد مكان الزرعة اللي يخدم السنة دي. في بعض الحالات التخطيط الرقمي ده بيسمح بعمل دليل جراحي (Surgical Guide) يساعد في وضع الزرعة بدقة، وأحيانًا من غير شق في اللثة (Flapless)، لو العظم واللثة مناسبين."],
         ["img", { src: "assets/img/illustrations/guided-implant-planning.webp", alt: "تخطيط رقمي لمكان الزرعة على الأشعة", cap: "التخطيط الرقمي بيحدد مكان وزاوية الزرعة قبل التركيب." }],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "دليل جراحي رقمي متركب على الأسنان في الفم قبل زراعة الأسنان", cap: "الدليل الجراحي متركب على الأسنان في الفم. الفتحة الدايرية هي مكان الزرعة اللي اتحدد في التخطيط، ومن خلالها بتتحط الزرعة.", tag: "case" }],
         ["h2", "المرحلة الثانية: تجهيز المكان (لو الحالة محتاجة)"],
         ["p", "مش كل الناس محتاجة الخطوة دي. لو في التهاب في اللثة أو تسوس في أسنان تانية، بيتعالج الأول. ولو العظم مش كفاية، ممكن الطبيب يشرح لك اختيارات زي ترقيع العظم (Bone Graft) أو رفع الجيب الأنفي في الفك العلوي، أو يقترح حل تاني حسب الحالة. الخطوات دي ممكن تزوّد المدة، وده بيتحدد بعد الأشعة مش قبلها."],
         ["h2", "المرحلة التالتة: تركيب الزرعة"],
@@ -495,6 +500,7 @@ module.exports = [
         ["p", "Before anything else, the dentist examines the whole mouth, not only the gap: gums, neighbouring teeth, the bite, your general health and medications. Imaging follows, and in many cases a 3D cone-beam CT (CBCT) scan to assess bone height and width and the position of nerves and sinuses."],
         ["p", "The key idea is that we plan the final tooth first, then choose the implant position that supports it. In some cases this digital plan allows a surgical guide to help place the implant accurately, sometimes without a gum incision (flapless) when bone and gum are suitable."],
         ["img", { src: "assets/img/illustrations/guided-implant-planning.webp", alt: "Digital implant planning on a scan", cap: "Digital planning sets the implant position and angle before placement." }],
+        ["img", { src: "assets/img/cases/guided-clinical-guide.webp", portrait: true, alt: "A digital surgical guide seated on the teeth before implant placement", cap: "The surgical guide seated on the teeth. The round opening marks the implant position set during planning; the implant is placed through it.", tag: "case" }],
         ["h2", "Stage 2: preparing the site (if needed)"],
         ["p", "Not everyone needs this step. Gum inflammation or decay elsewhere is treated first. If there is not enough bone, the dentist may explain options such as bone grafting or a sinus lift in the upper jaw, or suggest another solution. These steps can add time, and the need for them is decided after imaging, not before."],
         ["h2", "Stage 3: placing the implant"],

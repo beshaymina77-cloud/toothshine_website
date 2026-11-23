@@ -1422,7 +1422,7 @@ function artFig(l, v) {
   const srcs = v.srcs || [v.src];
   const tag = v.tag === "case" ? (l === "ar" ? "حالة حقيقية من المركز، منشورة بموافقة المريض" : "A real case from our centre, shared with the patient's consent") : ILL(l);
   const one = (src, i) => { const s6 = src.replace(/\.(webp|jpg)$/, "-600.webp"); const has6 = fs.existsSync(path.join(__dirname, "public", s6)); return `<div class="art-ph"><img src="/${esc(src)}"${has6 ? ` srcset="/${esc(s6)} 600w, /${esc(src)} 1200w" sizes="(max-width: 860px) 92vw, 680px"` : ""} alt="${esc(v.alt)}${v.labels ? ": " + esc(v.labels[i]) : ""}" loading="lazy" decoding="async">${v.labels ? `<span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(v.labels[i])}</span>` : ""}</div>`; };
-  return `<figure class="art-fig${srcs.length > 1 ? " art-fig--" + srcs.length : ""}"><div class="art-fig-in">${srcs.map(one).join("")}</div><figcaption>${v.cap ? `<span>${esc(v.cap)}</span>` : ""}<span class="fig-tag">${esc(tag)}</span></figcaption></figure>`;
+  return `<figure class="art-fig${srcs.length > 1 ? " art-fig--" + srcs.length : ""}${v.portrait ? " art-fig--portrait" : ""}"><div class="art-fig-in">${srcs.map(one).join("")}</div><figcaption>${v.cap ? `<span>${esc(v.cap)}</span>` : ""}<span class="fig-tag">${esc(tag)}</span></figcaption></figure>`;
 }
 function articlePage(l, a) {
   const svc = services.find((x) => x.slug === a.service);

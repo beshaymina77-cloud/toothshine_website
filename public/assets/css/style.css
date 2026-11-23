@@ -1613,3 +1613,4 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .lv-fallback svg { width: 22px; height: 22px; }
 .lv-more { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
 @media (max-width: 600px) { .lv-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .lv-item { scroll-snap-align: start; } }
+.art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
