@@ -35,6 +35,7 @@ module.exports = [
         ["img", { src: "assets/img/illustrations/implant-parts.webp", alt: "أجزاء زرعة الأسنان داخل العظم", cap: "صورة توضيحية لأجزاء الزرعة، وليست حالة مريض.", tag: "ill" }],
         ["h2", "يعني إيه زراعة بدون شق (Flapless)؟"],
         ["p", "بدل ما الطبيب يعمل شق في اللثة ويرفعها علشان يشوف العظم، بيعمل فتحة دايرية صغيرة في اللثة بنفس قطر الزرعة تقريبًا، ومنها بيجهز مكان الزرعة ويركّبها. علشان ده يتعمل بأمان لازم الطبيب يعرف شكل العظم بالظبط من غير ما يشوفه بعينه، وده بيتم بالأشعة المقطعية والتخطيط الرقمي، وكتير بنستخدم معاه دليل جراحي رقمي يوجّه الزرعة لمكانها."],
+        ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["١. الدليل على الأسنان", "٢. بعد الزراعة"], alt: "زراعة بدون شق بالدليل الجراحي في حالة من المركز", cap: "حالة حقيقية من المركز: الدليل الجراحي متركب على الأسنان والفتحة على قد الزرعة بالظبط، وبعدها الزرعة اتحطت من غير شق في اللثة ومن غير غرز.", tag: "case" }],
         ["h2", "مميزاتها للمريض"],
         ["ul", [
           "ألم وورم أقل بعد الزراعة في أغلب الحالات، لأن اللثة ما اتفتحتش.",
@@ -67,6 +68,7 @@ module.exports = [
         ["img", { src: "assets/img/illustrations/implant-parts.webp", alt: "Parts of a dental implant in the bone", cap: "Illustration of implant parts, not a patient case.", tag: "ill" }],
         ["h2", "What is flapless implant placement?"],
         ["p", "Instead of cutting and lifting the gum to see the bone, the dentist makes a small round opening in the gum roughly the diameter of the implant, then prepares the site and places the implant through it. To do this safely, the dentist must know the exact shape of the bone without seeing it directly. This is done with a CBCT scan and digital planning, and often a digital surgical guide that directs the implant to its planned position."],
+        ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["1. Guide in place", "2. After placement"], alt: "Flapless guided implant placement in a case from our centre", cap: "A real case from our centre: the surgical guide seated on the teeth with an opening the size of the implant, then the implant placed without a gum incision and without stitches.", tag: "case" }],
         ["h2", "Benefits for the patient"],
         ["ul", [
           "Usually less pain and swelling afterwards, because the gum was not opened.",
@@ -123,6 +125,7 @@ module.exports = [
           "تصميم الدليل وطباعته حسب الخطة.",
           "يوم الزراعة: الدليل بيتركب، والزرعة بتتحط من خلاله، وفي حالات كتير من غير شق في اللثة.",
         ]],
+        ["img", { srcs: ["assets/img/cases/guided-case-2-plan.webp", "assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["١. التخطيط", "٢. الدليل", "٣. بعد الزراعة"], alt: "مراحل الزراعة بالدليل الجراحي الرقمي في حالة من المركز", cap: "نفس الحالة في 3 خطوات: تصميم الدليل على الكمبيوتر، الدليل متركب في الفم يوم الزراعة، والزرعة بعد تركيبها من غير شق في اللثة.", tag: "case" }],
         ["h2", "إيه الفايدة للمريض؟"],
         ["ul", [
           "دقة أعلى في مكان وزاوية وعمق الزرعة مقارنة بالتركيب بالإيد الحرة، وده اللي بتأكده دراسات كتير.",
@@ -162,6 +165,7 @@ module.exports = [
           "The guide is designed and printed according to the plan.",
           "Placement day: the guide is fitted and the implant placed through it, often without cutting the gum.",
         ]],
+        ["img", { srcs: ["assets/img/cases/guided-case-2-plan.webp", "assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["1. Planning", "2. Guide", "3. After placement"], alt: "Stages of guided implant surgery in a case from our centre", cap: "The same case in 3 steps: the guide designed on the computer, the guide seated in the mouth on surgery day, and the implant after placement without a gum incision.", tag: "case" }],
         ["h2", "What are the benefits?"],
         ["ul", [
           "Greater accuracy of implant position, angle and depth compared with freehand placement, as many studies confirm.",
