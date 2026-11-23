@@ -1603,3 +1603,4 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-fig--2 .art-ph img, .art-fig--3 .art-ph img { height: 100%; object-fit: cover; }
 .art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
 .art-fig figcaption .fig-tag { font-size: 12px; }
+.art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
