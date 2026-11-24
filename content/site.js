@@ -381,9 +381,13 @@ module.exports = {
       },
       h1: { ar: "مركز أسنان شاين في العجمي – الكيلو 21", en: "Tooth Shine Dental Center in Agami – Km 21" },
       lead: {
-        ar: "فرع العجمي في الكيلو 21 بيخدم سكان العجمي وأبو يوسف و6 أكتوبر والبيطاش والهانوفيل والمناطق القريبة غرب الإسكندرية، بنفس فريق ومعايير مركز أسنان شاين وبإشراف د. بشاي مينا.",
-        en: "Our Agami branch at Km 21 serves Agami, Abu Youssef, 6th of October, Bitash, Hannoville and nearby areas west of Alexandria, with the same team and standards as Tooth Shine and under the supervision of Dr. Beshay Mina.",
+        ar: "فرع العجمي في الكيلو 21 بيخدم سكان العجمي وأبو يوسف و6 أكتوبر والبيطاش والهانوفيل والمناطق القريبة غرب الإسكندرية، بنفس فريق ومعايير مركز أسنان شاين وبإشراف د. بشاي مينا. وكمان بيستقبل حالات من الكينج مريوط والعامرية وبرج العرب، لأنه على طريق إسكندرية مطروح وسهل الوصول له منهم.",
+        en: "Our Agami branch at Km 21 serves Agami, Abu Youssef, 6th of October, Bitash, Hannoville and nearby areas west of Alexandria, with the same team and standards as Tooth Shine and under the supervision of Dr. Beshay Mina. It also welcomes patients from King Mariout, El Amreya and Borg El Arab, as it sits on the Alexandria–Matrouh road and is easy to reach from there.",
       },
+      areas: [
+        { ar: "العجمي", en: "Agami" }, { ar: "أبو يوسف", en: "Abu Youssef" }, { ar: "6 أكتوبر (العجمي)", en: "6th of October (Agami)" }, { ar: "البيطاش", en: "Bitash" }, { ar: "الهانوفيل", en: "Hannoville" },
+        { ar: "الكينج مريوط", en: "King Mariout" }, { ar: "العامرية", en: "El Amreya" }, { ar: "برج العرب", en: "Borg El Arab" },
+      ],
       find: [
         { ar: "على طريق إسكندرية مطروح عند الكيلو 21.", en: "On the Alexandria–Matrouh road at Km 21." },
         { ar: "الفرع في الدور اللي فوق فرع فودافون.", en: "The branch is on the floor above the Vodafone store." },

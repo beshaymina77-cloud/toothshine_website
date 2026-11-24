@@ -1402,6 +1402,7 @@ ${ctaBand(l, null)}`;
     image: abs("/" + biz.brand.shareImage),
     priceRange: undefined,
     parentOrganization: { "@id": abs("/#org") },
+    ...(X.areas ? { areaServed: X.areas.map((x) => ({ "@type": "Place", name: t(x, l) })) } : {}),
     ...(bs ? {} : {}),
   });
   delete ld.priceRange;
