@@ -1614,3 +1614,27 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .lv-more { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
 @media (max-width: 600px) { .lv-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .lv-item { scroll-snap-align: start; } }
 .art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
+
+/* Nov 24 2026: medical review line, staging placeholders, videos, price box */
+.mr-line { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 14px; color: var(--muted, #4a5878); }
+.mr-line svg { width: 18px; height: 18px; color: var(--blue); flex: none; }
+.mr-line a { color: var(--blue); font-weight: 700; }
+.wrap > .mr-line { margin: 14px auto 0; }
+.ph-note { border: 2px dashed #d97706; background: #fffbeb; color: #92400e; border-radius: 12px; padding: 10px 14px; font-size: 14px; margin: 12px 0; }
+.vid-sec { margin: 28px 0; }
+.vid-sec h2 { display: flex; align-items: center; gap: 8px; }
+.vid-sec h2 svg { width: 22px; height: 22px; color: var(--blue); }
+.vid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.vid { margin: 0; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(1, 40, 90, .08); }
+.vid-frame { aspect-ratio: 16 / 9; background: #0b1f57; }
+.vid-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.vid-ph { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #fde68a; text-align: center; padding: 12px; font-size: 14px; border: 2px dashed #d97706; }
+.vid-ph svg { width: 40px; height: 40px; color: #fff; }
+.vid figcaption { padding: 12px 14px 14px; display: grid; gap: 4px; }
+.vid figcaption span { font-size: 14px; color: var(--muted, #4a5878); }
+.price-box { border: 1px solid rgba(1, 84, 186, .18); background: #f3f8ff; border-radius: 16px; padding: 16px 18px; margin: 18px 0; }
+.price-box .kicker { margin: 0 0 6px; }
+.price-v { font: 700 22px/1.4 var(--font-head); color: var(--navy); margin: 0 0 8px; }
+.price-n { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-size: 14px; }
+.price-n svg { width: 18px; height: 18px; color: var(--blue); flex: none; margin-top: 3px; }
+.cases-page .cases-grid { margin-top: 10px; }
