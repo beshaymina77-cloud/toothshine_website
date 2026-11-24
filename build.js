@@ -126,7 +126,7 @@ function head(l, { title, desc, pathAr, pathEn, jsonld = [] }) {
 <link rel="alternate" hreflang="x-default" href="${abs(pathAr)}">
 <meta name="theme-color" content="#0B2545">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="${esc(t(biz.brand.name, l))}">
+<meta property="og:site_name" content="${SITE_NAME}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
@@ -355,6 +355,11 @@ function ctaBand(l, s) {
 }
 
 /* ---------- structured data ---------- */
+/* WebSite schema: tells Google the preferred site name (shown above the URL in results) */
+const SITE_NAME = "Tooth Shine";
+function siteLD() {
+  return { "@context": "https://schema.org", "@type": "WebSite", "@id": abs("/#website"), name: SITE_NAME, alternateName: ["Tooth Shine Dental Center", "مركز أسنان شاين", "توث شاين"], url: abs("/"), inLanguage: ["ar", "en"], publisher: { "@id": abs("/#org") } };
+}
 function orgLD(l) {
   const dept = biz.branches.map((b) => {
     const o = {
@@ -1016,7 +1021,7 @@ ${offers}
 
   return layout(
     l,
-    { page: "home", title: t(H.title, l), desc: t(H.meta, l), pathAr: P.home("ar"), pathEn: P.home("en"), jsonld: [orgLD(l), faqLD(l, site.faqs)] },
+    { page: "home", title: t(H.title, l), desc: t(H.meta, l), pathAr: P.home("ar"), pathEn: P.home("en"), jsonld: [siteLD(), orgLD(l), faqLD(l, site.faqs)] },
     body,
     null
   );
