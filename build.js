@@ -22,6 +22,7 @@ const icons = require("./src/icons.js");
 const diagrams = require("./src/diagrams.js");
 const J = require("./content/journeys.js");
 const IP = require("./content/implant-page.js");
+const XP = require("./content/extra-pages.js");
 
 const LANGS = ["ar", "en"];
 const VERSION = Date.now().toString(36);
@@ -40,6 +41,9 @@ const P = {
   branch: (l, id) => `${prefix(l)}/branches/${id}/`,
   articles: (l) => `${prefix(l)}/articles/`,
   article: (l, s) => `${prefix(l)}/articles/${s}/`,
+  doctor: (l) => `${prefix(l)}/doctor/`,
+  cases: (l) => `${prefix(l)}/cases/`,
+  expat: (l) => `${prefix(l)}/dental-implants-egypt/`,
 };
 const abs = (p) => biz.siteUrl.replace(/\/$/, "") + p;
 const featured = services.filter((s) => s.featured).sort((a, b) => (a.rank || 99) - (b.rank || 99));
@@ -162,7 +166,7 @@ function header(l, current, altHref) {
     ["cosmetic", P.service(l, "cosmetic-restorative-dentistry")],
     ["ortho", P.service(l, "orthodontics")],
     ["services", P.services(l)],
-    ["doctor", P.home(l) + "#doctor"],
+    ["doctor", P.doctor(l)],
     ["articles", P.articles(l)],
     ["branches", P.branches(l)],
     ["faq", P.home(l) + "#faq"],
@@ -223,7 +227,9 @@ function footer(l) {
       <li><a href="${P.branches(l)}">${t(n.branches, l)}</a></li>
       <li><a href="${P.home(l)}#faq">${t(n.faq, l)}</a></li>
       <li><a href="${P.articles(l)}">${t(site.ui.articlesNav, l)}</a></li>
-      <li><a href="${P.home(l)}#doctor">${t(n.doctor, l)}</a></li></ul></div>
+      <li><a href="${P.doctor(l)}">${t(n.doctor, l)}</a></li>
+      <li><a href="${P.cases(l)}">${t(XP.cases.h1, l)}</a></li>
+      <li><a href="${P.expat("en")}" hreflang="en" lang="en">Dental implants in Egypt (expats)</a></li></ul></div>
     ${socialLinks(l)}
   </div>
   <div class="wrap footer-bottom"><span>© ${new Date().getFullYear()} ${esc(t(biz.brand.name, l))}. ${t(site.ui.rights, l)}.</span><span>${esc(t(biz.brand.city, l))}</span></div>
@@ -403,7 +409,7 @@ function orgLD(l) {
       alternateName: t(biz.team[0].name, l === "ar" ? "en" : "ar"),
       jobTitle: t(biz.team[0].role, l),
       image: abs("/" + (biz.team[0].heroPhoto || biz.team[0].photo)),
-      url: abs(P.home(l) + "#doctor"),
+      url: abs(P.doctor(l)),
       knowsAbout: biz.team[0].interests[l],
       memberOf: biz.team[0].memberships.map((m) => ({ "@type": "Organization", name: t(m, "en").replace(/^Member of (the )?/, ""), alternateName: m.abbr })),
     },
@@ -1254,7 +1260,9 @@ function implantPage(l, s) {
 
   const ED = IP.edu;
   const suit = `<section class="section ip-edu" id="suitability"><div class="wrap narrow"><div class="s-head"><h2>${esc(t(ED.suitTitle, l))}</h2></div><ul class="ip-suit ip-suit--wide">${ED.suit.map((x) => `<li class="reveal">${icon(x.icon)}<span>${esc(t(x, l))}</span></li>`).join("")}</ul><p class="ip-note">${esc(t(ED.suitNote, l))}</p></div></section>`;
+  const ivb = videoBlock(l, "services", s.slug);
   const body = `${hero}
+<div class="wrap">${mrLine(l)}</div>
 ${drIntro}
 ${exp}
 ${why}
@@ -1268,12 +1276,13 @@ ${compare}
 ${journey}
 ${suit}
 ${reviews}
+${ivb.html ? `<section class="section"><div class="wrap">${ivb.html}</div></section>` : ""}
 ${faq}
 ${book}
 ${guide}
 <p class="wrap disclaimer">${esc(t(site.ui.disclaimer, l))}</p>`;
   const procLD = { "@context": "https://schema.org", "@type": "MedicalProcedure", name: t(s.title, l), procedureType: "https://schema.org/SurgicalProcedure", bodyLocation: l === "ar" ? "الفك والأسنان" : "Jaw and teeth", url: abs(P.service(l, s.slug)), description: t(IP.meta, l) };
-  return layout(l, { page: "service page-implant", title: t(IP.title, l), desc: t(IP.meta, l), pathAr: P.service("ar", s.slug), pathEn: P.service("en", s.slug), jsonld: [crumbLD(crumbs), faqLD(l, IP.faqs), procLD], extraSvc: { [IPKEY]: t(IP.waService, l) } }, body, s);
+  return layout(l, { page: "service page-implant", title: t(IP.title, l), desc: t(IP.meta, l), pathAr: P.service("ar", s.slug), pathEn: P.service("en", s.slug), jsonld: [crumbLD(crumbs), faqLD(l, IP.faqs), procLD, ...ivb.ld], extraSvc: { [IPKEY]: t(IP.waService, l) } }, body, s);
 }
 
 function servicePage(l, s) {
@@ -1286,7 +1295,8 @@ function servicePage(l, s) {
   const techItems = s.tech.map((id) => tech.find((x) => x.id === id)).filter(Boolean);
   const related = (s.featured ? featured.filter((x) => x.slug !== s.slug) : [...featured.slice(0, 2), ...others.filter((x) => x.slug !== s.slug).slice(0, 1)]).slice(0, 3);
   const extra = `<div class="hero-actions">${btnSheet(l, t(site.ui.chooseBranch, l), s)}<a class="btn btn-line" href="#faq">${t(site.ui.faqTitle, l)}</a></div>`;
-  const body = `${pageHero(l, crumbs, t(s.title, l), t(s.short, l), extra)}
+  const vb = videoBlock(l, "services", s.slug);
+  const body = `${pageHero(l, crumbs, t(s.title, l), t(s.short, l), extra + mrLine(l))}
 <section class="section svc"><div class="wrap svc-grid">
   <article class="svc-main">
     <div class="svc-intro reveal">${t(s.intro, l).map((p) => `<p>${esc(p)}</p>`).join("")}</div>
@@ -1301,6 +1311,7 @@ function servicePage(l, s) {
     ${s.guide ? guideSections(l, s) : ""}
     ${(s.figures || []).length ? `<section class="svc-figs reveal"><div class="figs">${s.figures.map((f) => `<figure class="fig"><img src="/${esc(f.src)}" srcset="/${esc(f.src.replace(".webp", "-600.webp"))} 600w, /${esc(f.src)} 1200w" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 380px" alt="${esc(t(f.alt, l))}" width="1200" height="900" loading="lazy" decoding="async"><figcaption>${esc(t(f.caption, l))}<span class="fig-tag">${l === "ar" ? "صورة توضيحية، وليست حالة مريض" : "Illustration, not a patient case"}</span></figcaption></figure>`).join("")}</div></section>` : ""}
     ${serviceCases(l, s)}
+    ${vb.html}
     ${s.compare ? `<section class="svc-cmp reveal"><h2>${esc(t(s.compare.title, l))}</h2><div class="cmp-wrap"><table class="cmp"><thead><tr>${s.compare.cols.map((c) => `<th scope="col">${esc(t(c, l))}</th>`).join("")}</tr></thead><tbody>${s.compare.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(t(c, l))}</td>` : `<th scope="row">${esc(t(c, l))}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>${s.compare.note ? `<p class="cmp-note">${esc(t(s.compare.note, l))}</p>` : ""}</section>` : ""}
     ${(s.seeAlso || []).length ? `<nav class="see-also reveal" aria-label="${esc(t(site.ui.seeAlso, l))}"><span>${esc(t(site.ui.seeAlso, l))}</span>${s.seeAlso.map((x) => { const o = services.find((y) => y.slug === x); return o ? `<a href="${P.service(l, o.slug)}">${esc(t(o.title, l))}${icon("arrow", "flip")}</a>` : ""; }).join("")}</nav>` : ""}
     ${techItems.length ? `<section class="svc-tech reveal"><h2>${t(site.ui.techTitle, l)}</h2><div class="svc-tech-list">${techItems.map((x) => `<a class="svc-tech-item" href="${P.home(l)}#experience"><span class="mini-ic">${icon(x.icon)}</span><span><strong>${esc(t(x.title, l))}</strong><span>${esc(t(x.body, l))}</span></span></a>`).join("")}</div></section>` : ""}
@@ -1334,7 +1345,7 @@ ${ctaBand(l, s)}`;
   const title = `${t(s.title, l)} ${l === "ar" ? "في الإسكندرية" : "in Alexandria"} | ${t(biz.brand.name, l)}`;
   return layout(
     l,
-    { page: "service", title, desc: t(s.meta, l), pathAr: P.service("ar", s.slug), pathEn: P.service("en", s.slug), jsonld: [crumbLD(crumbs), faqLD(l, s.faqs)] },
+    { page: "service", title, desc: t(s.meta, l), pathAr: P.service("ar", s.slug), pathEn: P.service("en", s.slug), jsonld: [crumbLD(crumbs), faqLD(l, s.faqs), ...vb.ld] },
     body,
     s
   );
@@ -1387,12 +1398,12 @@ ${ctaBand(l, null)}`;
   const org = orgLD(l);
   const ld = Object.assign({ "@context": "https://schema.org" }, org.department.find((d) => d["@id"] === abs(`/#${b.id}`)), {
     image: abs("/" + biz.brand.shareImage),
-    priceRange: undefined,
+    priceRange: b.priceRange || undefined,
     parentOrganization: { "@id": abs("/#org") },
     ...(X.areas ? { areaServed: X.areas.map((x) => ({ "@type": "Place", name: t(x, l) })) } : {}),
     ...(bs ? {} : {}),
   });
-  delete ld.priceRange;
+  if (!ld.priceRange) delete ld.priceRange;
   return layout(
     l,
     { page: "branches", title: t(X.title, l), desc: t(X.meta, l), pathAr: P.branch("ar", b.id), pathEn: P.branch("en", b.id), jsonld: [ld, crumbLD(crumbs)] },
@@ -1401,6 +1412,103 @@ ${ctaBand(l, null)}`;
   );
 }
 
+
+/* ---------- Nov 24 2026 brief: medical review line, videos, price box, doctor/cases/expat pages ---------- */
+const DOC = biz.team[0];
+const docPerson = (l) => ({ "@type": "Person", "@id": abs("/#beshay-mina"), name: t(DOC.name, l), url: abs(P.doctor(l)), jobTitle: t(DOC.role, l), image: abs("/" + (DOC.heroPhoto || DOC.photo)), memberOf: DOC.memberships.map((m) => ({ "@type": "Organization", name: t(m, "en").replace(/^Member of (the )?/, ""), alternateName: m.abbr })) });
+function mrLine(l, date) {
+  return `<p class="mr-line">${icon("check")}<span>${esc(t(XP.reviewed.label, l))} <a href="${P.doctor(l)}">${esc(t(DOC.name, l))}</a>${date ? ` · <time datetime="${date}">${fmtDate(l, date)}</time>` : ""}</span></p>`;
+}
+const stagingNote = (txt) => (STAGING ? `<p class="ph-note">${esc(txt)}</p>` : "");
+function videoBlock(l, kind, slug) {
+  const list = XP.videos.filter((v) => (v[kind] || []).includes(slug));
+  const ready = list.filter((v) => v.youtubeId);
+  const items = list.map((v) => v.youtubeId
+    ? `<figure class="vid"><div class="vid-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtubeId)}" title="${esc(t(v.title, l))}" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div><figcaption><strong>${esc(t(v.title, l))}</strong><span>${esc(t(v.desc, l))}</span></figcaption></figure>`
+    : STAGING ? `<figure class="vid vid--ph"><div class="vid-frame vid-ph">${icon("play")}<span>${esc(t(XP.videoUi.soon, l))}</span></div><figcaption><strong>${esc(t(v.title, l))}</strong><span>${esc(t(v.desc, l))}</span></figcaption></figure>` : "").filter(Boolean);
+  const html = items.length ? `<section class="vid-sec reveal" id="video"><h2>${icon("play")}${esc(t(XP.videoUi.title, l))}</h2><div class="vid-grid">${items.join("")}</div></section>` : "";
+  const ld = ready.map((v) => ({ "@context": "https://schema.org", "@type": "VideoObject", name: t(v.title, l), description: t(v.desc, l), thumbnailUrl: `https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`, uploadDate: v.uploadDate, embedUrl: `https://www.youtube-nocookie.com/embed/${v.youtubeId}`, contentUrl: `https://www.youtube.com/watch?v=${v.youtubeId}`, publisher: { "@id": abs("/#org") } }));
+  return { html, ld };
+}
+function priceBox(l, key) {
+  const v = t(XP.prices[key] || {}, l);
+  if (!v && !STAGING) return "";
+  return `<aside class="price-box"><p class="kicker">${esc(t(XP.priceUi.label, l))}</p>${v ? `<p class="price-v">${esc(v)}</p>` : `<p class="ph-note">${esc(t(XP.priceUi.missing, l))}</p>`}<p class="price-n">${icon("check")}<span>${esc(t(XP.priceUi.note, l))}</span></p></aside>`;
+}
+function doctorPage(l) {
+  const D = XP.doctor;
+  const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(DOC.name, l), P.doctor(l)]];
+  const myCases = biz.cases.slice(0, 6);
+  const reviewedArts = articles.slice(0, 6);
+  const facts = [t(D.education, l), D.experienceYears ? (l === "ar" ? `${D.experienceYears} سنة خبرة` : `${D.experienceYears} years of experience`) : ""].filter(Boolean);
+  const body = `${pageHero(l, crumbs, t(DOC.name, l), t(DOC.role, l))}
+<section class="section doctor"><div class="wrap doctor-grid">
+  <div class="doc-portrait reveal">${DOC.photo ? photo(DOC.photo, t(DOC.name, l), "arch") : ""}</div>
+  <div class="doc-copy reveal">
+    <p class="kicker">${esc(t(D.kicker, l))}</p>
+    <h2>${esc(t(D.bioTitle, l))}</h2>
+    ${D.bio.map((x) => `<p>${esc(t(x, l))}</p>`).join("")}
+    ${facts.length ? `<ul class="quals">${facts.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${STAGING && !facts.length ? `<div class="ph-note"><strong>${l === "ar" ? "ناقص من د. بشاي:" : "Missing from Dr. Beshay:"}</strong> ${D.placeholders.map((x) => esc(t(x, l))).join(" · ")}</div>` : ""}
+    <blockquote class="doc-vision doc-vision--sm"><p>${esc(t(site.home.drVision, l))}</p><p class="hd-sign" dir="ltr" aria-hidden="true">Dr. Beshay Mina</p></blockquote>
+    <p class="mini-label">${t(site.home.membershipsLabel, l)}</p>
+    <ul class="members">${DOC.memberships.map((m) => `<li><span class="m-abbr" dir="ltr">${m.abbr}</span><span>${esc(t(m, l))}</span></li>`).join("")}</ul>
+    <p class="mini-label">${t(site.home.interestsLabel, l)}</p>
+    <ul class="chips">${DOC.interests[l].map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+    ${(biz.implantSystems || []).length ? `<p class="mini-label">${esc(t(D.systemsTitle, l))}</p><ul class="chips" dir="ltr">${biz.implantSystems.map((x) => `<li>${esc(x.name)}</li>`).join("")}</ul>` : ""}
+    <div class="doc-cta">${btnSheet(l, t(site.ui.chooseBranch, l), null, "btn-primary")}<a class="btn btn-line" href="${P.service(l, "dental-implants")}">${esc(t(site.ui.nav.implants, l))}${icon("arrow", "flip")}</a></div>
+  </div>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="s-head s-head--row">${sectionHead("", t(D.casesTitle, l), t(site.home.casesNote, l))}<a class="btn btn-line" href="${P.cases(l)}">${esc(t(D.casesAll, l))}${icon("arrow", "flip")}</a></div>
+  <div class="cases-grid">${myCases.map((c) => caseCard(l, c, true)).join("")}</div>
+</div></section>
+<section class="section related"><div class="wrap"><h2 class="sub-title">${esc(t(D.articlesTitle, l))}</h2><div class="art-grid">${reviewedArts.map((a, i) => articleCard(l, a, i % 3)).join("")}</div></div></section>
+${ctaBand(l, null)}`;
+  const ld = Object.assign({ "@context": "https://schema.org" }, docPerson(l), {
+    alternateName: t(DOC.name, l === "ar" ? "en" : "ar"),
+    description: t(D.bio[0], l),
+    knowsAbout: DOC.interests[l],
+    worksFor: { "@id": abs("/#org") },
+    workLocation: biz.branches.map((b) => ({ "@id": abs(`/#${b.id}`) })),
+    mainEntityOfPage: abs(P.doctor(l)),
+  });
+  return layout(l, { page: "doctor", title: t(D.title, l), desc: t(D.meta, l), pathAr: P.doctor("ar"), pathEn: P.doctor("en"), jsonld: [ld, crumbLD(crumbs)] }, body, null);
+}
+function casesPage(l) {
+  const C = XP.cases;
+  const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(C.h1, l), P.cases(l)]];
+  const cats = [...new Set(biz.cases.map((c) => c.service))].filter((c) => services.find((x) => x.slug === c));
+  const body = `${pageHero(l, crumbs, t(C.h1, l), t(C.lead, l))}
+<section class="section cases cases-page"><div class="wrap">
+  <div class="case-filters" role="group" aria-label="${esc(t(C.h1, l))}"><button type="button" class="cf is-on" data-cf="" aria-pressed="true">${esc(t(C.all, l))}</button>${cats.map((c) => `<button type="button" class="cf" data-cf="${c}" aria-pressed="false">${esc(t(services.find((x) => x.slug === c).title, l))}</button>`).join("")}</div>
+  <div class="cases-grid">${biz.cases.map((c) => caseCard(l, c, true).replace('<figure class="case-card"', `<figure class="case-card" data-case="${c.service}"`)).join("")}</div>
+  <p class="svc-cases-note">${esc(t(site.home.casesNote, l))}</p>
+</div></section>
+${ctaBand(l, null)}`;
+  return layout(l, { page: "cases", title: t(C.title, l), desc: t(C.meta, l), pathAr: P.cases("ar"), pathEn: P.cases("en"), jsonld: [crumbLD(crumbs)] }, body, null);
+}
+function expatPage(l) {
+  const E = XP.expat;
+  const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.nav.implants, l), P.service(l, "dental-implants")], [t(E.h1, l), P.expat(l)]];
+  const b = biz.branches.find((x) => x.priority) || biz.branches[0];
+  const wa = `https://wa.me/${b.whatsapp}?text=${encodeURIComponent(t(E.waMsg, l))}`;
+  const waBtn = (cls) => `<a class="btn btn-wa ${cls}" href="${wa}" target="_blank" rel="noopener" data-track="wa_remote_consult">${icon("whatsapp")}<span>${esc(t(E.waCta, l))}</span></a>`;
+  const body = `${pageHero(l, crumbs, t(E.h1, l), t(E.lead, l), `<div class="hero-actions">${waBtn("btn-lg")}</div>`)}
+<section class="section svc"><div class="wrap svc-grid">
+  <article class="prose">
+    ${mrLine(l)}
+    ${E.sections.map((x) => `<h2>${esc(t(x.h, l))}</h2>${x.p ? `<p>${esc(t(x.p, l))}</p>` : ""}${x.list ? `<ul class="ticks">${x.list.map((y) => `<li>${icon("check")}<span>${esc(t(y, l))}</span></li>`).join("")}</ul>` : ""}${x.link && articles.find((a) => a.slug === x.link) ? `<p><a class="ip-link" href="${P.article(l, x.link)}">${esc(t(articles.find((a) => a.slug === x.link).title, l))}${icon("arrow", "flip")}</a></p>` : ""}`).join("")}
+    <div class="cases-grid">${biz.cases.filter((c) => c.service === "dental-implants").slice(0, 2).map((c) => caseCard(l, c, false)).join("")}</div>
+    <section class="svc-faq" id="faq"><h2>${t(site.ui.faqTitle, l)}</h2>${faqList(l, E.faqs, "xq")}</section>
+    <p>${waBtn("btn-lg")}</p>
+    <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
+  </article>
+  <aside class="svc-aside"><div class="aside-card"><p class="kicker">${t(site.ui.contactVia, l)}</p><h2 class="h4">${esc(t(E.waCta, l))}</h2>${waBtn("btn-sm")}<a class="aside-link" href="${P.doctor(l)}">${icon("check")}${esc(t(DOC.name, l))}</a><a class="aside-link" href="${P.branches(l)}">${icon("pin")}${t(site.ui.nav.branches, l)}</a></div></aside>
+</div></section>
+${ctaBand(l, services.find((x) => x.slug === "dental-implants"))}`;
+  return layout(l, { page: "expat", title: t(E.title, l), desc: t(E.meta, l), pathAr: P.expat("ar"), pathEn: P.expat("en"), jsonld: [crumbLD(crumbs), faqLD(l, E.faqs)] }, body, services.find((x) => x.slug === "dental-implants"));
+}
 function articlesPage(l) {
   const A = site.articlesPage;
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)]];
@@ -1421,13 +1529,15 @@ function articlePage(l, a) {
   const svc = services.find((x) => x.slug === a.service);
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)], [t(a.title, l), P.article(l, a.slug)]];
   const blocks = a.body[l]
-    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : type === "img" ? artFig(l, v) : `<p>${esc(v)}</p>`))
+    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : type === "img" ? artFig(l, v) : type === "price" ? priceBox(l, v) : `<p>${esc(v)}</p>`))
     .join("\n");
-  const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time>${a.reviewedBy ? ` · ${t(site.ui.reviewedBy, l)} ${esc(t(a.reviewedBy, l))}` : ""}</p>`;
+  const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time></p>${mrLine(l)}`;
+  const vb = videoBlock(l, "articles", a.slug);
   const others = articles.filter((x) => x.slug !== a.slug).slice(0, 2);
   const body = `${pageHero(l, crumbs, t(a.title, l), t(a.excerpt, l), meta)}
 <section class="section svc"><div class="wrap svc-grid">
   <article class="prose">${blocks}
+    ${vb.html}
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
   <aside class="svc-aside">
@@ -1451,10 +1561,11 @@ ${ctaBand(l, svc)}`;
     dateModified: a.updated || a.date,
     mainEntityOfPage: abs(P.article(l, a.slug)),
     image: abs("/" + (a.cover || biz.brand.shareImage)),
-    author: a.reviewedBy ? { "@type": "Person", name: t(a.reviewedBy, l) } : { "@type": "Organization", name: t(biz.brand.name, l) },
+    author: docPerson(l),
+    reviewedBy: { "@id": abs("/#beshay-mina") },
     publisher: { "@type": "Organization", name: t(biz.brand.name, l), logo: { "@type": "ImageObject", url: abs("/assets/img/apple-touch-icon.png") } },
   };
-  return layout(l, { page: "article", title: `${t(a.title, l)} | ${t(biz.brand.name, l)}`, desc: t(a.excerpt, l), pathAr: P.article("ar", a.slug), pathEn: P.article("en", a.slug), jsonld: [crumbLD(crumbs), ld] }, body, svc);
+  return layout(l, { page: "article", title: `${t(a.title, l)} | ${t(biz.brand.name, l)}`, desc: t(a.excerpt, l), pathAr: P.article("ar", a.slug), pathEn: P.article("en", a.slug), jsonld: [crumbLD(crumbs), ld, ...vb.ld] }, body, svc);
 }
 
 function notFound() {
@@ -1507,10 +1618,13 @@ for (const l of LANGS) {
   for (const a of articles) write(P.article(l, a.slug), articlePage(l, a));
   for (const s of services) write(P.service(l, s.slug), servicePage(l, s));
   for (const pg of LP.pages) write(PLP(l, pg.slug), lpPage(l, pg));
+  write(P.doctor(l), doctorPage(l));
+  write(P.cases(l), casesPage(l));
+  write(P.expat(l), expatPage(l));
 }
 write("404.html", notFound());
 
-urls.push(["home"], ["services"], ["branches"], ...biz.branches.filter((b) => site.branchPages && site.branchPages.enabled && site.branchPages[b.id]).map((b) => ["branch", b.id]), ["articles"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
+urls.push(["home"], ["services"], ["branches"], ...biz.branches.filter((b) => site.branchPages && site.branchPages.enabled && site.branchPages[b.id]).map((b) => ["branch", b.id]), ["articles"], ["doctor"], ["cases"], ["expat"], ...services.map((s) => ["service", s.slug]), ...articles.map((a) => ["article", a.slug]));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls
