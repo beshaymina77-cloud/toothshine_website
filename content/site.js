@@ -397,12 +397,12 @@ module.exports = {
       },
       h1: { ar: "مركز أسنان شاين في سبورتنج – طريق الجيش", en: "Tooth Shine Dental Center in Sporting – El Geish Road" },
       lead: {
-        ar: "فرع سبورتنج على البحر في طريق الجيش، قريب من سيدي جابر والإبراهيمية وكليوباترا وكامب شيزار ومحطة الرمل، وبإشراف د. بشاي مينا. ولأنه في وسط إسكندرية، بيستقبل حالات من كل مناطقها: من سموحة وستانلي ولوران وسيدي بشر والمنتزه شرقًا، لحد الشاطبي والمنشية وكرموز وغرب إسكندرية.",
-        en: "Our Sporting branch is on the El Geish sea road, close to Sidi Gaber, Ibrahimia, Cleopatra, Camp Shezar and Raml Station, under the supervision of Dr. Beshay Mina. Being in central Alexandria, it welcomes patients from all over the city, from Smouha, Stanley, Laurent, Sidi Bishr and Montaza in the east to Shatby, Mansheya, Karmouz and west Alexandria.",
+        ar: "فرع سبورتنج على البحر في طريق الجيش، قريب من سيدي جابر والإبراهيمية وكليوباترا وكامب شيزار ومحطة الرمل، وبإشراف د. بشاي مينا. ولأنه في وسط إسكندرية، بيستقبل حالات من كل مناطقها: من سموحة وستانلي ولوران وسيدي بشر والمنتزه شرقًا، لحد الشاطبي والمنشية وبحري.",
+        en: "Our Sporting branch is on the El Geish sea road, close to Sidi Gaber, Ibrahimia, Cleopatra, Camp Shezar and Raml Station, under the supervision of Dr. Beshay Mina. Being in central Alexandria, it welcomes patients from all over the city, from Smouha, Stanley, Laurent, Sidi Bishr and Montaza in the east to Shatby, Mansheya and Bahary.",
       },
       areas: [
         { ar: "الإسكندرية", en: "Alexandria" }, { ar: "سبورتنج", en: "Sporting" }, { ar: "سيدي جابر", en: "Sidi Gaber" }, { ar: "الإبراهيمية", en: "Ibrahimia" }, { ar: "كليوباترا", en: "Cleopatra" }, { ar: "كامب شيزار", en: "Camp Shezar" }, { ar: "محطة الرمل", en: "Raml Station" },
-        { ar: "سموحة", en: "Smouha" }, { ar: "ستانلي", en: "Stanley" }, { ar: "لوران", en: "Laurent" }, { ar: "سيدي بشر", en: "Sidi Bishr" }, { ar: "المنتزه", en: "Montaza" }, { ar: "الشاطبي", en: "Shatby" }, { ar: "المنشية", en: "Mansheya" }, { ar: "كرموز", en: "Karmouz" },
+        { ar: "سموحة", en: "Smouha" }, { ar: "ستانلي", en: "Stanley" }, { ar: "لوران", en: "Laurent" }, { ar: "سيدي بشر", en: "Sidi Bishr" }, { ar: "المنتزه", en: "Montaza" }, { ar: "الشاطبي", en: "Shatby" }, { ar: "المنشية", en: "Mansheya" }, { ar: "بحري", en: "Bahary" },
       ],
       find: [
         { ar: "سبورتنج على البحر، طريق الجيش، عقار 75.", en: "75 El Geish Road (sea front), Sporting." },
