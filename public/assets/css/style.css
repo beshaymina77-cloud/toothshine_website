@@ -1601,6 +1601,7 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-ph img { width: 100%; height: auto; display: block; }
 .art-fig--2 .art-ph, .art-fig--3 .art-ph { aspect-ratio: 4 / 3; }
 .art-fig--2 .art-ph img, .art-fig--3 .art-ph img { height: 100%; object-fit: cover; }
+.art-fig--portrait.art-fig--2 .art-ph, .art-fig--portrait.art-fig--3 .art-ph { aspect-ratio: 3 / 4; }
 .art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
 .art-fig figcaption .fig-tag { font-size: 12px; }
 
@@ -1614,6 +1615,7 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .lv-more { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
 @media (max-width: 600px) { .lv-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .lv-item { scroll-snap-align: start; } }
 .art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
+.art-fig--portrait.art-fig--2 .art-fig-in, .art-fig--portrait.art-fig--3 .art-fig-in { max-width: 560px; }
 
 /* Nov 24 2026: medical review line, staging placeholders, videos, price box */
 .mr-line { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 14px; color: var(--muted, #4a5878); }
