@@ -260,11 +260,10 @@ function sheet(l) {
 
 function mobileBar(l, s) {
   return `<div class="mbar" data-mbar>
-  <a class="mbar-btn mbar-wa" href="${P.branches(l)}" data-sheet data-mode="wa" data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${t(site.ui.whatsapp, l)}</span></a>
+  <a class="mbar-btn mbar-wa" href="${P.branches(l)}" data-sheet data-mode="wa" data-service="${s ? s.slug : ""}">${icon("whatsapp")}<span>${esc(t(site.ui.bookNow, l))}</span></a>
   <a class="mbar-btn" href="${P.branches(l)}" data-sheet data-mode="call" data-service="${s ? s.slug : ""}">${icon("phone")}<span>${t(site.ui.call, l)}</span></a>
-  <a class="mbar-btn mbar-book" href="${P.home(l)}#book">${icon("doc")}<span>${esc(t(site.home.book.short, l))}</span></a>
 </div>
-<a class="fab-book" href="${P.home(l)}#book" data-fab>${icon("whatsapp")}<span>${esc(t(site.home.book.title, l))}</span></a>`;
+<a class="fab-book" href="${P.branches(l)}" data-sheet data-mode="wa" data-service="${s ? s.slug : ""}" data-fab>${icon("whatsapp")}<span>${esc(t(site.ui.bookNow, l))}</span></a>`;
 }
 
 function clientData(l, extraSvc) {
@@ -1555,6 +1554,7 @@ function articlePage(l, a) {
 <section class="section svc"><div class="wrap svc-grid">
   <article class="prose">${hubNote}${blocks}
     ${vb.html}
+    <aside class="art-book"><h2>${icon("whatsapp")}<span>${esc(t(site.ui.bookNow, l))}</span></h2><p>${esc(t(site.ui.artBookSub, l))}</p><div class="art-book-btns">${biz.branches.map((b) => `<a class="btn btn-wa" href="${waHref(l, b, svc)}" target="_blank" rel="noopener">${icon("whatsapp")}<span>${esc(t(b.name, l))}</span></a>`).join("")}</div></aside>
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
   <aside class="svc-aside">
