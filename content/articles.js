@@ -29,6 +29,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "ضرس العقل هو آخر ضرس في كل فك، وغالبًا بيطلع بين سن 17 و25 سنة. ساعات بيطلع مكانه طبيعي ومن غير أي مشاكل، وساعات المكان ما يكفيهوش فيفضل مدفون كله أو جزء منه تحت اللثة أو في العظم، وهنا بتبدأ المشاكل. السؤال اللي بنسمعه كل يوم: «ضرس العقل ده يتساب ولا يتخلع؟» والإجابة بتعتمد على الكشف والأشعة، مش على الوجع لوحده."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "أعراض ضرس العقل اللي محتاجة كشف"],
         ["ul", [
           "وجع في آخر الفك بيروح وييجي، أو بيزيد لما تعض.",
@@ -105,6 +106,7 @@ module.exports = [
       ],
       en: [
         ["p", "The wisdom tooth is the last molar in each jaw and usually comes through between the ages of 17 and 25. Sometimes it erupts normally without problems. Sometimes there is not enough space, so it stays fully or partly buried under the gum or in the bone, and that is when trouble starts. The question we hear every day is: \"Should this wisdom tooth stay or come out?\" The answer depends on examination and X-rays, not on pain alone."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "Wisdom tooth symptoms that need a check-up"],
         ["ul", [
           "Pain at the back of the jaw that comes and goes, or gets worse when biting.",
@@ -197,6 +199,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "ناس كتير بتلاحظ دم على الفرشة أو في التفلة وتقول «عادي، أنا بفرش جامد». الحقيقة إن اللثة السليمة ما بتنزفش من التفريش العادي. النزيف غالبًا علامة إن في التهاب في اللثة، والخبر الكويس إن الالتهاب ده في بدايته بيتعالج ويرجع طبيعي."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "أعراض التهاب اللثة"],
         ["ul", [
           "نزيف من اللثة وقت التفريش أو استخدام الخيط، أو لما تاكل حاجة ناشفة.",
@@ -239,6 +242,9 @@ module.exports = [
           "ورم في اللثة مع صديد أو حرارة.",
           "أسنان بدأت تتحرك أو تتغير مكانها.",
         ]],
+        ["h2", "مين بيعالجك؟"],
+        ["p", "علاج اللثة في مركز أسنان شاين بإشراف د. بشاي مينا، مؤسس المركز، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI). كل حالة بتبدأ بكشف وأشعة وشرح واضح للخطة قبل أي خطوة."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "د. بشاي مينا، مؤسس مركز أسنان شاين", cap: "د. بشاي مينا، مؤسس مركز أسنان شاين." }],
         ["h2", "أسئلة شائعة"],
         ["p", "هل تنضيف الجير بيضعف الأسنان؟ لأ. تنضيف الجير بيشيل سبب الالتهاب. أحيانًا بعده تحس بحساسية بسيطة أو فراغ مكان الجير، وده طبيعي وبيتحسن."],
         ["p", "كل قد إيه أنضّف الجير؟ بيختلف من شخص للتاني حسب حالة اللثة وسرعة تكوين الجير، والطبيب بيحدد الموعد المناسب ليك."],
@@ -248,6 +254,7 @@ module.exports = [
       ],
       en: [
         ["p", "Many people notice blood on the toothbrush and think \"it's normal, I brush hard\". In fact, healthy gums do not bleed with normal brushing. Bleeding is usually a sign of gum inflammation, and the good news is that early inflammation can be treated and reversed."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "Signs of gum inflammation"],
         ["ul", [
           "Bleeding when brushing or flossing, or when eating something hard.",
@@ -290,6 +297,9 @@ module.exports = [
           "Gum swelling with pus or fever.",
           "Teeth that have started to move or shift.",
         ]],
+        ["h2", "Who treats you?"],
+        ["p", "Gum treatment at Tooth Shine is supervised by Dr. Beshay Mina, founder of the center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI). Every case starts with an examination, X-rays and a clear explanation of the plan."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "Dr. Beshay Mina, founder of Tooth Shine Dental Center", cap: "Dr. Beshay Mina, founder of Tooth Shine Dental Center." }],
         ["h2", "Frequently asked questions"],
         ["p", "Does scaling weaken the teeth? No. Scaling removes the cause of inflammation. You may feel mild sensitivity or a gap where tartar was; this is normal and improves."],
         ["p", "How often should I have scaling? It varies with your gum condition and how fast tartar forms; the dentist will advise the right interval for you."],
@@ -316,6 +326,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "الخراج هو تجمع صديد سببه عدوى بكتيرية. في الأسنان بيظهر غالبًا على شكل ورم في اللثة، أو ورم في الوش، أو «بلية» صغيرة على اللثة بتطلع صديد، ومعاه وجع ممكن يكون شديد. المهم تعرف إن الخراج ما بيخفش نهائي لوحده، حتى لو الوجع هدي، لأن السبب لسه موجود."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "أنواع خراج الأسنان"],
         ["ul", [
           "خراج من عصب السنة: لما التسوس أو كسر يوصل للعصب، العصب بيموت والعدوى بتوصل لآخر الجذر وتعمل خراج في العظم.",
@@ -359,6 +370,9 @@ module.exports = [
           "تنضيف عميق للجيب وعلاج اللثة في خراج اللثة.",
           "الخلع لو السنة ما ينفعش تتعالج، وبعدها نتكلم في تعويضها.",
         ]],
+        ["h2", "مين بيعالجك؟"],
+        ["p", "علاج الخراج وحشو العصب في مركز أسنان شاين بإشراف د. بشاي مينا، مؤسس المركز، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI). كل حالة بتبدأ بكشف وأشعة وشرح واضح للخطة قبل أي خطوة."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "د. بشاي مينا، مؤسس مركز أسنان شاين", cap: "د. بشاي مينا، مؤسس مركز أسنان شاين." }],
         ["h2", "أسئلة شائعة"],
         ["p", "الوجع راح بعد ما الخراج فتح لوحده، كده خلاص؟ لأ. الصديد خرج والضغط قل، لكن السبب لسه موجود والخراج غالبًا هيرجع."],
         ["p", "ينفع أعمل حشو عصب والسنة وارمة؟ ساعات الطبيب بيبدأ العلاج علشان يصرّف الصديد ويشيل الضغط، وساعات بيهدي العدوى الأول. ده بيتحدد في الكشف."],
@@ -368,6 +382,7 @@ module.exports = [
       ],
       en: [
         ["p", "An abscess is a collection of pus caused by a bacterial infection. In the mouth it usually shows as gum swelling, facial swelling, or a small \"pimple\" on the gum that releases pus, often with significant pain. It is important to know that an abscess does not clear completely on its own, even if the pain settles, because the cause is still there."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "Types of dental abscess"],
         ["ul", [
           "An abscess from the tooth's nerve: when decay or a crack reaches the nerve, the nerve dies and infection spreads to the root tip, forming an abscess in the bone.",
@@ -411,6 +426,9 @@ module.exports = [
           "Deep cleaning of the pocket and gum treatment for a gum abscess.",
           "Extraction if the tooth cannot be treated, followed by a discussion of how to replace it.",
         ]],
+        ["h2", "Who treats you?"],
+        ["p", "Abscess and root canal treatment at Tooth Shine is supervised by Dr. Beshay Mina, founder of the center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI). Every case starts with an examination, X-rays and a clear explanation of the plan."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "Dr. Beshay Mina, founder of Tooth Shine Dental Center", cap: "Dr. Beshay Mina, founder of Tooth Shine Dental Center." }],
         ["h2", "Frequently asked questions"],
         ["p", "The pain stopped after the abscess burst by itself. Is that it? No. The pus drained and the pressure dropped, but the cause remains and the abscess will usually return."],
         ["p", "Can root canal treatment be done while the tooth is swollen? Sometimes the dentist starts treatment to drain the pus and relieve pressure; sometimes the infection is calmed first. This is decided at the examination."],
@@ -437,6 +455,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "التسوس هو تآكل في طبقات السنة بسبب أحماض بتعملها البكتيريا من السكريات اللي بناكلها. في الأول بيكون في طبقة المينا وما بيوجعش، وبعدين بيوصل للعاج فتبدأ الحساسية، ولو اتساب بيوصل للعصب. كل ما التسوس يتلحق بدري، كل ما العلاج يكون أبسط وأسرع."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "مراحل التسوس"],
         ["ul", [
           "بداية التسوس: بقعة بيضا باهتة أو بني على السنة، غالبًا من غير أي وجع.",
@@ -486,6 +505,9 @@ module.exports = [
           "قلّل عدد مرات أكل الحلويات والمشروبات المسكّرة بين الوجبات.",
           "كشف دوري، لأن التسوس الصغير بيتشاف في الكشف والأشعة قبل ما يوجع.",
         ]],
+        ["h2", "مين بيعالجك؟"],
+        ["p", "علاج التسوس وحشو العصب في مركز أسنان شاين بإشراف د. بشاي مينا، مؤسس المركز، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI). كل حالة بتبدأ بكشف وأشعة وشرح واضح للخطة قبل أي خطوة."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "د. بشاي مينا، مؤسس مركز أسنان شاين", cap: "د. بشاي مينا، مؤسس مركز أسنان شاين." }],
         ["h2", "أسئلة شائعة"],
         ["p", "الوجع راح، كده التسوس وقف؟ مش دايمًا. ساعات الوجع بيروح لأن العصب مات، والسنة ساعتها محتاجة علاج حتى لو مش بتوجع."],
         ["p", "حشو العصب بيوجع؟ بيتعمل تحت بنج موضعي، وهدفه إنه يشيل الوجع. أغلب الناس بيلاقوه أسهل من اللي كانوا متخيلينه."],
@@ -495,6 +517,7 @@ module.exports = [
       ],
       en: [
         ["p", "Tooth decay is the breakdown of the tooth's layers by acids that bacteria produce from the sugars we eat. At first it is in the enamel and painless; then it reaches the dentine and sensitivity begins; left untreated, it reaches the nerve. The earlier decay is caught, the simpler and quicker the treatment."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "Stages of decay"],
         ["ul", [
           "Early decay: a dull white or brown spot on the tooth, usually painless.",
@@ -544,6 +567,9 @@ module.exports = [
           "Reduce how often you have sweets and sugary drinks between meals.",
           "Have regular check-ups, because small decay is seen on examination and X-rays before it hurts.",
         ]],
+        ["h2", "Who treats you?"],
+        ["p", "Decay and root canal treatment at Tooth Shine is supervised by Dr. Beshay Mina, founder of the center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI). Every case starts with an examination, X-rays and a clear explanation of the plan."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "Dr. Beshay Mina, founder of Tooth Shine Dental Center", cap: "Dr. Beshay Mina, founder of Tooth Shine Dental Center." }],
         ["h2", "Frequently asked questions"],
         ["p", "The pain has gone, so has the decay stopped? Not always. Sometimes pain stops because the nerve has died, and the tooth still needs treatment."],
         ["p", "Does root canal treatment hurt? It is done under local anaesthetic and aims to remove pain. Most people find it easier than they expected."],
@@ -570,6 +596,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "«عايز أركّب سنان، أعمل إيه؟» السؤال ده إجابته مش نوع واحد. نوع التركيبة بيتحدد حسب حالة السنة أو الأسنان الناقصة، ومكانها في البق، وشكل العضة، واللي يهمك أكتر: الشكل ولا القوة ولا الاتنين. في المقال ده هنشرح أنواع تركيبات الأسنان والخامات بشكل بسيط، مع حالات حقيقية من المركز."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "أولًا: أشكال التركيبات"],
         ["ul", [
           "التاج (الطربوش / Crown): غطا كامل للسنة، للسنة المكسورة أو اللي فيها حشو كبير أو بعد حشو العصب.",
@@ -610,6 +637,9 @@ module.exports = [
           "تركيبة مؤقتة لحد ما النهائية تجهز.",
           "تجربة التركيبة والتأكد من اللون والعضة قبل التثبيت النهائي.",
         ]],
+        ["h2", "مين بيعالجك؟"],
+        ["p", "التركيبات والزراعة في مركز أسنان شاين بإشراف د. بشاي مينا، مؤسس المركز، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI). كل حالة بتبدأ بكشف وأشعة وشرح واضح للخطة قبل أي خطوة."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "د. بشاي مينا، مؤسس مركز أسنان شاين", cap: "د. بشاي مينا، مؤسس مركز أسنان شاين." }],
         ["h2", "أسئلة شائعة"],
         ["p", "التركيبة بتعيش قد إيه؟ بتعيش سنين طويلة مع التنضيف الكويس والمتابعة. عمرها بيختلف حسب الخامة والمكان والعادات، زي الضغط على الأسنان أو أكل حاجات ناشفة جدًا."],
         ["p", "هل لازم أعمل حشو عصب قبل التاج؟ لأ، مش دايمًا. حشو العصب بيتعمل لو العصب ملتهب أو ميت، مش كخطوة روتينية قبل كل تاج."],
@@ -619,6 +649,7 @@ module.exports = [
       ],
       en: [
         ["p", "\"I need my teeth restored, what should I get?\" There is no single answer. The right restoration depends on the condition of the tooth or the missing teeth, their position in the mouth, your bite, and what matters most to you: appearance, strength or both. This article explains the types of dental prosthetics and materials simply, with real cases from our center."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "First: types of restoration"],
         ["ul", [
           "Crown: a full cover for a tooth that is broken, heavily filled or root-treated.",
@@ -659,6 +690,9 @@ module.exports = [
           "A temporary restoration until the final one is ready.",
           "Trying in the restoration and checking colour and bite before final cementation.",
         ]],
+        ["h2", "Who treats you?"],
+        ["p", "Restorations and implants at Tooth Shine is supervised by Dr. Beshay Mina, founder of the center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI). Every case starts with an examination, X-rays and a clear explanation of the plan."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "Dr. Beshay Mina, founder of Tooth Shine Dental Center", cap: "Dr. Beshay Mina, founder of Tooth Shine Dental Center." }],
         ["h2", "Frequently asked questions"],
         ["p", "How long does a crown last? Many years with good cleaning and follow-up. Lifespan varies with material, position and habits such as clenching or biting very hard foods."],
         ["p", "Do I need a root canal before a crown? Not always. Root canal treatment is done when the nerve is inflamed or dead, not as a routine step before every crown."],
@@ -684,6 +718,7 @@ module.exports = [
     body: {
       ar: [
         ["p", "زراعة الأسنان من أنجح وأثبت طرق تعويض الأسنان الناقصة، ونسب نجاحها عالية في الأبحاث العلمية لما الحالة تكون مناسبة والتخطيط صح. لكن من حقك تعرف الصورة كاملة قبل ما تقرر: الزراعة ليها عيوب، وليها مخاطر ممكنة، وأي حد يقول لك إنها «مضمونة 100%» أو «من غير أي مخاطر» مش بيقول لك الحقيقة كاملة."],
+        ["p", "المقال ده بإشراف د. بشاي مينا، مؤسس مركز أسنان شاين، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI)."],
         ["h2", "أولًا: عيوب زراعة الأسنان"],
         ["ul", [
           "محتاجة إجراء جراحي بسيط تحت بنج موضعي، حتى لو بدون شق (Flapless) في الحالات المناسبة.",
@@ -740,6 +775,9 @@ module.exports = [
           "الطقم المتحرك (الجزئي أو الكامل): أقل تكلفة ومن غير جراحة، لكنه أقل ثباتًا ومحتاج يتشال ويتنضف.",
           "ترك المكان فاضي: ممكن يسبب ميل الأسنان اللي جنبه ونزول اللي قصاده ونقص العظم مع الوقت.",
         ]],
+        ["h2", "مين بيعالجك؟"],
+        ["p", "زراعة الأسنان في مركز أسنان شاين بإشراف د. بشاي مينا، مؤسس المركز، وعضو الفريق الدولي لزراعة الأسنان (ITI) والجمعية المصرية لزراعة الأسنان (ESOI). كل حالة بتبدأ بكشف وأشعة وشرح واضح للخطة قبل أي خطوة."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "د. بشاي مينا، مؤسس مركز أسنان شاين", cap: "د. بشاي مينا، مؤسس مركز أسنان شاين." }],
         ["h2", "أسئلة شائعة"],
         ["p", "الزرعة ممكن تترفض من الجسم؟ الزرعة مش «بتترفض» زي الأعضاء، لكن ممكن ما تلتحمش بالعظم في نسبة قليلة من الحالات، وساعتها بتتشال ويتعاد التقييم."],
         ["p", "هل الزراعة بتوجع؟ بتتعمل تحت بنج موضعي، وبعدها وجع وورم بسيط لكام يوم في أغلب الحالات."],
@@ -749,6 +787,7 @@ module.exports = [
       ],
       en: [
         ["p", "Dental implants are one of the most successful and proven ways to replace missing teeth, with high success rates in the research when the case is suitable and well planned. But you deserve the full picture before deciding: implants have disadvantages and possible risks, and anyone who calls them \"100% guaranteed\" or \"risk-free\" is not telling you the whole truth."],
+        ["p", "This article is supervised by Dr. Beshay Mina, founder of Tooth Shine Dental Center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI)."],
         ["h2", "First: disadvantages of dental implants"],
         ["ul", [
           "They need a minor surgical procedure under local anaesthetic, even when flapless in suitable cases.",
@@ -805,6 +844,9 @@ module.exports = [
           "A removable denture (partial or full): lower cost and non-surgical, but less stable and must be removed for cleaning.",
           "Leaving the gap: neighbouring teeth may tilt, the opposing tooth may over-erupt, and bone is lost over time.",
         ]],
+        ["h2", "Who treats you?"],
+        ["p", "Dental implants at Tooth Shine is supervised by Dr. Beshay Mina, founder of the center and a member of the International Team for Implantology (ITI) and the Egyptian Society of Oral Implantology (ESOI). Every case starts with an examination, X-rays and a clear explanation of the plan."],
+        ["img", { src: "assets/img/dr-beshay-hero.webp", alt: "Dr. Beshay Mina, founder of Tooth Shine Dental Center", cap: "Dr. Beshay Mina, founder of Tooth Shine Dental Center." }],
         ["h2", "Frequently asked questions"],
         ["p", "Can the body reject an implant? Implants are not \"rejected\" like transplanted organs, but in a small proportion of cases they do not integrate with the bone; the implant is then removed and the case reassessed."],
         ["p", "Do implants hurt? They are placed under local anaesthetic, and most people have mild pain and swelling for a few days afterwards."],
