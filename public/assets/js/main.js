@@ -237,7 +237,7 @@ document.querySelectorAll('.rv blockquote').forEach(function (q) {
   if (book && "IntersectionObserver" in window) {
     new IntersectionObserver(function (e) { bookVisible = e[0].isIntersecting; update(); }).observe(book);
   }
-  function update() { if (fab) fab.classList.toggle("is-on", window.scrollY > 500 && !bookVisible); }
+  function update() { if (fab) fab.classList.toggle("is-on", window.scrollY > 250 && !bookVisible); }
   window.addEventListener("scroll", update, { passive: true });
   update();
   if (book) {

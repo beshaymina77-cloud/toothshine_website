@@ -427,7 +427,7 @@ html[lang="en"] .hero h1 { line-height: 1.04; }
 /* ---------- mobile contact bar ---------- */
 .mbar { display: none; }
 @media (max-width: 860px) {
-  .mbar { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 6px; position: fixed; z-index: 45; inset-inline: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 18px; padding: 6px; box-shadow: 0 16px 40px -16px rgba(11, 31, 87, .45); transition: transform .3s var(--ease); }
+  .mbar { display: grid; grid-template-columns: 1.7fr 1fr; gap: 6px; position: fixed; z-index: 45; inset-inline: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 18px; padding: 6px; box-shadow: 0 16px 40px -16px rgba(11, 31, 87, .45); transition: transform .3s var(--ease); }
   .mbar.is-hidden { transform: translateY(140%); }
   .mbar-btn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 46px; border-radius: 13px; font: 600 14.5px/1 var(--font-head); color: var(--navy); text-decoration: none !important; }
   .mbar-btn .ic { width: 20px; height: 20px; }
@@ -1604,3 +1604,11 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
 .art-fig figcaption .fig-tag { font-size: 12px; }
 .art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
+
+/* end-of-article booking box (Nov 25 2026) */
+.art-book { margin: 28px 0 8px; padding: 18px 20px; border-radius: 18px; background: #f0f7ff; border: 1px solid rgba(1, 84, 186, .16); }
+.art-book h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; font-size: 22px; }
+.art-book h2 .ic { width: 24px; height: 24px; color: var(--wa); }
+.art-book p { margin: 0 0 12px; }
+.art-book-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 480px) { .art-book-btns { grid-template-columns: 1fr; } }

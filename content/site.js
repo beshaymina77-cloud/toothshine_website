@@ -25,6 +25,8 @@ module.exports = {
     book: { ar: "احجز كشف", en: "Book a visit" },
     exploreServices: { ar: "استكشف خدماتنا", en: "Explore our services" },
     chooseBranch: { ar: "اختار فرعك واحجز", en: "Choose your branch & book" },
+    bookNow: { ar: "احجز ميعاد", en: "Book an appointment" },
+    artBookSub: { ar: "اختار الفرع الأقرب ليك، وهيفتح لك واتساب الفرع على طول.", en: "Pick your nearest branch and its WhatsApp opens right away." },
     whatsapp: { ar: "واتساب", en: "WhatsApp" },
     call: { ar: "اتصال", en: "Call" },
     directions: { ar: "الاتجاهات", en: "Directions" },
