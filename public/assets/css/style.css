@@ -1601,9 +1601,11 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-ph img { width: 100%; height: auto; display: block; }
 .art-fig--2 .art-ph, .art-fig--3 .art-ph { aspect-ratio: 4 / 3; }
 .art-fig--2 .art-ph img, .art-fig--3 .art-ph img { height: 100%; object-fit: cover; }
+.art-fig--portrait.art-fig--2 .art-ph, .art-fig--portrait.art-fig--3 .art-ph { aspect-ratio: 3 / 4; }
 .art-fig figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
 .art-fig figcaption .fig-tag { font-size: 12px; }
 .art-fig--portrait .art-fig-in { max-width: 380px; margin-inline: auto; }
+.art-fig--portrait.art-fig--2 .art-fig-in, .art-fig--portrait.art-fig--3 .art-fig-in { max-width: 560px; }
 
 /* end-of-article booking box (Nov 25 2026) */
 .art-book { margin: 28px 0 8px; padding: 18px 20px; border-radius: 18px; background: #f0f7ff; border: 1px solid rgba(1, 84, 186, .16); }
