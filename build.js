@@ -424,6 +424,7 @@ function fmtDate(l, d) {
     return new Intl.DateTimeFormat(l === "ar" ? "ar-EG" : "en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00Z"));
   } catch (e) { return d; }
 }
+const svcArts = (slug) => articles.filter((a) => a.service === slug || (a.alsoIn || []).includes(slug));
 function articleCard(l, a, i = 0) {
   const svc = services.find((x) => x.slug === a.service);
   return `<article class="art-card reveal" style="--d:${i * 70}ms">
@@ -1267,6 +1268,7 @@ ${compare}
 ${journey}
 ${suit}
 ${reviews}
+${svcArts(s.slug).length ? `<section class="section ip-guide-arts" id="guide"><div class="wrap">${sectionHead("", t(site.ui.hubArticles, l).replace("{service}", t(s.title, l)), "")}<div class="art-grid">${svcArts(s.slug).map((a, i) => articleCard(l, a, i % 3)).join("")}</div></div></section>` : ""}
 ${faq}
 ${book}
 ${guide}
@@ -1424,9 +1426,11 @@ function articlePage(l, a) {
     .join("\n");
   const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time>${a.reviewedBy ? ` · ${t(site.ui.reviewedBy, l)} ${esc(t(a.reviewedBy, l))}` : ""}</p>`;
   const others = articles.filter((x) => x.slug !== a.slug).slice(0, 2);
+  const impSvc = services.find((x) => x.slug === "dental-implants");
+  const hubNote = impSvc && (a.service === "dental-implants" || (a.alsoIn || []).includes("dental-implants")) ? `<p class="hub-note">${icon("check")}<span>${esc(t(site.ui.hubNote, l).replace("{service}", t(impSvc.title, l)))} <a href="${P.service(l, impSvc.slug)}#guide">${esc(t(site.ui.hubLink, l))}</a></span></p>` : "";
   const body = `${pageHero(l, crumbs, t(a.title, l), t(a.excerpt, l), meta)}
 <section class="section svc"><div class="wrap svc-grid">
-  <article class="prose">${blocks}
+  <article class="prose">${hubNote}${blocks}
     <aside class="art-book"><h2>${icon("whatsapp")}<span>${esc(t(site.ui.bookNow, l))}</span></h2><p>${esc(t(site.ui.artBookSub, l))}</p><div class="art-book-btns">${biz.branches.map((b) => `<a class="btn btn-wa" href="${waHref(l, b, svc)}" target="_blank" rel="noopener">${icon("whatsapp")}<span>${esc(t(b.name, l))}</span></a>`).join("")}</div></aside>
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
