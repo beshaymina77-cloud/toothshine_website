@@ -556,6 +556,7 @@ module.exports = [
         ["h2", "تركيبات على الزراعة بدل الكوبري"],
         ["p", "لو في سنة ناقصة والأسنان اللي جنبها سليمة، الزراعة بتعوّضها من غير ما نبرد الأسنان دي علشان كوبري. ولو الأسنان كلها أو أغلبها ناقصة، ممكن تركيبة ثابتة للفك كله على 4 أو 6 زرعات (All-on-4 / All-on-6) في الحالات المناسبة."],
         ["img", { srcs: ["assets/img/cases/implant-molar-1.webp", "assets/img/cases/implant-molar-2.webp", "assets/img/cases/implant-molar-3.webp"], labels: ["١. الزرعة", "٢. الالتئام", "٣. التركيبة النهائية"], alt: "زراعة ضرس وتركيبته النهائية في 3 مراحل", cap: "زراعة ضرس وتركيبة نهائية عليها، من المركز.", tag: "case" }],
+        ["img", { srcs: ["assets/img/cases/implant-crown-before.webp", "assets/img/cases/implant-crown-after.webp"], labels: ["قبل: الزرعة بعد الالتئام", "بعد: التاج النهائي"], alt: "زرعة ضرس بعد الالتئام وبعد تركيب التاج النهائي", cap: "حالة من فرع العجمي: تاج نهائي على زرعة ضرس.", tag: "case" }],
         ["h2", "خطوات عمل التركيبة في مركز أسنان شاين"],
         ["ul", [
           "كشف وأشعة وتحديد هل السنة محتاجة علاج قبل التركيب، زي حشو عصب أو علاج لثة.",
@@ -604,6 +605,7 @@ module.exports = [
         ["h2", "Implant restorations instead of a bridge"],
         ["p", "If one tooth is missing and the neighbouring teeth are healthy, an implant replaces it without reducing those teeth for a bridge. If all or most teeth are missing, a fixed full-arch restoration on 4 or 6 implants (All-on-4 / All-on-6) may be possible in suitable cases."],
         ["img", { srcs: ["assets/img/cases/implant-molar-1.webp", "assets/img/cases/implant-molar-2.webp", "assets/img/cases/implant-molar-3.webp"], labels: ["1. Implant", "2. Healing", "3. Final crown"], alt: "A molar implant and its final crown in three stages", cap: "A molar implant and its final crown, from our center.", tag: "case" }],
+        ["img", { srcs: ["assets/img/cases/implant-crown-before.webp", "assets/img/cases/implant-crown-after.webp"], labels: ["Before: healed implant", "After: final crown"], alt: "A molar implant after healing and after the final crown", cap: "A case from our Agami branch: a final crown on a molar implant.", tag: "case" }],
         ["h2", "How a restoration is made at Tooth Shine"],
         ["ul", [
           "Examination and X-rays, and deciding whether the tooth needs treatment first, such as root canal or gum treatment.",
@@ -685,6 +687,7 @@ module.exports = [
           "متابعة بعد التركيب وتعليمات تنضيف مناسبة.",
         ]],
         ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["الدليل الجراحي", "زراعة بدون شق"], alt: "دليل جراحي رقمي وزراعة بدون شق", cap: "الدليل الجراحي والزراعة بدون شق في حالة مناسبة من المركز.", tag: "case" }],
+        ["img", { srcs: ["assets/img/cases/implant-crown-before.webp", "assets/img/cases/implant-crown-after.webp"], labels: ["قبل: الزرعة بعد الالتئام", "بعد: التاج النهائي"], alt: "زرعة ضرس بعد الالتئام وبعد تركيب التاج النهائي", cap: "حالة من فرع العجمي: تاج نهائي على زرعة ضرس.", tag: "case" }],
         ["h2", "بدائل زراعة الأسنان"],
         ["ul", [
           "الكوبري الثابت: سريع ومن غير جراحة، لكنه محتاج برد الأسنان اللي جنب السنة الناقصة.",
@@ -749,6 +752,7 @@ module.exports = [
           "Follow-up after the restoration and suitable cleaning instructions.",
         ]],
         ["img", { srcs: ["assets/img/cases/guided-case-3-guide.webp", "assets/img/cases/guided-case-4-flapless.webp"], labels: ["Surgical guide", "Flapless placement"], alt: "A digital surgical guide and flapless implant placement", cap: "The surgical guide and flapless placement in a suitable case from our center.", tag: "case" }],
+        ["img", { srcs: ["assets/img/cases/implant-crown-before.webp", "assets/img/cases/implant-crown-after.webp"], labels: ["Before: healed implant", "After: final crown"], alt: "A molar implant after healing and after the final crown", cap: "A case from our Agami branch: a final crown on a molar implant.", tag: "case" }],
         ["h2", "Alternatives to dental implants"],
         ["ul", [
           "A fixed bridge: quick and non-surgical, but requires reducing the teeth beside the gap.",
