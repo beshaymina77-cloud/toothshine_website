@@ -92,6 +92,9 @@ module.exports = {
       en: "Costs vary by system and case details, and are set out in your written treatment plan after the consultation.",
     },
     articlesKicker: { ar: "أحدث المقالات", en: "Latest articles" },
+    hubArticles: { ar: "دليل {service}: كل المقالات", en: "{service} guide: all articles" },
+    hubNote: { ar: "المقال ده جزء من دليل {service} في مركز أسنان شاين.", en: "This article is part of our {service} guide." },
+    hubLink: { ar: "شوف الدليل كامل", en: "See the full guide" },
     articlesTitle: { ar: "معلومات تهمّك قبل العلاج", en: "Helpful reading before treatment" },
     articlesLead: {
       ar: "مقالات مبسّطة من مركز أسنان شاين بتجاوب على أكتر أسئلة المرضى.",

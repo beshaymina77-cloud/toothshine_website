@@ -1638,3 +1638,8 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .price-n { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-size: 14px; }
 .price-n svg { width: 18px; height: 18px; color: var(--blue); flex: none; margin-top: 3px; }
 .cases-page .cases-grid { margin-top: 10px; }
+
+/* topic hub note on articles */
+.hub-note{display:flex;gap:.5rem;align-items:flex-start;background:var(--surface-2,#eef5fc);border-inline-start:3px solid var(--primary,#0b5cab);padding:.75rem 1rem;border-radius:10px;margin:0 0 1.25rem;font-size:.95rem}
+.hub-note svg{flex:0 0 auto;width:18px;height:18px;margin-top:.2rem;color:var(--primary,#0b5cab)}
+.hub-note a{font-weight:600}

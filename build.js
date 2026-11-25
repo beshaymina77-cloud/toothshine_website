@@ -431,6 +431,7 @@ function fmtDate(l, d) {
     return new Intl.DateTimeFormat(l === "ar" ? "ar-EG" : "en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00Z"));
   } catch (e) { return d; }
 }
+const svcArts = (slug) => articles.filter((a) => a.service === slug || (a.alsoIn || []).includes(slug));
 function articleCard(l, a, i = 0) {
   const svc = services.find((x) => x.slug === a.service);
   return `<article class="art-card reveal" style="--d:${i * 70}ms">
@@ -1290,6 +1291,7 @@ ${journey}
 ${suit}
 ${reviews}
 ${ivb.html ? `<section class="section"><div class="wrap">${ivb.html}</div></section>` : ""}
+${svcArts(s.slug).length ? `<section class="section ip-guide-arts" id="guide"><div class="wrap">${sectionHead("", t(site.ui.hubArticles, l).replace("{service}", t(s.title, l)), "")}<div class="art-grid">${svcArts(s.slug).map((a, i) => articleCard(l, a, i % 3)).join("")}</div></div></section>` : ""}
 ${faq}
 ${book}
 ${guide}
@@ -1332,7 +1334,7 @@ function servicePage(l, s) {
     ${serviceReviews(l, s)}
     <section class="svc-faq" id="faq"><h2>${t(site.ui.faqTitle, l)}</h2>${faqList(l, s.faqs)}</section>
     ${s.guide && s.guide.reviewed ? `<p class="g-reviewed">${icon("check")}<span>${esc(t(s.guide.reviewed, l))}</span></p>` : ""}
-    ${articles.filter((a) => a.service === s.slug).length ? `<section class="svc-articles"><h2>${t(site.ui.articlesKicker, l)}</h2><div class="art-grid art-grid--2">${articles.filter((a) => a.service === s.slug).slice(0, 2).map((a, i) => articleCard(l, a, i)).join("")}</div></section>` : ""}
+    ${svcArts(s.slug).length ? `<section class="svc-articles" id="guide"><h2>${esc(t(site.ui.hubArticles, l).replace("{service}", t(s.title, l)))}</h2><div class="art-grid art-grid--2">${svcArts(s.slug).map((a, i) => articleCard(l, a, i % 2)).join("")}</div></section>` : ""}
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
   <aside class="svc-aside" aria-label="${t(site.ui.branches, l)}">
@@ -1546,10 +1548,12 @@ function articlePage(l, a) {
     .join("\n");
   const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time></p>${mrLine(l)}`;
   const vb = videoBlock(l, "articles", a.slug);
-  const others = articles.filter((x) => x.slug !== a.slug).slice(0, 2);
+  const same = svc ? svcArts(svc.slug).filter((x) => x.slug !== a.slug) : [];
+  const others = [...same, ...articles.filter((x) => x.slug !== a.slug && !same.includes(x))].slice(0, 2);
+  const hubNote = svc ? `<p class="hub-note">${icon("check")}<span>${esc(t(site.ui.hubNote, l).replace("{service}", t(svc.title, l)))} <a href="${P.service(l, svc.slug)}#guide">${esc(t(site.ui.hubLink, l))}</a></span></p>` : "";
   const body = `${pageHero(l, crumbs, t(a.title, l), t(a.excerpt, l), meta)}
 <section class="section svc"><div class="wrap svc-grid">
-  <article class="prose">${blocks}
+  <article class="prose">${hubNote}${blocks}
     ${vb.html}
     <p class="disclaimer">${esc(t(site.ui.disclaimer, l))}</p>
   </article>
