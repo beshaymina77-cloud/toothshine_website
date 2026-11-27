@@ -1619,3 +1619,9 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .hub-note{display:flex;gap:.5rem;align-items:flex-start;background:var(--surface-2,#eef5fc);border-inline-start:3px solid var(--primary,#0b5cab);padding:.75rem 1rem;border-radius:10px;margin:0 0 1.25rem;font-size:.95rem}
 .hub-note svg{flex:0 0 auto;width:18px;height:18px;margin-top:.2rem;color:var(--primary,#0b5cab)}
 .hub-note a{font-weight:600}
+
+/* Patient review quotes inside articles */
+.art-quote { margin: 1.1rem 0; padding: 1rem 1.15rem; background: var(--baby, #CFE4FB); background: color-mix(in srgb, #CFE4FB 45%, transparent); border-inline-start: 4px solid #0154BA; border-radius: 12px; }
+.art-quote p { margin: .35rem 0 .5rem; font-size: 1.02rem; line-height: 1.8; }
+.art-quote cite { font-style: normal; font-size: .88rem; opacity: .8; }
+.art-quote-stars { color: #F5A623; letter-spacing: 2px; font-size: .95rem; }

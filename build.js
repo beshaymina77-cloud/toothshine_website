@@ -1431,7 +1431,7 @@ function articlePage(l, a) {
   const svc = services.find((x) => x.slug === a.service);
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)], [t(a.title, l), P.article(l, a.slug)]];
   const blocks = a.body[l]
-    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : type === "img" ? artFig(l, v) : `<p>${esc(v)}</p>`))
+    .map(([type, v]) => (type === "h2" ? `<h2>${esc(v)}</h2>` : type === "ul" ? `<ul class="ticks">${v.map((x) => `<li>${icon("check")}<span>${esc(x)}</span></li>`).join("")}</ul>` : type === "img" ? artFig(l, v) : type === "quote" ? `<blockquote class="art-quote"><span class="art-quote-stars" aria-label="5/5">★★★★★</span><p>${esc(v.text)}</p><cite>${esc(v.by)}</cite></blockquote>` : `<p>${esc(v)}</p>`))
     .join("\n");
   const meta = `<p class="art-head-meta"><time datetime="${a.date}">${t(site.ui.publishedOn, l)} ${fmtDate(l, a.date)}</time>${a.reviewedBy ? ` · ${t(site.ui.reviewedBy, l)} ${esc(t(a.reviewedBy, l))}` : ""}</p>`;
   const others = articles.filter((x) => x.slug !== a.slug).slice(0, 2);
