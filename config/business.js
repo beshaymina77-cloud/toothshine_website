@@ -78,8 +78,8 @@ module.exports = {
       hours: { ar: "من السبت للخميس، من 12 ظهرًا حتى 11 مساءً · الجمعة من 2 ظهرًا حتى 8 مساءً", en: "Saturday to Thursday, 12:00 PM – 11:00 PM · Friday, 2:00 PM – 8:00 PM" },
       bookingNote: { ar: "المواعيد بالحجز المسبق", en: "Appointments by prior booking" },
       open: { opens: "12:00", closes: "23:00", closed: ["Friday"], special: [{ days: ["Friday"], opens: "14:00", closes: "20:00" }] }, // structured data: daily, Friday 2–8 PM (doctor Nov 14 2026, matches Google profile)
-      phone: "201286641616",                // 012 8664 1616
-      phoneDisplay: "012 8664 1616",
+      phone: "201013594549",                // 010 1359 4549 — doctor chose Nov 27 2026: same as Google Business Profile (NAP)
+      phoneDisplay: "010 1359 4549",
       whatsapp: "201013594549",             // 010 1359 4549
       whatsappDisplay: "010 1359 4549",
       phone2: "",
@@ -87,7 +87,7 @@ module.exports = {
       mapsUrl: "https://maps.app.goo.gl/2sJYsx1uV9o7Yhkb9",
       mapEmbedUrl: "",
       photo: "",
-      geo: { lat: "", lng: "" },
+      geo: { lat: "31.081461", lng: "29.7394941" },   // Google Maps pin of the Agami profile
     },
   ],
 
