@@ -1652,3 +1652,9 @@ html[lang="en"] .hero--dr h1.hero-title { line-height: 1.06; letter-spacing: -.0
 .art-book p { margin: 0 0 12px; }
 .art-book-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media (max-width: 480px) { .art-book-btns { grid-template-columns: 1fr; } }
+
+/* Patient review quotes inside articles */
+.art-quote { margin: 1.1rem 0; padding: 1rem 1.15rem; background: var(--baby, #CFE4FB); background: color-mix(in srgb, #CFE4FB 45%, transparent); border-inline-start: 4px solid #0154BA; border-radius: 12px; }
+.art-quote p { margin: .35rem 0 .5rem; font-size: 1.02rem; line-height: 1.8; }
+.art-quote cite { font-style: normal; font-size: .88rem; opacity: .8; }
+.art-quote-stars { color: #F5A623; letter-spacing: 2px; font-size: .95rem; }
