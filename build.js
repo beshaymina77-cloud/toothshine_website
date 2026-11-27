@@ -1539,6 +1539,15 @@ function artFig(l, v) {
   const one = (src, i) => { const s6 = src.replace(/\.(webp|jpg)$/, "-600.webp"); const has6 = fs.existsSync(path.join(__dirname, "public", s6)); return `<div class="art-ph"><img src="/${esc(src)}"${has6 ? ` srcset="/${esc(s6)} 600w, /${esc(src)} 1200w" sizes="(max-width: 860px) 92vw, 680px"` : ""} alt="${esc(v.alt)}${v.labels ? ": " + esc(v.labels[i]) : ""}" loading="lazy" decoding="async">${v.labels ? `<span class="ba-tag ${i ? "ba-tag--a" : "ba-tag--b"}">${esc(v.labels[i])}</span>` : ""}</div>`; };
   return `<figure class="art-fig${srcs.length > 1 ? " art-fig--" + srcs.length : ""}${v.portrait ? " art-fig--portrait" : ""}"><div class="art-fig-in">${srcs.map(one).join("")}</div><figcaption>${v.cap ? `<span>${esc(v.cap)}</span>` : ""}<span class="fig-tag">${esc(tag)}</span></figcaption></figure>`;
 }
+// Q&A articles (faqLD: true): each ["h2", question?] followed by ["p", answer] becomes FAQPage structured data.
+function artFaq(l, a) {
+  if (!a.faqLD) return [];
+  const b = a.body[l] || a.body.ar, list = [];
+  for (let i = 0; i < b.length - 1; i++) {
+    if (b[i][0] === "h2" && /[?؟]$/.test(b[i][1].trim()) && b[i + 1][0] === "p") list.push({ q: { [l]: b[i][1] }, a: { [l]: b[i + 1][1] } });
+  }
+  return list.length ? [faqLD(l, list)] : [];
+}
 function articlePage(l, a) {
   const svc = services.find((x) => x.slug === a.service);
   const crumbs = [[t(site.ui.breadcrumbHome, l), P.home(l)], [t(site.ui.articlesNav, l), P.articles(l)], [t(a.title, l), P.article(l, a.slug)]];
@@ -1582,7 +1591,7 @@ ${ctaBand(l, svc)}`;
     reviewedBy: { "@id": abs("/#beshay-mina") },
     publisher: { "@type": "Organization", name: t(biz.brand.name, l), logo: { "@type": "ImageObject", url: abs("/assets/img/apple-touch-icon.png") } },
   };
-  return layout(l, { page: "article", title: `${t(a.title, l)} | ${t(biz.brand.name, l)}`, desc: t(a.excerpt, l), pathAr: P.article("ar", a.slug), pathEn: P.article("en", a.slug), jsonld: [crumbLD(crumbs), ld, ...vb.ld] }, body, svc);
+  return layout(l, { page: "article", title: `${t(a.title, l)} | ${t(biz.brand.name, l)}`, desc: t(a.excerpt, l), pathAr: P.article("ar", a.slug), pathEn: P.article("en", a.slug), jsonld: [crumbLD(crumbs), ld, ...vb.ld, ...artFaq(l, a)] }, body, svc);
 }
 
 function notFound() {
